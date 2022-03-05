@@ -1,0 +1,17 @@
+<h3>Generate a Random Monster based on the below inputs.</h3>
+<!-- Generation Method -->
+<div id="generator-selector" class="radio-toolbar">
+    <label id="CR-label">
+        <input class="checkbox" type="radio" name="generation-method" id="CR" value="CR" checked/>
+        <span>Challenge Rating</span>
+    </label>
+    <label id="party-label">
+        <input class="checkbox" type="radio" name="generation-method" id="Party" value="Party"/>
+        <span>Player Characters</span>
+    </label>
+</div>
+<div id="generator"></div>
+<script>
+    setListenersRandom()
+    populateGenerator()
+</script>
