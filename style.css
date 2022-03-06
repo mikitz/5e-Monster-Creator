@@ -4,6 +4,10 @@ body {
     margin-bottom: 0;
     text-align: center;
 }
+
+#output {
+    text-align: center;
+}
 /* ================
       PC SPAN
 ================= */
