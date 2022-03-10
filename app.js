@@ -53,6 +53,10 @@ function generateMonster(){
     // Generate a monster based on Challenge Rating
     if (method == 'CR') {
         const cr = document.getElementById('cr').value
+        if (cr == 'select') { 
+            alert('Please select a CR!') 
+            return
+        }
         fetch(`data/WOTC_5e_SRD_v5.1/monsters.json`)
             .then(response => {
                 return response.json();
@@ -61,51 +65,97 @@ function generateMonster(){
                 let monsters = jsondata.filter(i => i.challenge_rating === cr)
                 let monster = randomProperty(monsters)
                 console.log("Monster:", monster)
+                // ========================
+                //    General Properties
+                // ========================
                 document.getElementById('monster-name').innerText = monster.name // Set the Monster's name
                 document.getElementById('monster-properties').innerText = `${monster.size} ${monster.type}, ${monster.alignment}` // Set its properties
                 document.getElementById('armor-class').innerText = `${monster.armor_class}`
                 if (monster.armor_desc != null) { document.getElementById('armor-class').innerText += ` (${monster.armor_desc})` }
                 document.getElementById('hit-points').innerText = `${monster.hit_points} (${monster.hit_dice})` 
                 document.getElementById('speed').innerText = monster.speed
-                // document.getElementById('str').innerText = monster.strength
-                // document.getElementById('dex').innerText = monster.dexterity
-                // document.getElementById('con').innerText = monster.constitution
-                // document.getElementById('int').innerText = monster.intelligence
-                // document.getElementById('wis').innerText = monster.wisdom
-                // document.getElementById('cha').innerText = monster.charisma
-                if (monster.damage_immunities != null) { document.getElementById('damage-immunities').innerText = monster.damage_immunities }
-                else { 
+                document.getElementById('challenge-rating').innerText = monster.challenge_rating
+                // ========================
+                //     Ability Scores
+                // ========================
+                let abilities = document.getElementById('abilities')
+                abilities.innerHTML = ""
+                abilities.innerHTML = `<abilities-block data-cha="${monster.charisma}" data-con="${monster.constitution}" data-dex="${monster.dexterity}" data-int="${monster.intelligence}" data-str="${monster.strength}" data-wis="${monster.wisdom}"></abilities-block>`
+                // ========================
+                //           Saves
+                // ========================
+
+                // ========================
+                //           Skills
+                // ========================
+
+                // ========================
+                //   Physical Attributes
+                // ========================
+                if (monster.damage_immunities == "") { // Damage Immunities
                     let elements = document.getElementsByName('damage-immunities') 
                     elements.forEach(element => {
                         element.style.display = 'none'
+                        element.innerText = ""
                     });
-                }
-                if (monster.condition_immunities != null) { document.getElementById('condition-immunities').innerText = monster.condition_immunities }
-                else { 
-                    let elements = document.getElementsByName('damage-immunities') 
+                } else { document.getElementById('damage-immunities').innerText = monster.damage_immunities }
+                // ************************************
+                if (monster.damage_resistances == "") { // Damage Resistances
+                    let elements = document.getElementsByName('damage-resistances') 
+                    elements.forEach(element => {
+                        element.style.display = 'none'
+                        element.innerText = ""
+                    });
+                } else { document.getElementById('damage-resistances').innerText = monster.damage_resistances }
+                // ************************************
+                if (monster.damage_vulnerabilities == "") { // Damage Vulnerabilities
+                    let elements = document.getElementsByName('damage-vulnerabilities') 
+                    elements.forEach(element => {
+                        element.style.display = 'none'
+                        element.innerText = ""
+                    });
+                } else { document.getElementById('damage-vulnerabilities').innerText = monster.damage_vulnerabilities }
+                // ************************************
+                if (monster.condition_immunities == "") { // Condition Immunities
+                    let elements = document.getElementsByName('condition-immunities') 
+                    elements.forEach(element => {
+                        element.style.display = 'none'
+                        element.innerText = ""
+                    });
+                } else { document.getElementById('condition-immunities').innerText = monster.condition_immunities }
+                // ************************************
+                if (monster.senses == "") { // Senses
+                    let elements = document.getElementsByName('senses') 
                     elements.forEach(element => {
                         element.style.display = 'none'
                     });
-                }
-                if (monster.senses != null) { document.getElementById('senses').innerText = monster.senses }
-                else { 
-                    let elements = document.getElementsByName('damage-immunities') 
+                } else { document.getElementById('senses').innerText = monster.senses }
+                // ************************************
+                if (monster.languages == "") { // Languages
+                    let elements = document.getElementsByName('languages') 
                     elements.forEach(element => {
                         element.style.display = 'none'
                     });
-                }
-                if (monster.languages != null) { document.getElementById('senses').innerText = monster.senses }
-                else { 
-                    let elements = document.getElementsByName('damage-immunities') 
-                    elements.forEach(element => {
-                        element.style.display = 'none'
-                    });
-                }
-
-
-
-
-                document.getElementById('output').style.display = 'block'
+                } else { document.getElementById('languages').innerText = monster.languages }
+                // ========================
+                //     Special Abilities
+                // ========================
+                let specialAbilities = monster.special_abilities
+                // ========================
+                //         Actions
+                // ========================
+                let actions = monster.actions
+                // ========================
+                //    Legendary Actions
+                // ========================
+                let legendaryActions = monster.legendary_actions
+                // ========================
+                //       Update Dom
+                // ========================
+                let output = document.getElementById('output') // Make the statblock visible
+                let outputDisplay = output.style.display
+                console.log("Output Display:", outputDisplay)
+                if (outputDisplay == 'none') { output.style.display = 'block'}
             })
     }
     // Generate a monster based on party composition
