@@ -50,6 +50,44 @@
         <span>Absurd</span>
     </label>
 </div>
+<div id="role-selector" class="radio-toolbar" style="margin-bottom: 30px;">
+  <label id="no-role-label">
+    <input class="checkbox" type="radio" name="method" id="no-role" value="no-role" checked/>
+    <span>No Role</span>
+  </label>
+  <label id="striker-label">
+      <input class="checkbox" type="radio" name="method" id="striker" value="striker"/>
+      <span>Striker</span>
+  </label>
+  <label id="artillery-label">
+    <input class="checkbox" type="radio" name="method" id="artillery" value="artillery"/>
+    <span>Artillery</span>
+  </label>
+  <label id="skirmisher-label">
+    <input class="checkbox" type="radio" name="method" id="skirmisher" value="skirmisher"/>
+    <span>Skirmisher</span>
+  </label>
+  <label id="lurker-label">
+    <input class="checkbox" type="radio" name="method" id="lurker" value="lurker"/>
+    <span>Lurker</span>
+  </label>
+  <label id="controller-label">
+    <input class="checkbox" type="radio" name="method" id="controller" value="controller"/>
+    <span>Controller</span>
+  </label>
+  <label id="leader/buffer-label">
+    <input class="checkbox" type="radio" name="method" id="leader/buffer" value="leader/buffer"/>
+    <span>Leader/Buffer</span>
+  </label>
+  <label id="defender-label">
+    <input class="checkbox" type="radio" name="method" id="defender" value="defender"/>
+    <span>Defender</span>
+  </label>
+  <label id="disruptor-label">
+    <input class="checkbox" type="radio" name="method" id="disruptor" value="disruptor"/>
+    <span>Disruptor</span>
+  </label>
+</div>
 <button id="button-generate">Generate</button>
 <script>
     document.getElementById('button-generate').onclick = function() { generateMonster() }
