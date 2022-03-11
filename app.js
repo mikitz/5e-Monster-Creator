@@ -78,17 +78,17 @@ function generateMonster(){
                 // ========================
                 //     Ability Scores
                 // ========================
-                let abilities = document.getElementById('abilities')
-                abilities.innerHTML = ""
-                abilities.innerHTML = `<abilities-block data-cha="${monster.charisma}" data-con="${monster.constitution}" data-dex="${monster.dexterity}" data-int="${monster.intelligence}" data-str="${monster.strength}" data-wis="${monster.wisdom}"></abilities-block>`
+                let abilitiesElement = document.getElementById('abilities')
+                abilitiesElement.innerHTML = ""
+                abilitiesElement.innerHTML = `<abilities-block data-cha="${monster.charisma}" data-con="${monster.constitution}" data-dex="${monster.dexterity}" data-int="${monster.intelligence}" data-str="${monster.strength}" data-wis="${monster.wisdom}"></abilities-block>`
                 // ========================
                 //           Saves
                 // ========================
-
+                const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
                 // ========================
                 //           Skills
                 // ========================
-
+                const skills = ['acrobatics', 'animal handling', 'arcana', 'athletics', 'deception', 'history', 'insight', 'intimidation', 'investigation', 'medicine', 'nature', 'perception', 'performance', 'persuasion', 'religion', 'sleight of hand', 'stealth', 'survival']
                 // ========================
                 //   Physical Attributes
                 // ========================
