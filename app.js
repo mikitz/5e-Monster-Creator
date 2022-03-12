@@ -55,6 +55,64 @@ function capitalize(str){
     }
     return arr.join(" ")
 }
+// Function that takes an average value in that then spits out a dice combination or the closest 2 dice combos to the input average value
+function damageToDice(AV){
+    // AV is the average value of the dice, I.E. the average damage: AV = ((M + 1)/2)*N
+    // N is the number of dice: N = AV / ((M + 1)/2)	
+    // M is the max value of one die: M = (AV / N)*2-1
+    const diceSizes = [4, 6, 8, 10, 12]
+    let output
+    AV = parseFloat(AV)
+    console.log("AV:", AV)
+    console.log("Max. # of Dice:")
+    function diceCombo(AV){
+        let N = 1
+        let M = ( ( AV / N ) * 2 ) - 1
+        let av = ((M + 1)/2)*N
+        console.log({AV: AV, av: av})
+        while (av != AV || !diceSizes.includes(M)) {
+            N += 1
+            M = ( ( AV / N ) * 2 ) - 1
+            av = ((M + 1)/2)*N
+            console.log("N:", N)
+            console.log("M:", M)
+            console.log("av:", av)
+            console.log("--------------------")
+            if (N >= 20) {
+                break
+            }
+        }
+        return {'M': M, 'N': N, 'AV': AV}
+    }
+    // Checks for a dice combo on the initial AV
+    let actualDiceCombo = diceCombo(AV)
+    // This outputs the neareast AVs, both below and above the input AV to allow the user to choose from, E.G. if the user inputs AV = 21.5, then the outputs will be AV 21 at 6d6 and AV 22 at 4d10
+    if (actualDiceCombo.N >= 20 && !diceSizes.includes(actualDiceCombo.M)) {
+        // Lower AV
+        let lowerAV = AV - 0.5
+        let lowerDiceCombo = diceCombo(lowerAV)
+        while (!diceSizes.includes(lowerDiceCombo.M)) {
+            lowerAV -= 0.5
+            lowerDiceCombo = diceCombo(lowerAV)
+        }
+        // Upper AV
+        let upperAV = AV + 0.5
+        let upperDiceCombo = diceCombo(upperAV)
+        while (!diceSizes.includes(upperDiceCombo.M)) {
+            upperAV += 0.5
+            upperDiceCombo = diceCombo(upperAV)
+        }
+
+        console.log("Lower Dice Combo:", lowerDiceCombo)
+        console.log("Upper Dice Combo:", upperDiceCombo)
+        output = [lowerDiceCombo, upperDiceCombo]
+    } else {
+        output = actualDiceCombo
+        console.log("Actual Dice Combo:", actualDiceCombo)
+    }
+    console.log("OUTPUT:", output)
+    return output
+}
 // Function to randomly generate a monster based on user inputs
 function generateMonster(){
     function adjustProperty(ID, monster){
@@ -102,6 +160,7 @@ function generateMonster(){
     // Generate a monster based on Challenge Rating
     if (method == 'CR') {
         const cr = document.getElementById('cr').value
+        const points = (cr * 5) + 8
         if (cr == 'select') { 
             alert('Please select a CR!') 
             return
