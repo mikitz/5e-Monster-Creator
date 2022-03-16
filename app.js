@@ -113,6 +113,33 @@ function damageToDice(AV){
     console.log("OUTPUT:", output)
     return output
 }
+// Function that is called when the CR is selected on the I Got This page
+function iGotThisCRFunction(element) {
+    let cr = element.value
+    let crText = element.options[element.selectedIndex].text
+    // Points
+    let points = ( cr * 5 ) + 8
+    document.getElementById('points').innerHTML = `Points: <b>${Math.round(points)}</b>`
+    // Challenge Rating
+    let xp = xpByCr.find(i => i.CR == cr).XP
+    document.getElementById('challenge-rating').innerText = `${crText} (${xp.toLocaleString()} XP)`
+    // Starting Purchasables
+    let proficiencyBonus = rothnersChartV2.find(i => i.CR == cr)['Prof']
+    let AC = rothnersChartV2.find(i => i.CR == cr)['Armor Class']
+    let HP = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
+    let saveSum = rothnersChartV2.find(i => i.CR == cr)['Sum D/C/W Save']
+    let damagePerRound = rothnersChartV2.find(i => i.CR == cr)['Damage /Round']
+    let toHitBonus = rothnersChartV2.find(i => i.CR == cr)['To Hit Bonus']
+    let DC = rothnersChartV2.find(i => i.CR == cr)['DC']
+    let spellToHit = rothnersChartV2.find(i => i.CR == cr)['Spell To Hit']
+    let spellLevel = rothnersChartV2.find(i => i.CR == cr)['Spell Level']
+    let effectiveSpellDamage = rothnersChartV2.find(i => i.CR == cr)['Effective Spell Dmg']
+        // +1 to Hit & +1 to DC
+        // +1 to Armor Class
+        // +6 to Dex/Con/Wis save
+        // +2 to Pure Damage per Round
+        // +7.5 Hit Points
+}
 // Function to randomly generate a monster based on user inputs
 function generateMonster(method){
     let monster = {} // Set up the JSON to write the data to
@@ -120,6 +147,7 @@ function generateMonster(method){
     //     Challenge Rating
     // =========================
     if (method == 'random-cr') {
+        let cr = document.getElementById('cr').value // Step 1: Select CR
 
     } 
     // =========================
@@ -132,13 +160,15 @@ function generateMonster(method){
     //        I Got This
     // =========================
     else if (method == 'i-got-this') {
-
+        let cr = document.getElementById('cr').value // Step 1: Select CR
+        
     } 
     // =========================
     //        Walkthrough
     // =========================
     else if (method == 'walkthrough') {
-
+        let cr = document.getElementById('cr').value // Step 1: Select CR
+        
     }
     return monster // Return the JSON
 }
