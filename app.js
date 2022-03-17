@@ -55,34 +55,39 @@ function capitalize(str){
     }
     return arr.join(" ")
 }
+function test(){
+    let cr = document.getElementById('chal-rating').value
+    let avg = document.getElementById('average-value').value
+    damageToDice(avg, cr)
+}
 // Function that takes an average value in that then spits out a dice combination or the closest 2 dice combos to the input average value
-function damageToDice(AV){
+function damageToDice(AV, CR){
     // AV is the average value of the dice, I.E. the average damage: AV = ((M + 1)/2)*N
     // N is the number of dice: N = AV / ((M + 1)/2)	
     // M is the max value of one die: M = (AV / N)*2-1
-    const diceSizes = [4, 6, 8, 10, 12]
+    const diceSizes = [4, 6, 8, 10, 12, 20]
     let output
     AV = parseFloat(AV)
-    console.log("AV:", AV)
-    console.log("Max. # of Dice:")
+    let addition = Math.round((CR / 0.20515) + 0.2192)
+    AV = AV - addition
     function diceCombo(AV){
         let N = 1
         let M = ( ( AV / N ) * 2 ) - 1
         let av = ((M + 1)/2)*N
-        console.log({AV: AV, av: av})
+        // console.log({AV: AV, av: av})
         while (av != AV || !diceSizes.includes(M)) {
             N += 1
             M = ( ( AV / N ) * 2 ) - 1
             av = ((M + 1)/2)*N
-            console.log("N:", N)
-            console.log("M:", M)
-            console.log("av:", av)
-            console.log("--------------------")
+            // console.log("N:", N)
+            // console.log("M:", M)
+            // console.log("av:", av)
+            // console.log("--------------------")
             if (N >= 20) {
                 break
             }
         }
-        return {'M': M, 'N': N, 'AV': AV}
+        return {'M': M, 'N': N, 'AV': AV + addition, 'ADDITION': addition}
     }
     // Checks for a dice combo on the initial AV
     let actualDiceCombo = diceCombo(AV)
@@ -95,38 +100,52 @@ function damageToDice(AV){
             lowerAV -= 0.5
             lowerDiceCombo = diceCombo(lowerAV)
         }
+        addition += Math.round(AV - lowerAV)
+        lowerDiceCombo.ADDITION = addition
+        lowerDiceCombo.AV = lowerDiceCombo.AV + (Math.round(AV - lowerAV))
         // Upper AV
-        let upperAV = AV + 0.5
-        let upperDiceCombo = diceCombo(upperAV)
-        while (!diceSizes.includes(upperDiceCombo.M)) {
-            upperAV += 0.5
-            upperDiceCombo = diceCombo(upperAV)
-        }
-
+        // let upperAV = AV + 0.5
+        // let upperDiceCombo = diceCombo(upperAV)
+        // while (!diceSizes.includes(upperDiceCombo.M)) {
+        //     upperAV += 0.5
+        //     upperDiceCombo = diceCombo(upperAV)
+        // }
         console.log("Lower Dice Combo:", lowerDiceCombo)
-        console.log("Upper Dice Combo:", upperDiceCombo)
-        output = [lowerDiceCombo, upperDiceCombo]
+        // console.log("Upper Dice Combo:", upperDiceCombo)
+        // output = [lowerDiceCombo, upperDiceCombo]
+        output = [lowerDiceCombo]
     } else {
-        output = actualDiceCombo
+        output = [actualDiceCombo]
         console.log("Actual Dice Combo:", actualDiceCombo)
     }
     console.log("OUTPUT:", output)
+    console.log("Addition:", addition)
+    let str
+    if (output.length == 1) {
+        str = `${output[0]['N']}d${output[0]['M']} + ${output[0]['ADDITION']}`
+    } else {
+        str = `${output[0]['N']}d${output[0]['M']} + ${output[0]['ADDITION']} =  ${output[0]['AV']} or ${output[1]['N']}d${output[1]['M']} + ${output[1]['ADDITION']} =  ${output[1]['AV']}`
+    }
+    output.push(str)
+    console.log("String:", str)
     return output
 }
 // Function that is called when the CR is selected on the I Got This page
 function iGotThisCRFunction(element) {
+    console.log("===============================================")
     let cr = element.value
+    console.log("CR:", cr)
     let crText = element.options[element.selectedIndex].text
     // Points
     let points = ( cr * 5 ) + 8
     document.getElementById('points').innerHTML = `Points: <b>${Math.round(points)}</b>`
     // Challenge Rating
     let xp = xpByCr.find(i => i.CR == cr).XP
-    document.getElementById('challenge-rating').innerText = `${crText} (${xp.toLocaleString()} XP)`
     // Starting Purchasables
     let proficiencyBonus = rothnersChartV2.find(i => i.CR == cr)['Prof']
     let AC = rothnersChartV2.find(i => i.CR == cr)['Armor Class']
     let HP = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
+    let hitDice = damageToDice(HP, cr)[1]
     let saveSum = rothnersChartV2.find(i => i.CR == cr)['Sum D/C/W Save']
     let damagePerRound = rothnersChartV2.find(i => i.CR == cr)['Damage /Round']
     let toHitBonus = rothnersChartV2.find(i => i.CR == cr)['To Hit Bonus']
@@ -134,6 +153,19 @@ function iGotThisCRFunction(element) {
     let spellToHit = rothnersChartV2.find(i => i.CR == cr)['Spell To Hit']
     let spellLevel = rothnersChartV2.find(i => i.CR == cr)['Spell Level']
     let effectiveSpellDamage = rothnersChartV2.find(i => i.CR == cr)['Effective Spell Dmg']
+
+    document.getElementById('challenge-rating').innerText = `${crText} (${xp.toLocaleString()} XP)`
+    document.getElementById('proficiency_bonus').innerText = `+${proficiencyBonus}`
+    document.getElementById('armor-class').innerText = AC
+    document.getElementById('hit-points').innerText = `${HP} (${hitDice})`
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+    document.getElementById('').innerText = ``
+
         // +1 to Hit & +1 to DC
         // +1 to Armor Class
         // +6 to Dex/Con/Wis save
