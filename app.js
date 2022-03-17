@@ -65,7 +65,7 @@ function damageToDice(AV, CR){
     // AV is the average value of the dice, I.E. the average damage: AV = ((M + 1)/2)*N
     // N is the number of dice: N = AV / ((M + 1)/2)	
     // M is the max value of one die: M = (AV / N)*2-1
-    const diceSizes = [4, 6, 8, 10, 12, 20]
+    const diceSizes = [4, 6, 8, 10, 12, 20] // TODO: Take size into account (Tiny, Small, Medium, Large, Huge, Gargantuan)
     let output
     AV = parseFloat(AV)
     let addition = Math.round((CR / 0.20515) + 0.2192)
