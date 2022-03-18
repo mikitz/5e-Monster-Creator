@@ -406,13 +406,24 @@
                 <option value="29">29</option>
                 <option value="30">30</option> -->
             </select>
-            <div id="points">Points: <b>00</b></div>
+            <div id="points"><b>00</b></div>
+            <i class="fa-solid fa-circle-info" id="points-info"></i>
         </div>
         <div class="grid-row">
-
+          <input type="number" step="1" id="to-hit-and-dc-bonus" min="0">
+          <i class="fa-solid fa-circle-info" id="to-hit-and-dc-bonus-info"></i>
+        </div>
+        <div class="grid-row">
+          <input type="number" step="1" id="damage-per-round" min="0">
+          <i class="fa-solid fa-circle-info" id="damage-per-round-info"></i>
+        </div>
+        <div class="grid-row">
+          <input type="number" step="1" id="spell-save-dc" min="0">
+          <i class="fa-solid fa-circle-info" id="spell-save-dc-info"></i>
         </div>
     </div>
 </div>
 <script>
     document.getElementById('cr').addEventListener('change', function() { iGotThisCRFunction(this) })
+    iGotThisTippy()
 </script>

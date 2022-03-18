@@ -4,6 +4,12 @@ body {
     margin-bottom: 0;
     text-align: center;
 }
+.fa-circle-info {
+    color: #30D5C8;
+}
+input {
+    width: 50px;
+}
 /* ================
       PC SPAN
 ================= */

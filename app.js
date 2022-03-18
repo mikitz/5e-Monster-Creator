@@ -138,7 +138,7 @@ function iGotThisCRFunction(element) {
     let crText = element.options[element.selectedIndex].text
     // Points
     let points = ( cr * 5 ) + 8
-    document.getElementById('points').innerHTML = `Points: <b>${Math.round(points)}</b>`
+    document.getElementById('points').innerHTML = `<b>${Math.round(points)}</b>`
     // Challenge Rating
     let xp = xpByCr.find(i => i.CR == cr).XP
     // Starting Purchasables
@@ -158,9 +158,9 @@ function iGotThisCRFunction(element) {
     document.getElementById('proficiency_bonus').innerText = `+${proficiencyBonus}`
     document.getElementById('armor-class').innerText = AC
     document.getElementById('hit-points').innerText = `${HP} (${hitDice})`
-    document.getElementById('').innerText = ``
-    document.getElementById('').innerText = ``
-    document.getElementById('').innerText = ``
+    document.getElementById('to-hit-and-dc-bonus').value = `+${toHitBonus}`
+    document.getElementById('damage-per-round').value = damagePerRound
+    document.getElementById('spell-save-dc').value = DC
     document.getElementById('').innerText = ``
     document.getElementById('').innerText = ``
     document.getElementById('').innerText = ``
@@ -572,4 +572,16 @@ function generateMonsterFromOpen5e(){
         console.log("PCs:", PCs)
         console.log("Difficulty:", difficulty)
     }
+}
+function iGotThisTippy(){
+    function addTippy(ID, content){
+        tippy(`#${ID}`, {
+            content: `${content}`,
+            allowHTML: true,
+        })
+    }
+    addTippy('to-hit-and-dc-bonus-info', "<b><u>To Hit & Spell Save DC</u></b><br> It costs 1 point to increase this by 1. This gets applied to all the attacks that the monster performs and all the spells that the monster casts that require a saving throw. <br><i>Pulled from the To Hit Bonus column on Rothner's V2 chart.</i>") // To Hit & Spell Save DC
+    addTippy('points-info', '<b><u>Points</u></b><br> Points = CR * 5 + 8 <br> Use these points to purchase the below items and see the changes reflected in the statblock to the left.') // Points
+    addTippy('damage-per-round-info', "<u><b>Effective Damage per Round</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Damage/Round column on Rothner's V2 chart.</i>") // Damage per Round
+    addTippy('spell-save-dc-info', "<u><b>Spell Save DC</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the DC column on Rothner's V2 chart.</i>")
 }
