@@ -369,6 +369,8 @@
     </div>
     <div class="grid-inputs">
         <div class="grid-row">
+          <div class="grid-header">CR</div>
+          <div class="grid-input">
             <select name="cr" id="cr" class="dropdown">
                 <option value="select">Select CR...</option>
                 <!-- <option value="0">0</option> -->
@@ -406,20 +408,64 @@
                 <option value="29">29</option>
                 <option value="30">30</option> -->
             </select>
+            <i class="fa-solid fa-circle-info" id="cr-info"></i>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-header">Points</div>
+          <div class="grid-input">
             <div id="points"><b>00</b></div>
             <i class="fa-solid fa-circle-info" id="points-info"></i>
+          </div>
         </div>
         <div class="grid-row">
-          <input type="number" step="1" id="to-hit-and-dc-bonus" min="0">
-          <i class="fa-solid fa-circle-info" id="to-hit-and-dc-bonus-info"></i>
+          <div class="grid-header">To Hit</div>
+          <div class="grid-input">
+            <input type="number" step="1" id="to-hit-and-dc-bonus" min="0">
+            <i class="fa-solid fa-circle-info" id="to-hit-and-dc-bonus-info"></i>
+          </div>
         </div>
         <div class="grid-row">
-          <input type="number" step="1" id="damage-per-round" min="0">
-          <i class="fa-solid fa-circle-info" id="damage-per-round-info"></i>
+          <div class="grid-header">Damage/Round</div>
+          <div class="grid-input">
+            <input type="number" step="1" id="damage-per-round" min="0">
+            <i class="fa-solid fa-circle-info" id="damage-per-round-info"></i>
+          </div>
         </div>
         <div class="grid-row">
-          <input type="number" step="1" id="spell-save-dc" min="0">
-          <i class="fa-solid fa-circle-info" id="spell-save-dc-info"></i>
+          <div class="grid-header">Spell Save DC</div>
+          <div class="grid-input">
+            <input type="number" step="1" id="spell-save-dc" min="0">
+            <i class="fa-solid fa-circle-info" id="spell-save-dc-info"></i>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-header">Spell To Hit</div>
+          <div class="grid-input">
+            <input type="number" step="1" id="spell-to-hit" min="0">
+            <i class="fa-solid fa-circle-info" id="spell-to-hit-info"></i>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-header">Spell Level</div>
+          <div class="grid-input">
+            <span id="spell-level">#</span>
+            <i class="fa-solid fa-circle-info" id="spell-level-info"></i>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-header">Effective Spell Damage</div>
+          <div class="grid-input">
+            <span id="spell-damage">#</span>
+            <i class="fa-solid fa-circle-info" id="spell-damage-info"></i>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-header">Dex./Cha./Wis. Save Sum</div>
+          <div class="grid-input">
+            <span id="save-sum">#</span>
+            <i class="fa-solid fa-circle-info" id="save-sum-info"></i>
+          </div>
         </div>
     </div>
 </div>

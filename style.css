@@ -103,14 +103,31 @@ label {
 .grid-inputs {
     grid-column-start: 2;
     grid-row-start: 1;
-    display: inline-grid;
-    column-gap: 25px;
+    display: flex;
+    column-gap: 15px;
+    overflow-wrap: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .grid-row {
     grid-column: 1 span 2;
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    height: fit-content;
+    align-content: center;
+    text-align: center;
+    border: solid black 1px;
+    border-radius: 5px;
+    padding: 4px;
 }
 .grid-row > * {
     margin: 2px;
+}
+.grid-header {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.grid-input {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: fit-content;
 }

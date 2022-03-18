@@ -161,10 +161,10 @@ function iGotThisCRFunction(element) {
     document.getElementById('to-hit-and-dc-bonus').value = `+${toHitBonus}`
     document.getElementById('damage-per-round').value = damagePerRound
     document.getElementById('spell-save-dc').value = DC
-    document.getElementById('').innerText = ``
-    document.getElementById('').innerText = ``
-    document.getElementById('').innerText = ``
-    document.getElementById('').innerText = ``
+    document.getElementById('spell-to-hit').value = `+${spellToHit}`
+    document.getElementById('spell-level').innerText = spellLevel
+    document.getElementById('spell-damage').innerText = effectiveSpellDamage
+    document.getElementById('save-sum').innerText = saveSum
 
         // +1 to Hit & +1 to DC
         // +1 to Armor Class
@@ -584,4 +584,9 @@ function iGotThisTippy(){
     addTippy('points-info', '<b><u>Points</u></b><br> Points = CR * 5 + 8 <br> Use these points to purchase the below items and see the changes reflected in the statblock to the left.') // Points
     addTippy('damage-per-round-info', "<u><b>Effective Damage per Round</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Damage/Round column on Rothner's V2 chart.</i>") // Damage per Round
     addTippy('spell-save-dc-info', "<u><b>Spell Save DC</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the DC column on Rothner's V2 chart.</i>")
+    addTippy('cr-info', "<u><b>Challenge Rating</u></b><br> This is used to determine how many points you get to spend: Points = CR * 5 + 8")
+    addTippy('spell-to-hit-info', "<u><b>Spell To Hit</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Spell To Hit column on Rothner's V2 chart.</i>")
+    addTippy('spell-level-info', "<u><b>Spell Level</u></b><br> The is the maximum spell level this monster can use. <br><i>Pulled from the Spell Level column on Rothner's V2 chart.</i>")
+    addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the maximum spell level this monster can use. <br><i>Pulled from the Effective Spell Damage column on Rothner's V2 chart.</i>")
+    addTippy('save-sum-info', "<u><b>Dex./Cha./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Charisma, and Wisdom. <br><i>Pulled from the Sum D/C/W Save column on Rothner's V2 chart.</i>")
 }
