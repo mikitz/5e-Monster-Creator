@@ -587,6 +587,6 @@ function iGotThisTippy(){
     addTippy('cr-info', "<u><b>Challenge Rating</u></b><br> This is used to determine how many points you get to spend: Points = CR * 5 + 8")
     addTippy('spell-to-hit-info', "<u><b>Spell To Hit</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Spell To Hit column on Rothner's V2 chart.</i>")
     addTippy('spell-level-info', "<u><b>Spell Level</u></b><br> The is the maximum spell level this monster can use. <br><i>Pulled from the Spell Level column on Rothner's V2 chart.</i>")
-    addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the maximum spell level this monster can use. <br><i>Pulled from the Effective Spell Damage column on Rothner's V2 chart.</i>")
+    addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the effective spell damage this monster can per spell. <br><i>Pulled from the Effective Spell Damage column on Rothner's V2 chart.</i>")
     addTippy('save-sum-info', "<u><b>Dex./Cha./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Charisma, and Wisdom. <br><i>Pulled from the Sum D/C/W Save column on Rothner's V2 chart.</i>")
 }
