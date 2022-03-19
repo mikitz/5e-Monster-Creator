@@ -7,8 +7,8 @@ body {
 .fa-circle-info {
     color: #30D5C8;
 }
-input {
-    width: 60px;
+input:not(.custom-radio) {
+    width: inherit;
 }
 /* ================
       PC SPAN
@@ -130,4 +130,11 @@ label {
     grid-column-start: 1;
     grid-column-end: 1;
     width: fit-content;
+    align-content: center;
+    text-align: center;
+}
+.grid-heading {
+    width: 100%;
+    display: flex;
+    column-gap: 15px;
 }

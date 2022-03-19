@@ -54,4 +54,8 @@ let rothnersChartV2 = [
     {"CR":15,"Level":"20","Prof":5,"Armor Class":18,"Hit Points":240,"Sum D/C/W Save":24,"Damage /Round":96,"To Hit Bonus":11.5,"DC":18.5,"Spell To Hit":10.5,"Spell Level":9,"Effective Spell Dmg":103},
     {"CR":16,"Level":">20","Prof":5,"Armor Class":18,"Hit Points":255,"Sum D/C/W Save":25,"Damage /Round":102,"To Hit Bonus":12,"DC":19,"Spell To Hit":11,"Spell Level":9,"Effective Spell Dmg":103},
     {"CR":17,"Level":">20","Prof":6,"Armor Class":19,"Hit Points":270,"Sum D/C/W Save":27,"Damage /Round":108,"To Hit Bonus":12.5,"DC":19.5,"Spell To Hit":11.5,"Spell Level":9,"Effective Spell Dmg":103}
-]
+] 
+/** ADJUSTMENTS FROM THE ORIGINAL
+ * 1.) To Hit Bonus is now rounded down as the original chart had values ending in 0.5, E.G. CR 9 had a To Hit Bonus of 8.5. The CR 9 To Hit Bonus is not 8. To compensate for this, 4 HP was added to the Hit Points column.
+ * 2.) 
+ */

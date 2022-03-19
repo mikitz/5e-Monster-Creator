@@ -20,14 +20,6 @@ function getSelectedValueFromRadioGroup(radioGroupName){
     })
     return initialize
 }
-// Function to set the listeners for the page
-function setListener() {
-    let creator = document.getElementsByName('method')
-    creator.forEach(element => {
-        const ID = element.id
-        element.addEventListener('change', function() { populateCreator() })
-    });
-}
 // Function to populate the creator div
 function populateCreator(){
     let method = getSelectedValueFromRadioGroup('method') // Get the selected method
@@ -129,6 +121,27 @@ function damageToDice(AV, CR){
     output.push(str)
     console.log("String:", str)
     return output
+}
+// Function to addjust inputs based on the type of monster 
+function monsterType(){
+    let type = document.querySelector('input[name="type"]:checked').value // Get the selected type from the Type Radio Group
+    let casterElements = document.getElementsByName('caster') // Get all the caster elements
+    let martialElements = document.getElementsByName('martial') // Get all the martial elements
+    function adjustCasterMartialElements(casterDisplay, martialDisplay){
+        casterElements.forEach(element => {
+            element.style.display = casterDisplay
+        });
+        martialElements.forEach(element => {
+            element.style.display = martialDisplay
+        })
+    }
+    if (type == "caster") {
+        adjustCasterMartialElements('block', 'none')
+    } else if (type == "martial") {
+        adjustCasterMartialElements('none', 'block')
+    } else if (type == "hybrid") {
+        adjustCasterMartialElements('block', 'block')
+    }
 }
 // Function that is called when the CR is selected on the I Got This page
 function iGotThisCRFunction(element) {
@@ -572,21 +585,4 @@ function generateMonsterFromOpen5e(){
         console.log("PCs:", PCs)
         console.log("Difficulty:", difficulty)
     }
-}
-function iGotThisTippy(){
-    function addTippy(ID, content){
-        tippy(`#${ID}`, {
-            content: `${content}`,
-            allowHTML: true,
-        })
-    }
-    addTippy('to-hit-and-dc-bonus-info', "<b><u>To Hit & Spell Save DC</u></b><br> It costs 1 point to increase this by 1. This gets applied to all the attacks that the monster performs and all the spells that the monster casts that require a saving throw. <br><i>Pulled from the To Hit Bonus column on Rothner's V2 chart.</i>") // To Hit & Spell Save DC
-    addTippy('points-info', '<b><u>Points</u></b><br> Points = CR * 5 + 8 <br> Use these points to purchase the below items and see the changes reflected in the statblock to the left.') // Points
-    addTippy('damage-per-round-info', "<u><b>Effective Damage per Round</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Damage/Round column on Rothner's V2 chart.</i>") // Damage per Round
-    addTippy('spell-save-dc-info', "<u><b>Spell Save DC</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the DC column on Rothner's V2 chart.</i>")
-    addTippy('cr-info', "<u><b>Challenge Rating</u></b><br> This is used to determine how many points you get to spend: Points = CR * 5 + 8")
-    addTippy('spell-to-hit-info', "<u><b>Spell To Hit</u></b><br> It costs 1 point to increase this by 1. <br><i>Pulled from the Spell To Hit column on Rothner's V2 chart.</i>")
-    addTippy('spell-level-info', "<u><b>Spell Level</u></b><br> The is the maximum spell level this monster can use. <br><i>Pulled from the Spell Level column on Rothner's V2 chart.</i>")
-    addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the effective spell damage this monster can per spell. <br><i>Pulled from the Effective Spell Damage column on Rothner's V2 chart.</i>")
-    addTippy('save-sum-info', "<u><b>Dex./Cha./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Charisma, and Wisdom. <br><i>Pulled from the Sum D/C/W Save column on Rothner's V2 chart.</i>")
 }

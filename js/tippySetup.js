@@ -1,0 +1,27 @@
+function addTippy(ID, content){
+    tippy(`#${ID}`, {
+        content: `${content}`,
+        allowHTML: true,
+    })
+}
+
+function iGotThisTippy(){
+    addTippy('to-hit-and-dc-bonus-info', "<b><u>To Hit & Spell Save DC</u></b><br> It costs 1 point to increase this by 1. This gets applied to all the attacks that the monster performs and all the spells that the monster casts that require a saving throw. <br><i>To Hit Bonus column on Rothner's V2 chart.</i>") // To Hit & Spell Save DC
+    addTippy('points-info', '<b><u>Points</u></b><br> Points = CR * 5 + 8 <br> Use these points to purchase the below items and see the changes reflected in the statblock to the left.') // Points
+    addTippy('damage-per-round-info', "<u><b>Effective Damage per Round</u></b><br> It costs 1 point to increase this by 1. <br><i>Damage/Round column on Rothner's V2 chart.</i>") // Damage per Round
+    addTippy('spell-save-dc-info', "<u><b>Spell Save DC</u></b><br> It costs 1 point to increase this by 1. <br><i>DC column on Rothner's V2 chart.</i>")
+    addTippy('cr-info', "<u><b>Challenge Rating</u></b><br> This is used to determine how many points you get to spend: Points = CR * 5 + 8")
+    addTippy('spell-to-hit-info', "<u><b>Spell To Hit</u></b><br> It costs 1 point to increase this by 1. <br><i>Spell To Hit column on Rothner's V2 chart.</i>")
+    addTippy('spell-level-info', "<u><b>Spell Level</u></b><br> The is the maximum spell level this monster can use. <br><i>Spell Level column on Rothner's V2 chart.</i>")
+    addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the effective spell damage this monster can per spell. <br><i>Effective Spell Damage column on Rothner's V2 chart.</i>")
+    addTippy('save-sum-info', "<u><b>Dex./Con./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Constitution, and Wisdom. <br><i>Sum D/C/W Save column on Rothner's V2 chart.</i>")
+    addTippy('type-info', "<u><b>Monster Type</u></b><br> This choice determines which inputs to which you will gain access.")
+}
+
+function walkthroughTippy(){
+
+}
+
+function randomTippy(){
+
+}
