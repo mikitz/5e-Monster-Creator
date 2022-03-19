@@ -35,6 +35,16 @@ let xpByCr = [
     {"CR":30,"XP":155000}
 ]
 
+let elementTablePairs = [
+    {elemId: 'armor-class-input', data: 'Armor Class'},
+    {elemId: 'hit-points-input', data: 'Hit Points'},
+    {elemId: 'to-hit-and-dc-bonus', data: 'To Hit Bonus'},
+    {elemId: 'damage-per-round', data: 'Damage /Round'},
+    {elemId: 'spell-save-dc', data: 'DC'},
+    {elemId: 'spell-to-hit', data: 'Spell To Hit'},
+    {elemId: 'save-sum', data: 'Sum D/C/W Save'},
+]
+
 let rothnersChartV2 = [
     {"CR":0.25,"Level":"1/2","Prof":2,"Armor Class":12,"Hit Points":15,"Sum D/C/W Save":2,"Damage /Round":6,"To Hit Bonus":4,"DC":11,"Spell To Hit":3,"Spell Level":"C","Effective Spell Dmg":5.5},
     {"CR":1,"Level":"2","Prof":2,"Armor Class":13,"Hit Points":30,"Sum D/C/W Save":3,"Damage /Round":12,"To Hit Bonus":4.5,"DC":11.5,"Spell To Hit":3.5,"Spell Level":1,"Effective Spell Dmg":14},

@@ -1,3 +1,7 @@
+// Function to sum an array
+function sumArray(array){
+    return array.reduce((partialSum, a) => partialSum + a, 0);
+}
 // Declare a function to select a random value from a dictionary
 // Source: https://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
 var randomProperty = function (obj) {
@@ -102,16 +106,16 @@ function damageToDice(AV, CR){
         //     upperAV += 0.5
         //     upperDiceCombo = diceCombo(upperAV)
         // }
-        console.log("Lower Dice Combo:", lowerDiceCombo)
+        // console.log("Lower Dice Combo:", lowerDiceCombo)
         // console.log("Upper Dice Combo:", upperDiceCombo)
         // output = [lowerDiceCombo, upperDiceCombo]
         output = [lowerDiceCombo]
     } else {
         output = [actualDiceCombo]
-        console.log("Actual Dice Combo:", actualDiceCombo)
+        // console.log("Actual Dice Combo:", actualDiceCombo)
     }
-    console.log("OUTPUT:", output)
-    console.log("Addition:", addition)
+    // console.log("OUTPUT:", output)
+    // console.log("Addition:", addition)
     let str
     if (output.length == 1) {
         str = `${output[0]['N']}d${output[0]['M']} + ${output[0]['ADDITION']}`
@@ -119,7 +123,7 @@ function damageToDice(AV, CR){
         str = `${output[0]['N']}d${output[0]['M']} + ${output[0]['ADDITION']} =  ${output[0]['AV']} or ${output[1]['N']}d${output[1]['M']} + ${output[1]['ADDITION']} =  ${output[1]['AV']}`
     }
     output.push(str)
-    console.log("String:", str)
+    // console.log("String:", str)
     return output
 }
 // Function to addjust inputs based on the type of monster 
@@ -157,6 +161,7 @@ function adjustCasterMartialElements(casterDisplay, martialDisplay, hybridDispla
 function iGotThisCRFunction(element) {
     monsterType()
     let cr = element.value
+    if (cr == 'select') { return }
     let crText = element.options[element.selectedIndex].text
     // Points
     let points = ( cr * 5 ) + 8
@@ -179,20 +184,16 @@ function iGotThisCRFunction(element) {
     document.getElementById('challenge-rating').innerText = `${crText} (${xp.toLocaleString()} XP)`
     document.getElementById('proficiency_bonus').innerText = `+${proficiencyBonus}`
     document.getElementById('armor-class').innerText = AC
+    document.getElementById('armor-class-input').value = AC
     document.getElementById('hit-points').innerText = `${HP} (${hitDice})`
+    document.getElementById('hit-points-input').value = HP
     document.getElementById('to-hit-and-dc-bonus').value = `+${toHitBonus}`
     document.getElementById('damage-per-round').value = damagePerRound
     document.getElementById('spell-save-dc').value = DC
     document.getElementById('spell-to-hit').value = `+${spellToHit}`
-    document.getElementById('spell-level').innerText = spellLevel
-    document.getElementById('spell-damage').innerText = effectiveSpellDamage
+    document.getElementById('spell-level').value = spellLevel
+    document.getElementById('spell-damage').value = effectiveSpellDamage
     document.getElementById('save-sum').value = saveSum
-
-        // +1 to Hit & +1 to DC
-        // +1 to Armor Class
-        // +6 to Dex/Con/Wis save
-        // +2 to Pure Damage per Round
-        // +7.5 Hit Points
 }
 // Function to randomly generate a monster based on user inputs
 function generateMonster(method){
@@ -416,45 +417,7 @@ function addPC(){
         })
     });
 }
-// Function to increment number input value
-function incrementValue(e) {
-    e.preventDefault();
-    var fieldName = $(e.target).data('field');
-    var parent = $(e.target).closest('div');
-    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-    let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
-    let val
-    if (ID == 'save-sum') { val = 6 }
-    else { val = 1 }
-    if (!isNaN(currentVal)) {
-      parent.find('input[name=' + fieldName + ']').val(currentVal + val);
-    } else {
-      parent.find('input[name=' + fieldName + ']').val(0);
-    }
-}
-// Function to decrement number input value
-function decrementValue(e) {
-    e.preventDefault();
-    var fieldName = $(e.target).data('field');
-    var parent = $(e.target).closest('div');
-    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-    let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
-    let val
-    if (ID == 'save-sum') { val = 6 }
-    else { val = 1 }
-    if ( ID == 'save-sum' && currentVal - val < 0){
-        new Toast({
-            message: `The Dex./Con./Wis. Save Sum cannot go below 0.`,
-            type: 'warning'
-        })
-        return
-    }
-    if (!isNaN(currentVal) && currentVal > 0) {
-      parent.find('input[name=' + fieldName + ']').val(currentVal - val);
-    } else {
-      parent.find('input[name=' + fieldName + ']').val(0);
-    }
-}
+
 // Function to pull a randomly selected monster from Open5e and display it in Statblock5e
 // Will not be useful soon, as it was just practice
 function generateMonsterFromOpen5e(){

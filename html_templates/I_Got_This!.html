@@ -370,7 +370,7 @@
     <div class="grid-inputs">
         <div class="grid-heading">
           <div class="grid-row">
-            <div class="grid-header">CR <i class="fa-solid fa-circle-info" id="cr-info"></i></div>
+            <div class="grid-header">CR <i class="fa-solid fa-circle-info" id="cr-info"></i> <i class="fa-solid fa-rotate-left" id="reset-values"></i></div>
             <div class="grid-input">
               <select name="cr" id="cr" class="dropdown">
                   <option value="select">Select CR...</option>
@@ -415,7 +415,7 @@
           <div class="grid-row">
             <div class="grid-header">Points <i class="fa-solid fa-circle-info" id="points-info"></i></div>
             <div class="grid-input">
-              <span id="points"><b>00</b></span>
+              <span id="points"><b>NaN</b></span>
             </div>
           </div>
           <div class="grid-row">
@@ -436,12 +436,32 @@
             </div>
           </div>
         </div>
+        <div class="grid-row" name="hybrid">
+          <div class="grid-header">Armor Class <i class="fa-solid fa-circle-info" id="armor-class-info"></i></div>
+          <div class="grid-input">
+            <div class="input-group">
+              <input type="button" value="-" class="button-minus" data-field="quantity">
+              <input class="number-input" type="text" value="1" id="armor-class-input" class="quantity-field" name="quantity" readonly/>
+              <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+          </div>
+        </div>
+        <div class="grid-row" name="hybrid">
+          <div class="grid-header">Hit Points <i class="fa-solid fa-circle-info" id="hit-points-info"></i></div>
+          <div class="grid-input">
+            <div class="input-group">
+              <input type="button" value="-" class="button-minus" data-field="quantity">
+              <input class="number-input" type="text" value="1" id="hit-points-input" class="quantity-field" name="quantity" readonly/>
+              <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+          </div>
+        </div>
         <div class="grid-row" name="martial">
           <div class="grid-header">To Hit <i class="fa-solid fa-circle-info" id="to-hit-and-dc-bonus-info"></i></div>
           <div class="grid-input">
             <div class="input-group">
               <input type="button" value="-" class="button-minus" data-field="quantity">
-              <input class="number-input" type="text" value="1" id="to-hit-and-dc-bonus" class="quantity-field" name="quantity"/>
+              <input class="number-input" type="text" value="1" id="to-hit-and-dc-bonus" class="quantity-field" name="quantity" readonly/>
               <input type="button" value="+" class="button-plus" data-field="quantity">
             </div>
           </div>
@@ -451,7 +471,7 @@
           <div class="grid-input">
             <div class="input-group">
               <input type="button" value="-" class="button-minus" data-field="quantity">
-              <input class="number-input" type="text" value="1" id="damage-per-round" class="quantity-field" name="quantity"/>
+              <input class="number-input" type="text" value="1" id="damage-per-round" class="quantity-field" name="quantity" readonly/>
               <input type="button" value="+" class="button-plus" data-field="quantity">
             </div>
           </div>
@@ -461,7 +481,7 @@
           <div class="grid-input">
             <div class="input-group">
               <input type="button" value="-" class="button-minus" data-field="quantity">
-              <input class="number-input" type="text" value="1" id="spell-save-dc" class="quantity-field" name="quantity"/>
+              <input class="number-input" type="text" value="1" id="spell-save-dc" class="quantity-field" name="quantity" readonly/>
               <input type="button" value="+" class="button-plus" data-field="quantity">
             </div>
           </div>
@@ -471,7 +491,7 @@
           <div class="grid-input">
             <div class="input-group">
               <input type="button" value="-" class="button-minus" data-field="quantity">
-              <input class="number-input" type="text" value="1" id="spell-to-hit" class="quantity-field" name="quantity"/>
+              <input class="number-input" type="text" value="1" id="spell-to-hit" class="quantity-field" name="quantity" readonly/>
               <input type="button" value="+" class="button-plus" data-field="quantity">
             </div>
           </div>
@@ -481,7 +501,7 @@
           <div class="grid-input">
             <div class="input-group">
               <input type="button" value="-" class="button-minus" data-field="quantity">
-              <input class="number-input" type="text" value="1" id="save-sum" class="quantity-field" name="quantity"/>
+              <input class="number-input" type="text" value="1" id="save-sum" class="quantity-field" name="quantity" readonly/>
               <input type="button" value="+" class="button-plus" data-field="quantity">
             </div>
           </div>
@@ -489,13 +509,21 @@
         <div class="grid-row" name="caster">
           <div class="grid-header">Spell Level <i class="fa-solid fa-circle-info" id="spell-level-info"></i></div>
           <div class="grid-input">
-            <span id="spell-level">#</span>
+            <div class="input-group">
+              <input type="button" value=" " class="button-minus" data-field="quantity" style="cursor: not-allowed !important;">
+              <input class="number-input" type="text" value="1" id="spell-level" class="quantity-field" name="quantity" style="cursor: not-allowed !important;" readonly/>
+              <input type="button" value=" " class="button-plus" data-field="quantity" style="cursor: not-allowed !important;">
+            </div>
           </div>
         </div>
         <div class="grid-row" name="caster">
           <div class="grid-header">Effective Spell Damage <i class="fa-solid fa-circle-info" id="spell-damage-info"></i></div>
           <div class="grid-input">
-            <span id="spell-damage">#</span>
+            <div class="input-group">
+              <input type="button" value=" " class="button-minus" data-field="quantity" style="cursor: not-allowed !important;">
+              <input class="number-input" type="text" value="1" id="spell-damage" class="quantity-field" name="quantity" style="cursor: not-allowed !important;" readonly/>
+              <input type="button" value=" " class="button-plus" data-field="quantity" style="cursor: not-allowed !important;">
+            </div>
           </div>
         </div>
     </div>
