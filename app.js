@@ -124,30 +124,39 @@ function damageToDice(AV, CR){
 }
 // Function to addjust inputs based on the type of monster 
 function monsterType(){
+    let cr = document.getElementById('cr').value
+    if (cr == 'select'){ 
+        adjustCasterMartialElements('none', 'none', 'none')
+        return
+    }
     let type = document.querySelector('input[name="type"]:checked').value // Get the selected type from the Type Radio Group
+    if (type == "caster") {
+        adjustCasterMartialElements('block', 'none', 'block')
+    } else if (type == "martial") {
+        adjustCasterMartialElements('none', 'block', 'block')
+    } else if (type == "hybrid") {
+        adjustCasterMartialElements('block', 'block', 'block')
+    }
+}
+// Function to change the visibility of User Inputs
+function adjustCasterMartialElements(casterDisplay, martialDisplay, hybridDisplay){
     let casterElements = document.getElementsByName('caster') // Get all the caster elements
     let martialElements = document.getElementsByName('martial') // Get all the martial elements
-    function adjustCasterMartialElements(casterDisplay, martialDisplay){
-        casterElements.forEach(element => {
-            element.style.display = casterDisplay
-        });
-        martialElements.forEach(element => {
-            element.style.display = martialDisplay
-        })
-    }
-    if (type == "caster") {
-        adjustCasterMartialElements('block', 'none')
-    } else if (type == "martial") {
-        adjustCasterMartialElements('none', 'block')
-    } else if (type == "hybrid") {
-        adjustCasterMartialElements('block', 'block')
-    }
+    let hybridElements = document.querySelectorAll('div[name="hybrid"]') // Get all the hybrid elements
+    casterElements.forEach(element => {
+        element.style.display = casterDisplay
+    });
+    martialElements.forEach(element => {
+        element.style.display = martialDisplay
+    })
+    hybridElements.forEach(element => {
+      element.style.display = hybridDisplay
+    });
 }
 // Function that is called when the CR is selected on the I Got This page
 function iGotThisCRFunction(element) {
-    console.log("===============================================")
+    monsterType()
     let cr = element.value
-    console.log("CR:", cr)
     let crText = element.options[element.selectedIndex].text
     // Points
     let points = ( cr * 5 ) + 8
@@ -177,7 +186,7 @@ function iGotThisCRFunction(element) {
     document.getElementById('spell-to-hit').value = `+${spellToHit}`
     document.getElementById('spell-level').innerText = spellLevel
     document.getElementById('spell-damage').innerText = effectiveSpellDamage
-    document.getElementById('save-sum').innerText = saveSum
+    document.getElementById('save-sum').value = saveSum
 
         // +1 to Hit & +1 to DC
         // +1 to Armor Class
@@ -406,6 +415,45 @@ function addPC(){
             this.parentElement.remove()
         })
     });
+}
+// Function to increment number input value
+function incrementValue(e) {
+    e.preventDefault();
+    var fieldName = $(e.target).data('field');
+    var parent = $(e.target).closest('div');
+    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
+    let val
+    if (ID == 'save-sum') { val = 6 }
+    else { val = 1 }
+    if (!isNaN(currentVal)) {
+      parent.find('input[name=' + fieldName + ']').val(currentVal + val);
+    } else {
+      parent.find('input[name=' + fieldName + ']').val(0);
+    }
+}
+// Function to decrement number input value
+function decrementValue(e) {
+    e.preventDefault();
+    var fieldName = $(e.target).data('field');
+    var parent = $(e.target).closest('div');
+    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
+    let val
+    if (ID == 'save-sum') { val = 6 }
+    else { val = 1 }
+    if ( ID == 'save-sum' && currentVal - val < 0){
+        new Toast({
+            message: `The Dex./Con./Wis. Save Sum cannot go below 0.`,
+            type: 'warning'
+        })
+        return
+    }
+    if (!isNaN(currentVal) && currentVal > 0) {
+      parent.find('input[name=' + fieldName + ']').val(currentVal - val);
+    } else {
+      parent.find('input[name=' + fieldName + ']').val(0);
+    }
 }
 // Function to pull a randomly selected monster from Open5e and display it in Statblock5e
 // Will not be useful soon, as it was just practice
