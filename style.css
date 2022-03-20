@@ -1,3 +1,22 @@
+:root {
+    /* Light */
+    --light-denary: #ffffff;
+    --light-nonary: #e8e8eb;
+    --light-octonary: #d2d2d7;
+    --light-septenary: #bbbbc4;
+    --light-senary: #a5a5b0;
+    --light-quinary: #8e8e9d;
+    --light-quaternary: #787889;
+    --light-tertiary: #616176;
+    --light-secondary: #4b4b62;
+    --light-primary: #35354f;
+    --light-text: black;
+    --light-text-alt: #e8e8eb;
+
+    /* Dark */
+
+}
+
 body {
     max-width: 1000px;
     margin: auto;
@@ -5,11 +24,11 @@ body {
     text-align: center;
 }
 .fa-circle-info {
-    color: #30D5C8;
+    color: var(--light-tertiary);
 }
 .fa-rotate-left {
     cursor: pointer;
-    color: #30D5C8;
+    color: var(--light-tertiary);
 }
 input:not(.custom-radio) {
     width: inherit;
@@ -21,7 +40,7 @@ input:not(.custom-radio) {
 /* Source: http://jsfiddle.net/polaszk/1oyfxoor/ */
 input,
 textarea {
-  border: 1px solid #eeeeee;
+  border: 1px solid var(--light-nonary);
   box-sizing: border-box;
   margin: 0;
   outline: none;
@@ -41,7 +60,7 @@ input::-webkit-inner-spin-button {
   position: relative;
 }
 .input-group input[type='button'] {
-  background-color: #eeeeee;
+  background-color: var(--light-nonary);
   min-width: 38px;
   width: auto;
   transition: all 300ms ease;
@@ -53,7 +72,6 @@ input::-webkit-inner-spin-button {
   padding: 0;
   width: 38px;
   position: relative;
-  background-color: #007FFF;
 }
 .input-group .quantity-field {
   position: relative;
@@ -100,7 +118,7 @@ input[type="number"] {
       FOOTER
 ================= */
 #footer-parent {
-    background-color: #b1fcf7 !important;
+    background-color: var(--light-nonary) !important;
     z-index: 100 !important;
     border-top: black solid 1px !important;
     position: fixed;
@@ -120,9 +138,9 @@ input[type="number"] {
 }
 .radio-toolbar :checked + span {
     font-weight: bold;
-    background-color: #30D5C8;
-    color: var(--light-nonary);
-    border: black 2px dashed;
+    background-color: var(--light-septenary);
+    color: var(--light-text);
+    border: black 2px solid;
     margin: auto;
 }
 .checkbox {
@@ -149,7 +167,8 @@ label {
     margin-top: 30px;
 }
 .radio-toolbar label :hover {
-    background-color: #007FFF;
+    background-color: var(--light-secondary);
+    color: var(--light-text-alt);
 }
 
 /* ======================= 
@@ -183,7 +202,7 @@ label {
     border-radius: 10px;
     padding: 4px;
     margin: 4px;
-    background-color: #318dd3;
+    background-color: var(--light-octonary);
 }
 .grid-row > * {
     margin: 2px;
