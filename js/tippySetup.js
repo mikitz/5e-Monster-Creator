@@ -16,7 +16,7 @@ function iGotThisTippy(){
     addTippy('spell-to-hit-info', "<u><b>Spell To Hit</u></b><br> It costs 1 point to increase the To Hit by 1, the Spell Save DC by 1, and the Spell To Hit by 1. <br><i>Spell To Hit column on Rothner's V2 chart.</i>")
     addTippy('spell-level-info', "<u><b>Spell Level</u></b><br> This is the maximum spell level this monster can use. <br><i>Spell Level column on Rothner's V2 chart.</i>")
     addTippy('spell-damage-info', "<u><b>Effective Spell Damage</u></b><br> The is the effective average spell damage this monster can deal per spell. This is used as a guideline for the suggested spells. <br><i>Effective Spell Damage column on Rothner's V2 chart.</i>")
-    addTippy('save-sum-info', "<u><b>Dex./Con./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Constitution, and Wisdom. It costs 1 point to increase this by 6. <br><i>Sum D/C/W Save column on Rothner's V2 chart.</i>")
+    addTippy('save-sum-info', "<u><b>Dex./Con./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Constitution, and Wisdom. It costs 1 point to increase this by 6. The other saving throw bonuses (Str., Cha., and Int.) are insignificant enough that you can set them to whatever. <br><i>Sum D/C/W Save column on Rothner's V2 chart.</i>")
     addTippy('type-info', "<u><b>Monster Type</u></b><br> This choice determines which inputs to which you will gain access.")
     addTippy('reset-values', 'Click to reset to defaults for the selected CR.')
 }

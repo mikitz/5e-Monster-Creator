@@ -203,6 +203,7 @@ label {
     padding: 4px;
     margin: 4px;
     background-color: var(--light-octonary);
+    /* box-shadow: 0 0 0.75em #867453; */
 }
 .grid-row > * {
     margin: 2px;
