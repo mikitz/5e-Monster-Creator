@@ -25,6 +25,7 @@ body {
 }
 .fa-circle-info {
     color: var(--light-tertiary);
+    font-size: 0.1 !important; 
 }
 .fa-rotate-left {
     cursor: pointer;
@@ -209,7 +210,7 @@ label {
     margin: 2px;
 }
 .grid-header {
-    grid-column-start: 1;
+    /* grid-column-start: 1; */
     grid-column-end: 2;
     font-weight: bold;
 }
@@ -218,7 +219,7 @@ label {
     grid-column-end: 1;
     width: fit-content;
     align-content: center;
-    text-align: center;
+    text-align: center !important;
 }
 .grid-heading {
     width: 100%;
