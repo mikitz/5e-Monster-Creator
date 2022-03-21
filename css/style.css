@@ -1,25 +1,25 @@
-@import 'css/constants.css';
+@import './constants.css';
 
 body {
     max-width: 1000px;
     margin: auto;
     margin-bottom: 0;
     text-align: center;
-    background-color: var(--light-denary);
+    background-color: var(--light-background);
 }
 .fa-circle-info {
-    color: var(--light-tertiary);
+    color: var(--light-icon);
     font-size: 0.1 !important; 
 }
 .fa-rotate-left {
     cursor: pointer;
-    color: var(--light-tertiary);
+    color: var(--light-icon);
 }
 input:not(.custom-radio) {
     width: inherit;
 }
 .grid-input select {
-    background-color: var(--light-denary);
+    background-color: var(--light-background);
 }
 /* ================
     CUSTOM INPUT
@@ -32,7 +32,7 @@ textarea {
   margin: 0;
   outline: none;
   padding: 10px;
-  background-color: var(--light-denary);
+  background-color: var(--light-background);
 }
 input[type="button"] {
   -webkit-appearance: button;
@@ -72,8 +72,14 @@ input::-webkit-inner-spin-button {
   margin: 0 0 5px;
   resize: vertical;
 }
+.button-minus, .button-plus {
+    background-color: var(--light-input-border) !important;
+}
 .button-plus {
-  left: -13px;
+    left: -5px;
+}
+.button-minus {
+    left: 5px
 }
 input[type="number"] {
   -moz-appearance: textfield;
