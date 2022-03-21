@@ -46,6 +46,8 @@ input::-webkit-inner-spin-button {
   clear: both;
   margin: 5px 0;
   position: relative;
+  height: 38px;
+  display: flex;
 }
 .input-group input[type='button'] {
   background-color: var(--light-nonary);
@@ -74,6 +76,7 @@ input::-webkit-inner-spin-button {
 }
 .button-minus, .button-plus {
     background-color: var(--light-input-border) !important;
+    font-size: 20px;
 }
 .button-plus {
     left: -5px;
@@ -85,28 +88,8 @@ input[type="number"] {
   -moz-appearance: textfield;
   -webkit-appearance: none;
 }
-/* ================
-      PC SPAN
-================= */
-.player-characters {
-    margin: 20px;
-    overflow: visible;
-}
-.player-character {
-    padding: 8px;
-    margin: 2px;
-    background-color: #ffcccb;
-    font-weight: bold;
-    border: red 2px solid;
-    border-radius: 8px;
-}
-.player-character .fa-solid {
-    cursor: pointer;
-    color: red;
-}
-.player-character .fa-solid :hover {
-    cursor: pointer;
-    color: darkred !important;
+.number-input {
+    height: 38px;
 }
 /* ================
       FOOTER
@@ -251,6 +234,7 @@ label {
     width: fit-content;
     align-content: center;
     text-align: center !important;
+    vertical-align: middle !important;
 }
 .grid-heading {
     width: 100%;
