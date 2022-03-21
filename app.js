@@ -1,3 +1,13 @@
+// Function to set the theme
+function setTheme() {
+    const theme = localStorage.getItem('theme')
+    if (theme) {
+        localStorage.setItem('theme', theme)
+        document.getElementById('theme-css').setAttribute('href', `css/${theme}.css`)
+    } else {
+        localStorage.setItem('theme', 'light')
+    }
+}
 // Function to sum an array
 function sumArray(array){
     return array.reduce((partialSum, a) => partialSum + a, 0);

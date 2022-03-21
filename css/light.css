@@ -25,6 +25,9 @@ input:not(.custom-radio) {
     margin-left: 40px;
     cursor: pointer;
 }
+.dropdown {
+    color: var(--light-text);
+}
 /* ================
     CUSTOM INPUT
 ================= */
@@ -37,6 +40,7 @@ textarea {
   outline: none;
   padding: 10px;
   background-color: var(--light-background);
+  color: var(--light-text);
 }
 input[type="button"] {
   -webkit-appearance: button;
@@ -108,6 +112,14 @@ input[type="number"] {
     left: 0;
     vertical-align: middle;
     font-family: open sans, sans-serif;
+    color: var(--light-text);
+}
+#footer-parent a:link {
+    color: var(--light-a-link);
+}
+
+#footer-parent a:visited {
+    color: var(--light-a-visited);
 }
 .emoji { vertical-align: middle; }
 
@@ -129,7 +141,7 @@ input[type="number"] {
 }
 .radio-toolbar :not(:checked) + span {
     background-color: var(--light-input-border);
-    color: black;
+    color: var(--light-text);
     border: black 2px solid;
 }
 .radio-toolbar span {
@@ -171,7 +183,7 @@ label {
 }
 .radio-group :not(:checked) + span {
     background-color: var(--light-background);
-    color: black;
+    color: var(--light-text);;
     border: black 2px solid;
 }
 .radio-group span {
@@ -231,6 +243,7 @@ label {
     /* grid-column-start: 1; */
     grid-column-end: 2;
     font-weight: bold;
+    color: var(--light-text);
 }
 .grid-input {
     grid-column-start: 1;
@@ -239,6 +252,7 @@ label {
     align-content: center;
     text-align: center !important;
     vertical-align: middle !important;
+    color: var(--light-text);
 }
 .grid-heading {
     width: 100%;

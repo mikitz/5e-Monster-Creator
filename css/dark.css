@@ -25,6 +25,9 @@ input:not(.custom-radio) {
     margin-left: 40px;
     cursor: pointer;
 }
+.dropdown {
+    color: var(--dark-text);
+}
 /* ================
     CUSTOM INPUT
 ================= */
@@ -37,6 +40,7 @@ textarea {
   outline: none;
   padding: 10px;
   background-color: var(--dark-background);
+  color: var(--dark-text);
 }
 input[type="button"] {
   -webkit-appearance: button;
@@ -108,6 +112,13 @@ input[type="number"] {
     left: 0;
     vertical-align: middle;
     font-family: open sans, sans-serif;
+    color: var(--dark-text);
+}
+#footer-parent a:link {
+    color: var(--dark-a-link);
+}
+#footer-parent a:visited {
+    color: var(--dark-a-visited);
 }
 .emoji { vertical-align: middle; }
 
@@ -120,7 +131,7 @@ input[type="number"] {
 .radio-toolbar :checked + span {
     font-weight: bold;
     background-color: var(--dark-radio-toolbar-selected);
-    color: var(--dark-text-alt);
+    color: var(--dark-text);
     border: black 2px solid;
     margin: auto;
 }
@@ -129,7 +140,7 @@ input[type="number"] {
 }
 .radio-toolbar :not(:checked) + span {
     background-color: var(--dark-input-border);
-    color: black;
+    color: var(--dark-text);
     border: black 2px solid;
 }
 .radio-toolbar span {
@@ -171,7 +182,7 @@ label {
 }
 .radio-group :not(:checked) + span {
     background-color: var(--dark-background);
-    color: black;
+    color: var(--dark-text);
     border: black 2px solid;
 }
 .radio-group span {
@@ -231,6 +242,7 @@ label {
     /* grid-column-start: 1; */
     grid-column-end: 2;
     font-weight: bold;
+    color: var(--dark-text);
 }
 .grid-input {
     grid-column-start: 1;
@@ -239,6 +251,7 @@ label {
     align-content: center;
     text-align: center !important;
     vertical-align: middle !important;
+    color: var(--dark-text);
 }
 .grid-heading {
     width: 100%;
