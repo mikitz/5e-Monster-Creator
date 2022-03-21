@@ -1,27 +1,11 @@
-:root {
-    /* Light */
-    --light-denary: #ffffff;
-    --light-nonary: #e8e8eb;
-    --light-octonary: #d2d2d7;
-    --light-septenary: #bbbbc4;
-    --light-senary: #a5a5b0;
-    --light-quinary: #8e8e9d;
-    --light-quaternary: #787889;
-    --light-tertiary: #616176;
-    --light-secondary: #4b4b62;
-    --light-primary: #35354f;
-    --light-text: black;
-    --light-text-alt: #e8e8eb;
-
-    /* Dark */
-
-}
+@import 'css/constants.css';
 
 body {
     max-width: 1000px;
     margin: auto;
     margin-bottom: 0;
     text-align: center;
+    background-color: var(--light-denary);
 }
 .fa-circle-info {
     color: var(--light-tertiary);
@@ -34,7 +18,9 @@ body {
 input:not(.custom-radio) {
     width: inherit;
 }
-
+.grid-input select {
+    background-color: var(--light-denary);
+}
 /* ================
     CUSTOM INPUT
 ================= */
@@ -46,6 +32,7 @@ textarea {
   margin: 0;
   outline: none;
   padding: 10px;
+  background-color: var(--light-denary);
 }
 input[type="button"] {
   -webkit-appearance: button;
@@ -139,7 +126,7 @@ input[type="number"] {
 }
 .radio-toolbar :checked + span {
     font-weight: bold;
-    background-color: var(--light-septenary);
+    background-color: var(--light-senary);
     color: var(--light-text);
     border: black 2px solid;
     margin: auto;
@@ -148,7 +135,7 @@ input[type="number"] {
     display: none;
 }
 .radio-toolbar :not(:checked) + span {
-    background-color: white;
+    background-color: var(--light-nonary);
     color: black;
     border: black 2px solid;
 }

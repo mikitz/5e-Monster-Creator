@@ -1,0 +1,31 @@
+:root {
+    /* Light */
+    --light-background: #ffffff;
+    --light-input-border: #e8e8eb;
+    --light-octonary: #d2d2d7;
+    --light-septenary: #bbbbc4;
+    --light-senary: #a5a5b0;
+    --light-quinary: #8e8e9d;
+    --light-quaternary: #787889;
+    --light-tertiary: #616176;
+    --light-secondary: #4b4b62;
+    --light-primary: #35354f;
+    --light-text: black;
+    --light-text-alt: #e8e8eb;
+
+    /* Dark */
+    --dark-background: #35354f;
+
+    --dark-primary: #ffffff;
+    --dark-secondary: #e8e8eb;
+    --dark-tertiary: #d2d2d7;
+    --dark-quaternary: #bbbbc4;
+    --dark-quinary: #a5a5b0;
+    --dark-senary: #8e8e9d;
+    --dark-septenary: #787889;
+    --dark-octonary: #616176;
+    --dark-nonary: #4b4b62;
+    
+    --dark-text: #bb86fc;
+    --dark-text-alt: #03dac6;
+}

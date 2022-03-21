@@ -42,6 +42,19 @@ function randomListeners(){
 // ===============================
 //       Element Listeners
 // ===============================
+// Theme changer 
+function changeTheme(){
+    let theme = document.getElementById('theme').checked
+
+    // Light Theme
+    if (theme == true) {
+
+    }
+    // Dark Theme
+    else {
+        
+    }
+}
 // Function to increment number input value
 function incrementValue(e) {
     e.preventDefault();
