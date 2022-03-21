@@ -112,7 +112,7 @@ input[type="number"] {
       FOOTER
 ================= */
 #footer-parent {
-    background-color: var(--light-nonary) !important;
+    background-color: var(--light-footer) !important;
     z-index: 100 !important;
     border-top: black solid 1px !important;
     position: fixed;
@@ -196,7 +196,7 @@ label {
     border-radius: 10px;
     padding: 4px;
     margin: 4px;
-    background-color: var(--light-octonary);
+    background-color: var(--light-card-background);
     /* box-shadow: 0 0 0.75em #867453; */
 }
 .grid-row > * {

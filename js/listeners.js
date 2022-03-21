@@ -45,7 +45,6 @@ function randomListeners(){
 // Theme changer 
 function changeTheme(){
     let theme = document.getElementById('theme').checked
-
     // Light Theme
     if (theme == true) {
 
@@ -64,32 +63,42 @@ function incrementValue(e) {
     let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
     // console.log("ID:", ID)
     let val
-    if (ID == 'save-sum') { val = 6 }
+    if (ID == 'save-sum-input') { val = 6 }
     else if (ID == 'hit-points-input') { val = 8 }
-    else if (ID == 'damage-per-round') { val = 3 }
+    else if (ID == 'damage-per-round-input') { val = 3 }
     else { val = 1 }
-    if (!isNaN(currentVal)) {
-      parent.find('input[name=' + fieldName + ']').val(currentVal + val);
-    } else {
-      parent.find('input[name=' + fieldName + ']').val(0);
-    }
     // ---------------------------
     //       Update Points
     // ---------------------------
     let points = parseInt(document.getElementById('points').innerText)
+    if (points - 1 < 0) {
+        new Toast({
+            message: `You cannot have fewer than 0 points. Try reducing some inputs to get some points back.`,
+            type: 'danger'
+        })
+        return
+    }
     document.getElementById('points').innerText = points - 1
+    // ---------------------------
+    //       Update Value
+    // ---------------------------
+    if (!isNaN(currentVal)) {
+        parent.find('input[name=' + fieldName + ']').val(currentVal + val);
+    } else {
+        parent.find('input[name=' + fieldName + ']').val(0);
+    }
     // ---------------------------
     //     Update Joined Inputs
     // ---------------------------
-    if (ID == 'to-hit-and-dc-bonus') {
-        document.getElementById('spell-to-hit').value = parseInt(document.getElementById('spell-to-hit').value) + 1
-        document.getElementById('spell-save-dc').value = parseInt(document.getElementById('spell-save-dc').value) + 1
-    } else if (ID == 'spell-to-hit') {
-        document.getElementById('to-hit-and-dc-bonus').value = parseInt(document.getElementById('to-hit-and-dc-bonus').value) + 1
-        document.getElementById('spell-save-dc').value = parseInt(document.getElementById('spell-save-dc').value) + 1
-    } else if (ID == 'spell-save-dc') {
-        document.getElementById('to-hit-and-dc-bonus').value = parseInt(document.getElementById('to-hit-and-dc-bonus').value) + 1
-        document.getElementById('spell-to-hit').value = parseInt(document.getElementById('spell-to-hit').value) + 1
+    if (ID == 'to-hit-input') {
+        document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) + 1
+        document.getElementById('spell-save-dc-input').value = parseInt(document.getElementById('spell-save-dc-input').value) + 1
+    } else if (ID == 'spell-to-hit-input') {
+        document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) + 1
+        document.getElementById('spell-save-dc-input').value = parseInt(document.getElementById('spell-save-dc-input').value) + 1
+    } else if (ID == 'spell-save-dc-input') {
+        document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) + 1
+        document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) + 1
     }
 }
 // Function to decrement number input value
@@ -101,9 +110,9 @@ function decrementValue(e) {
     let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
     // console.log("ID:", ID)
     let val
-    if (ID == 'save-sum') { val = 6 }
+    if (ID == 'save-sum-input') { val = 6 }
     else if (ID == 'hit-points-input') { val = 8 }
-    else if (ID == 'damage-per-round') { val = 3 }
+    else if (ID == 'damage-per-round-input') { val = 3 }
     else { val = 1 }
     if ( ID == 'save-sum' && currentVal - val < 0){
         new Toast({
@@ -125,14 +134,14 @@ function decrementValue(e) {
     // ---------------------------
     //     Update Joined Inputs
     // ---------------------------
-    if (ID == 'to-hit-and-dc-bonus') {
-        document.getElementById('spell-to-hit').value = parseInt(document.getElementById('spell-to-hit').value) - 1
-        document.getElementById('spell-save-dc').value = parseInt(document.getElementById('spell-save-dc').value) - 1
-    } else if (ID == 'spell-to-hit') {
-        document.getElementById('to-hit-and-dc-bonus').value = parseInt(document.getElementById('to-hit-and-dc-bonus').value) - 1
-        document.getElementById('spell-save-dc').value = parseInt(document.getElementById('spell-save-dc').value) - 1
-    } else if (ID == 'spell-save-dc') {
-        document.getElementById('to-hit-and-dc-bonus').value = parseInt(document.getElementById('to-hit-and-dc-bonus').value) - 1
-        document.getElementById('spell-to-hit').value = parseInt(document.getElementById('spell-to-hit').value) - 1
+    if (ID == 'to-hit-input') {
+        document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) - 1
+        document.getElementById('spell-save-dc-input').value = parseInt(document.getElementById('spell-save-dc-input').value) - 1
+    } else if (ID == 'spell-to-hit-input') {
+        document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) - 1
+        document.getElementById('spell-save-dc-input').value = parseInt(document.getElementById('spell-save-dc-input').value) - 1
+    } else if (ID == 'spell-save-dc-input') {
+        document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) - 1
+        document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) - 1
     }
 }

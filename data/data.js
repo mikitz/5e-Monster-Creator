@@ -38,11 +38,11 @@ let xpByCr = [
 let elementTablePairs = [
     {elemId: 'armor-class-input', data: 'Armor Class'},
     {elemId: 'hit-points-input', data: 'Hit Points'},
-    {elemId: 'to-hit-and-dc-bonus', data: 'To Hit Bonus'},
-    {elemId: 'damage-per-round', data: 'Damage /Round'},
-    {elemId: 'spell-save-dc', data: 'DC'},
-    {elemId: 'spell-to-hit', data: 'Spell To Hit'},
-    {elemId: 'save-sum', data: 'Sum D/C/W Save'},
+    {elemId: 'to-hit-input', data: 'To Hit Bonus'},
+    {elemId: 'damage-per-round-input', data: 'Damage /Round'},
+    {elemId: 'spell-save-dc-input', data: 'DC'},
+    {elemId: 'spell-to-hit-input', data: 'Spell To Hit'},
+    {elemId: 'save-sum-input', data: 'Sum D/C/W Save'},
 ]
 
 let rothnersChartV2 = [

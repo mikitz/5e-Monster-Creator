@@ -17,16 +17,16 @@ function generateUniqueID() {
     return Math.random().toString(36).substr(2, 9);
 }
 // Function to get a selected value from a radio group
-function getSelectedValueFromRadioGroup(radioGroupName){
+function getSelectedValueFromRadioGroup(radioGroupName, propertyToReturn){
     let initialize = document.getElementsByName(radioGroupName)
     initialize.forEach(element => {
-        if (element.checked){ initialize = element.value }
+        if (element.checked){ initialize = element[propertyToReturn] }
     })
     return initialize
 }
 // Function to populate the creator div
 function populateCreator(){
-    let method = getSelectedValueFromRadioGroup('method') // Get the selected method
+    let method = getSelectedValueFromRadioGroup('method', 'value') // Get the selected method
     let creator = document.getElementById('creator') // Get the creator element that gets populated with the proper HTML
     $(creator).load(`html_templates/${method}.html`) // Populate the innerHTML based on the selected method
 }
@@ -58,7 +58,7 @@ function test(){
 }
 // Function that takes an average value in that then spits out a dice combination or the closest 2 dice combos to the input average value
 function damageToDice(AV, CR){
-    // AV is the average value of the dice, I.E. the average damage: AV = ((M + 1)/2)*N
+    // AV is the average value of the dice, E.G. the average damage: AV = ((M + 1)/2)*N
     // N is the number of dice: N = AV / ((M + 1)/2)	
     // M is the max value of one die: M = (AV / N)*2-1
     const diceSizes = [4, 6, 8, 10, 12, 20] // TODO: Take size into account (Tiny, Small, Medium, Large, Huge, Gargantuan)
@@ -160,12 +160,53 @@ function adjustCasterMartialElements(casterDisplay, martialDisplay, hybridDispla
 // Function that is called when the CR is selected on the I Got This page
 function iGotThisCRFunction(element) {
     monsterType()
+    // Challenge Rating - Part 1
     let cr = element.value
     if (cr == 'select') { return }
     let crText = element.options[element.selectedIndex].text
+    // Get elements
+    let selectedMethod = getSelectedValueFromRadioGroup('method', 'id')
+    let elementPoints = document.getElementById('points')
+    let elementCR = document.getElementById('challenge-rating-statblock')
+    let elementProfBonus = document.getElementById('proficiency_bonus-statblock')
+    let elementAC = document.getElementById('armor-class-statblock')
+    let elementACinput = document.getElementById('armor-class-input')
+    let elementHitDice = document.getElementById('hit-points-statblock')
+    let elementHPinput = document.getElementById('hit-points-input')
+    let elementToHit = document.getElementById('to-hit-input')
+    let elementDMG = document.getElementById('damage-per-round-input')
+    let elementSpellSaveDC = document.getElementById('spell-save-dc-input')
+    let elementSpellToHit = document.getElementById('spell-to-hit-input')
+    let elementSpellLevel = document.getElementById('spell-level-input')
+    let elementSpellDamage = document.getElementById('spell-damage-input')
+    let elementSaveSum = document.getElementById('save-sum-input')
     // Points
     let points = ( cr * 5 ) + 8
-    document.getElementById('points').innerHTML = `<b>${Math.round(points)}</b>`
+    let prevCR = localStorage.getItem('CR')
+    // =================================================
+    //   Handle user changing CR after spending points
+    // =================================================
+    if (selectedMethod == "Pre_Gens"){
+
+    } else if (selectedMethod == 'I_Got_This!') {
+        let userPoints = parseInt(elementPoints.innerText)
+        console.log("User Points:", userPoints)
+        if (prevCR && userPoints >= 0) {
+            console.log("Here!")
+            let previousPoints = ( prevCR * 5 ) + 8
+            if (points > previousPoints) {
+                let differenceBetweenPointsAndPrevPoints = points - previousPoints
+                elementPoints.innerText = userPoints + differenceBetweenPointsAndPrevPoints
+                return
+            }
+        }
+    }
+    
+    // Challenge Rating - Part 2
+    localStorage.setItem("CR", parseInt(cr))
+    // ====================================
+    //   Handling the two similar methods
+    // ====================================
     // Challenge Rating
     let xp = xpByCr.find(i => i.CR == cr).XP
     // Starting Purchasables
@@ -180,20 +221,40 @@ function iGotThisCRFunction(element) {
     let spellToHit = rothnersChartV2.find(i => i.CR == cr)['Spell To Hit']
     let spellLevel = rothnersChartV2.find(i => i.CR == cr)['Spell Level']
     let effectiveSpellDamage = rothnersChartV2.find(i => i.CR == cr)['Effective Spell Dmg']
+   
+    if (selectedMethod == 'Pre_Gens') {
+        elementPoints.innerHTML = 0
+        elementCR.innerText = `${crText} (${xp.toLocaleString()} XP)`
+        elementProfBonus.innerText = `+${proficiencyBonus}`
+        elementAC.innerText = AC
+        elementACinput.value = AC
+        elementHitDice.innerText = `${HP} (${hitDice})`
+        elementHPinput.value = HP
+        elementToHit.value = `+${toHitBonus}`
+        elementDMG.value = damagePerRound
+        elementSpellSaveDC.value = DC
+        elementSpellToHit.value = `+${spellToHit}`
+        elementSpellLevel.value = spellLevel
+        elementSpellDamage.value = effectiveSpellDamage
+        elementSaveSum.value = saveSum
+    } else {
+        elementPoints.innerHTML = `<b>${Math.round(points)}</b>`
+        elementCR.innerText = `${crText} (${xp.toLocaleString()} XP)`
+        elementProfBonus.innerText = `+${proficiencyBonus}`
+        elementAC.innerText = 11
+        elementACinput.value = 11
+        elementHitDice.innerText = `8 (TBD)`
+        elementHPinput.value = 8
+        elementToHit.value = 3
+        elementDMG.value = 5
+        elementSpellSaveDC.value = 10
+        elementSpellToHit.value = 2
+        elementSpellLevel.value = spellLevel
+        elementSpellDamage.value = effectiveSpellDamage
+        elementSaveSum.value = 1
+    }
 
-    document.getElementById('challenge-rating').innerText = `${crText} (${xp.toLocaleString()} XP)`
-    document.getElementById('proficiency_bonus').innerText = `+${proficiencyBonus}`
-    document.getElementById('armor-class').innerText = AC
-    document.getElementById('armor-class-input').value = AC
-    document.getElementById('hit-points').innerText = `${HP} (${hitDice})`
-    document.getElementById('hit-points-input').value = HP
-    document.getElementById('to-hit-and-dc-bonus').value = `+${toHitBonus}`
-    document.getElementById('damage-per-round').value = damagePerRound
-    document.getElementById('spell-save-dc').value = DC
-    document.getElementById('spell-to-hit').value = `+${spellToHit}`
-    document.getElementById('spell-level').value = spellLevel
-    document.getElementById('spell-damage').value = effectiveSpellDamage
-    document.getElementById('save-sum').value = saveSum
+    
 }
 // Function to randomly generate a monster based on user inputs
 function generateMonster(method){
