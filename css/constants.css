@@ -7,6 +7,10 @@
     --light-text-alt: #ffffff;
     --light-footer: #d2d2d7;;
     --light-card-background: #bbbbc4;
+    --light-radio-toolbar-selected: #4b4b62;
+    --light-radio-toolbar-hover: #8e8e9d;
+    --light-radio-group-selected: #8e8e9d;
+    --light-radio-group-hover: #bbbbc4;
 
     --light-octonary: #d2d2d7;
     --light-septenary: #bbbbc4;
@@ -19,6 +23,10 @@
 
     /* Dark */
     --dark-background: #35354f;
+    --dark-input-border: #616176;
+    --dark-icon: #d2d2d7;
+    --dark-text: #bb86fc;
+    --dark-text-alt: #03dac6;
 
     --dark-primary: #ffffff;
     --dark-secondary: #e8e8eb;
@@ -29,7 +37,4 @@
     --dark-septenary: #787889;
     --dark-octonary: #616176;
     --dark-nonary: #4b4b62;
-    
-    --dark-text: #bb86fc;
-    --dark-text-alt: #03dac6;
 }

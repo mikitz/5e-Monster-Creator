@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>5e Monster Creator</title>  
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/light.css" id="theme-css"/>
     <link rel="stylesheet" href="css/toast.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://kit.fontawesome.com/7e282d14cd.js" crossorigin="anonymous"></script>
@@ -39,6 +39,9 @@
                     <input class="checkbox" type="radio" name="method" id="Random" value="Random"/>
                     <span>Random</span>
                 </label>
+                
+                <i class="fa-solid fa-circle-half-stroke" id="theme-changer"></i>
+                
             </div>
         </div>
         <!-- Creator -->
@@ -51,6 +54,7 @@
     <p style="font-size: 12px;">An honorable mention to <a href="https://www.reddit.com/user/The_Grim_Bard/">u/The_Grim_Bard</a> and their post about <a href="https://www.reddit.com/r/DMAcademy/comments/hyilfk/using_defined_enemy_roles_to_make_combat_more/">Enemy Roles</a></p>
 </div>
 <script>
+    localStorage.setItem("theme", "light")
     indexListeners()
     populateCreator()
 </script>

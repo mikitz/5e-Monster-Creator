@@ -8,6 +8,8 @@ function indexListeners() {
         const ID = element.id
         element.addEventListener('change', function() { populateCreator() })
     });
+
+    document.getElementById('theme-changer').addEventListener('click', function() { changeTheme() })
 }
 
 function iGotThisListeners(){
@@ -44,14 +46,16 @@ function randomListeners(){
 // ===============================
 // Theme changer 
 function changeTheme(){
-    let theme = document.getElementById('theme').checked
+    const theme = localStorage.getItem('theme')
     // Light Theme
-    if (theme == true) {
-
+    if (theme == 'dark') {
+        localStorage.setItem('theme', 'light')
+        document.getElementById('theme-css').setAttribute('href', 'css/light.css')
     }
     // Dark Theme
     else {
-        
+        localStorage.setItem('theme', 'dark')
+        document.getElementById('theme-css').setAttribute('href', 'css/dark.css')
     }
 }
 // Function to increment number input value

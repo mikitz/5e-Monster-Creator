@@ -1,0 +1,247 @@
+@import './constants.css';
+
+body {
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 0;
+    text-align: center;
+    background-color: var(--light-background);
+}
+.fa-circle-info {
+    color: var(--light-icon);
+    font-size: 0.1 !important; 
+}
+.fa-rotate-left {
+    cursor: pointer;
+    color: var(--light-icon);
+}
+input:not(.custom-radio) {
+    width: inherit;
+}
+.grid-input select {
+    background-color: var(--light-background);
+}
+.fa-circle-half-stroke {
+    margin-left: 40px;
+    cursor: pointer;
+}
+/* ================
+    CUSTOM INPUT
+================= */
+/* Source: http://jsfiddle.net/polaszk/1oyfxoor/ */
+input,
+textarea {
+  border: 1px solid var(--light-nonary);
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+  background-color: var(--light-background);
+}
+input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.input-group {
+  clear: both;
+  margin: 5px 0;
+  position: relative;
+  height: 38px;
+  display: flex;
+}
+.input-group input[type='button'] {
+  background-color: var(--light-input-border);
+  min-width: 38px;
+  width: auto;
+  transition: all 300ms ease;
+}
+.input-group .button-minus,
+.input-group .button-plus {
+  font-weight: bold;
+  height: 38px;
+  padding: 0;
+  width: 38px;
+  position: relative;
+}
+.input-group .quantity-field {
+  position: relative;
+  height: 38px;
+  left: -6px;
+  text-align: center;
+  width: 62px;
+  display: inline-block;
+  font-size: 13px;
+  margin: 0 0 5px;
+  resize: vertical;
+}
+.button-minus, .button-plus {
+    background-color: var(--light-input-border) !important;
+    font-size: 20px;
+}
+.button-plus {
+    left: -5px;
+}
+.button-minus {
+    left: 5px
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}
+.number-input {
+    height: 38px;
+}
+/* ================
+      FOOTER
+================= */
+#footer-parent {
+    background-color: var(--light-footer) !important;
+    z-index: 100 !important;
+    border-top: black solid 1px !important;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    vertical-align: middle;
+    font-family: open sans, sans-serif;
+}
+.emoji { vertical-align: middle; }
+
+/* ======================= 
+        RADIO TOOLBAR
+========================== */
+.radio-toolbar {
+    margin: 15px;
+}
+.radio-toolbar :checked + span {
+    font-weight: bold;
+    background-color: var(--light-radio-toolbar-selected);
+    color: var(--light-text-alt);
+    border: black 2px solid;
+    margin: auto;
+}
+.checkbox {
+    display: none;
+}
+.radio-toolbar :not(:checked) + span {
+    background-color: var(--light-input-border);
+    color: black;
+    border: black 2px solid;
+}
+.radio-toolbar span {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 3px;
+}
+.radio-toolbar input {
+    cursor: pointer;
+}
+label {
+    display: inline-block;
+}
+.radio-toolbar {
+    margin-top: 30px;
+}
+.radio-toolbar label :hover {
+    background-color: var(--light-radio-toolbar-hover);
+    color: var(--light-text);
+}
+
+/* ======================= 
+        RADIO GROUPS
+========================== */
+.radio-group {
+    margin: 5px;
+    /* margin-top: 30px; */
+}
+.radio-group :checked + span {
+    font-weight: bold;
+    background-color: var(--light-radio-group-selected);
+    color: var(--light-text);
+    border: black 2px solid;
+    margin: auto;
+}
+.checkbox {
+    display: none;
+}
+.radio-group :not(:checked) + span {
+    background-color: var(--light-background);
+    color: black;
+    border: black 2px solid;
+}
+.radio-group span {
+    cursor: pointer;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 3px;
+}
+.radio-group input {
+    cursor: pointer;
+}
+label {
+    display: inline-block;
+}
+.radio-group label :hover {
+    background-color: var(--light-radio-group-hover);
+    color: var(--light-text);
+}
+/* ======================= 
+           Grid
+========================== */
+.grid-container {
+    display: inline-grid;
+    column-gap: 50px;
+}
+.grid-statblock {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+.grid-inputs {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    display: flex;
+    column-gap: 10px;
+    overflow-wrap: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 600px;
+}
+.grid-row {
+    grid-column: 1 span 2;
+    display: grid;
+    height: fit-content;
+    align-content: center;
+    text-align: center;
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 4px;
+    margin: 4px;
+    background-color: var(--light-card-background);
+    /* box-shadow: 0 0 0.75em #867453; */
+}
+.grid-row > * {
+    margin: 2px;
+}
+.grid-header {
+    /* grid-column-start: 1; */
+    grid-column-end: 2;
+    font-weight: bold;
+}
+.grid-input {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: fit-content;
+    align-content: center;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+.grid-heading {
+    width: 100%;
+    display: flex;
+    column-gap: 15px;
+}

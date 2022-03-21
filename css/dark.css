@@ -5,21 +5,25 @@ body {
     margin: auto;
     margin-bottom: 0;
     text-align: center;
-    background-color: var(--light-background);
+    background-color: var(--dark-background);
 }
 .fa-circle-info {
-    color: var(--light-icon);
+    color: var(--dark-icon);
     font-size: 0.1 !important; 
 }
 .fa-rotate-left {
     cursor: pointer;
-    color: var(--light-icon);
+    color: var(--dark-icon);
 }
 input:not(.custom-radio) {
     width: inherit;
 }
 .grid-input select {
-    background-color: var(--light-background);
+    background-color: var(--dark-background);
+}
+.fa-circle-half-stroke {
+    margin-left: 40px;
+    cursor: pointer;
 }
 /* ================
     CUSTOM INPUT
@@ -27,12 +31,12 @@ input:not(.custom-radio) {
 /* Source: http://jsfiddle.net/polaszk/1oyfxoor/ */
 input,
 textarea {
-  border: 1px solid var(--light-nonary);
+  border: 1px solid var(--dark-nonary);
   box-sizing: border-box;
   margin: 0;
   outline: none;
   padding: 10px;
-  background-color: var(--light-background);
+  background-color: var(--dark-background);
 }
 input[type="button"] {
   -webkit-appearance: button;
@@ -50,7 +54,7 @@ input::-webkit-inner-spin-button {
   display: flex;
 }
 .input-group input[type='button'] {
-  background-color: var(--light-nonary);
+  background-color: var(--dark-input-border);
   min-width: 38px;
   width: auto;
   transition: all 300ms ease;
@@ -75,7 +79,7 @@ input::-webkit-inner-spin-button {
   resize: vertical;
 }
 .button-minus, .button-plus {
-    background-color: var(--light-input-border) !important;
+    background-color: var(--dark-input-border) !important;
     font-size: 20px;
 }
 .button-plus {
@@ -95,7 +99,7 @@ input[type="number"] {
       FOOTER
 ================= */
 #footer-parent {
-    background-color: var(--light-footer) !important;
+    background-color: var(--dark-footer) !important;
     z-index: 100 !important;
     border-top: black solid 1px !important;
     position: fixed;
@@ -115,8 +119,8 @@ input[type="number"] {
 }
 .radio-toolbar :checked + span {
     font-weight: bold;
-    background-color: var(--light-senary);
-    color: var(--light-text);
+    background-color: var(--dark-radio-toolbar-selected);
+    color: var(--dark-text-alt);
     border: black 2px solid;
     margin: auto;
 }
@@ -124,7 +128,7 @@ input[type="number"] {
     display: none;
 }
 .radio-toolbar :not(:checked) + span {
-    background-color: var(--light-nonary);
+    background-color: var(--dark-input-border);
     color: black;
     border: black 2px solid;
 }
@@ -144,8 +148,8 @@ label {
     margin-top: 30px;
 }
 .radio-toolbar label :hover {
-    background-color: var(--light-secondary);
-    color: var(--light-text-alt);
+    background-color: var(--dark-radio-toolbar-hover);
+    color: var(--dark-text);
 }
 
 /* ======================= 
@@ -157,8 +161,8 @@ label {
 }
 .radio-group :checked + span {
     font-weight: bold;
-    background-color: var(--light-quaternary);
-    color: var(--light-text-alt);
+    background-color: var(--dark-radio-group-selected);
+    color: var(--dark-text);
     border: black 2px solid;
     margin: auto;
 }
@@ -166,7 +170,7 @@ label {
     display: none;
 }
 .radio-group :not(:checked) + span {
-    background-color: var(--light-nonary);
+    background-color: var(--dark-background);
     color: black;
     border: black 2px solid;
 }
@@ -183,8 +187,8 @@ label {
     display: inline-block;
 }
 .radio-group label :hover {
-    background-color: var(--light-secondary);
-    color: var(--light-text-alt);
+    background-color: var(--dark-radio-group-hover);
+    color: var(--dark-text);
 }
 /* ======================= 
            Grid
@@ -217,7 +221,7 @@ label {
     border-radius: 10px;
     padding: 4px;
     margin: 4px;
-    background-color: var(--light-card-background);
+    background-color: var(--dark-card-background);
     /* box-shadow: 0 0 0.75em #867453; */
 }
 .grid-row > * {
