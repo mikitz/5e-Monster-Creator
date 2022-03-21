@@ -125,7 +125,7 @@ input[type="number"] {
 .emoji { vertical-align: middle; }
 
 /* ======================= 
-        RADIO GROUPS
+        RADIO TOOLBAR
 ========================== */
 .radio-toolbar {
     margin: 15px;
@@ -165,6 +165,44 @@ label {
     color: var(--light-text-alt);
 }
 
+/* ======================= 
+        RADIO GROUPS
+========================== */
+.radio-group {
+    margin: 5px;
+    /* margin-top: 30px; */
+}
+.radio-group :checked + span {
+    font-weight: bold;
+    background-color: var(--light-quaternary);
+    color: var(--light-text-alt);
+    border: black 2px solid;
+    margin: auto;
+}
+.checkbox {
+    display: none;
+}
+.radio-group :not(:checked) + span {
+    background-color: var(--light-nonary);
+    color: black;
+    border: black 2px solid;
+}
+.radio-group span {
+    cursor: pointer;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 3px;
+}
+.radio-group input {
+    cursor: pointer;
+}
+label {
+    display: inline-block;
+}
+.radio-group label :hover {
+    background-color: var(--light-secondary);
+    color: var(--light-text-alt);
+}
 /* ======================= 
            Grid
 ========================== */
