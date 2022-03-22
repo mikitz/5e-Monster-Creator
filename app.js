@@ -248,7 +248,7 @@ function iGotThisCRFunction(element) {
         elementSpellDamage.value = effectiveSpellDamage
         elementSaveSum.value = saveSum
     } else {
-        elementPoints.innerHTML = `<b>${Math.round(points)}</b>`
+        elementPoints.innerHTML = `<b>${Math.round((cr * 5)+6)}</b>`
         elementCR.innerText = `${crText} (${xp.toLocaleString()} XP)`
         elementProfBonus.innerText = `+${proficiencyBonus}`
         elementAC.innerText = 11
@@ -256,7 +256,7 @@ function iGotThisCRFunction(element) {
         elementHitDice.innerText = `8 (TBD)`
         elementHPinput.value = 8
         elementToHit.value = 3
-        elementDMG.value = 5
+        elementDMG.value = 3
         elementSpellSaveDC.value = 10
         elementSpellToHit.value = 2
         elementSpellLevel.value = spellLevel
