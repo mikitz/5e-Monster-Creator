@@ -37,9 +37,11 @@ function iGotThisListeners(){
 function walkthroughListeners(){
 
 }
-
 function randomListeners(){
-    
+    let creator = document.getElementsByName('generation-method')
+    creator.forEach(element => {
+        element.addEventListener('change', function() { populateGenerator() })
+    });
 }
 // ===============================
 //       Element Listeners

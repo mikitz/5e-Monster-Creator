@@ -8,63 +8,24 @@ function setTheme() {
         localStorage.setItem('theme', 'light')
     }
 }
-// Function to sum an array
-function sumArray(array){
-    return array.reduce((partialSum, a) => partialSum + a, 0);
-}
-// Declare a function to select a random value from a dictionary
-// Source: https://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-var randomProperty = function (obj) {
-    var keys = Object.keys(obj);
-    return obj[keys[ keys.length * Math.random() << 0]];
-}
-// Function to generate a random ID
-// Source: https://gist.github.com/gordonbrander/2230317
-function generateUniqueID() {
-    // Math.random should be unique because of its seeding algorithm.
-    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-    // after the decimal.
-    return Math.random().toString(36).substr(2, 9);
-}
-// Function to get a selected value from a radio group
-function getSelectedValueFromRadioGroup(radioGroupName, propertyToReturn){
-    let initialize = document.getElementsByName(radioGroupName)
-    initialize.forEach(element => {
-        if (element.checked){ initialize = element[propertyToReturn] }
-    })
-    return initialize
-}
 // Function to populate the creator div
 function populateCreator(){
     let method = getSelectedValueFromRadioGroup('method', 'value') // Get the selected method
     let creator = document.getElementById('creator') // Get the creator element that gets populated with the proper HTML
     $(creator).load(`html_templates/${method}.html`) // Populate the innerHTML based on the selected method
 }
-// FUnction to set Random listeners
-function setListenersRandom(){
-    let creator = document.getElementsByName('generation-method')
-    creator.forEach(element => {
-        element.addEventListener('change', function() { populateGenerator() })
-    });
+// Function to update the instructions
+function updateInstructions(){
+    let selectedMethod = getSelectedValueFromRadioGroup('method', 'id')
+    let instructions = document.getElementById('instructions')
+    if (selectedMethod == 'Pre_Gens') { instructions.innerHTML = `Start from a baseline determined by CR, then reduce the below inputs to gain additional pionts that can be spent anywhere else.` }
+    else if (selectedMethod == 'I_Got_This!') { instructions.innerHTML = `Start by selecting a CR, which determines how many points you have to spend, then spend them to your heart's content!` }
 }
 // Function to populate the generator div
 function populateGenerator(){
-    let method = getSelectedValueFromRadioGroup('generation-method') // Get the selected method
+    let method = getSelectedValueFromRadioGroup('generation-method', 'value') // Get the selected method
     let creator = document.getElementById('generator') // Get the creator element that gets populated with the proper HTML
     $(creator).load(`html_templates/random_generator_templates/${method}.html`) // Populate the innerHTML based on the selected method
-}
-// Function to capitalize the first letter of a string
-function capitalize(str){
-    const arr = str.split(" ")
-    for (var i = 0; i < arr.length; i++) {
-        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-    }
-    return arr.join(" ")
-}
-function test(){
-    let cr = document.getElementById('chal-rating').value
-    let avg = document.getElementById('average-value').value
-    damageToDice(avg, cr)
 }
 // Function that takes an average value in that then spits out a dice combination or the closest 2 dice combos to the input average value
 function damageToDice(AV, CR){
@@ -136,7 +97,7 @@ function damageToDice(AV, CR){
     // console.log("String:", str)
     return output
 }
-// Function to addjust inputs based on the type of monster 
+// Function to adjust inputs based on the type of monster 
 function monsterType(){
     let cr = document.getElementById('cr').value
     if (cr == 'select'){ 
@@ -267,7 +228,7 @@ function iGotThisCRFunction(element) {
     
 }
 // Function to randomly generate a monster based on user inputs
-function generateMonster(method){
+function generateRandomMonster(method){
     let monster = {} // Set up the JSON to write the data to
     // =========================
     //     Challenge Rating
@@ -488,7 +449,6 @@ function addPC(){
         })
     });
 }
-
 // Function to pull a randomly selected monster from Open5e and display it in Statblock5e
 // Will not be useful soon, as it was just practice
 function generateMonsterFromOpen5e(){
