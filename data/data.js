@@ -69,3 +69,11 @@ let rothnersChartV2 = [
  * 1.) To Hit Bonus is now rounded down as the original chart had values ending in 0.5, E.G. CR 9 had a To Hit Bonus of 8.5. The CR 9 To Hit Bonus is not 8. To compensate for this, 4 HP was added to the Hit Points column.
  * 2.) 
  */
+let roles = [{"ROLE":"Striker","DESCRIPTION":"A monster who relies on mobility to compensate for its low HP and low AC in order to deal high single-target damage.","ATTRIBUTES":"DMG x2; HP / 2"},
+{"ROLE":"Artillery","DESCRIPTION":"A monster that does high ranged damage; and usualy to more than one PC at a time while suffering from low HP and low AC; the ","ATTRIBUTES":"DMG per attack does half of rounds total damage and the ability to hit up to 5 PCs; HP / 2; AC equal to AC of Monster with a CR 5 below current CR."},
+{"ROLE":"Skirmisher","DESCRIPTION":"A monster whose goal is to harass the party -- particularly those members most vulnerable -- by moving around the battlefield swiftly.","ATTRIBUTES":"AC: Consider increasing as a proxy for being nimble; DMG x1.5; HP / 2; give Bonus Action dash/disengage"},
+{"ROLE":"Ambusher","DESCRIPTION":"A monster who is adept at hiding; striking from the shadows at the expense of HP and DMG when not hiding. Perhaps a little poison is on their weapons; too?","ATTRIBUTES":"DMG x2 when coming out of hiding; Debilitating effecting when coming out of hiding; HP x0.75; other DMG x0.75"},
+{"ROLE":"Controller","DESCRIPTION":"A monster who is a crowd control specialist; from changing easily traversable grass into a hellscape to raising an impassable wall right in front of the PCs.","ATTRIBUTES":"No DMG spells; just CC spells."},
+{"ROLE":"Bufffer","DESCRIPTION":"A monster whose presence means their allies will be attacking with advantage; will be blessed; or be invulnerable to certain spells.","ATTRIBUTES":"No DMG spells; just Buffs."},
+{"ROLE":"Defender","DESCRIPTION":"A monster with excellent defensibility; high HP; and a knack for debuffing the PCs.","ATTRIBUTES":"DMG x0.75; HP x2; AC equal to AC of Monster with a CR 5 above; Debuffing spells only"},
+{"ROLE":"Disruptor","DESCRIPTION":"A monster whose sole purpose is to annoy the PCs in any way possible.","ATTRIBUTES":"HP x0.75; DMG x1"}]
