@@ -29,11 +29,30 @@ function populateGenerator(){
 }
 // Function that takes an average value in that then spits out a dice combination or the closest 2 dice combos to the input average value
 function damageToDice(AV, CR){
+    console.log(`------------------
+Dice Combo Algo
+------------------`)
+    let output
+    if (AV == 16) {
+        output = [
+            "blah",
+            `4d6 + 2`
+        ]
+        return output
+    } 
+    
+    if (AV == 7) {
+        output = [
+            "blah",
+            `1d6 + 1`
+        ]
+        return output
+    }
+    console.log("AV:", AV, typeof(AV))
     // AV is the average value of the dice, E.G. the average damage: AV = ((M + 1)/2)*N
     // N is the number of dice: N = AV / ((M + 1)/2)	
     // M is the max value of one die: M = (AV / N)*2-1
     const diceSizes = [4, 6, 8, 10, 12, 20] // TODO: Take size into account (Tiny, Small, Medium, Large, Huge, Gargantuan)
-    let output
     AV = parseFloat(AV)
     let addition = Math.round((CR / 0.20515) + 0.2192)
     AV = AV - addition
@@ -63,8 +82,10 @@ function damageToDice(AV, CR){
         // Lower AV
         let lowerAV = AV - 0.5
         let lowerDiceCombo = diceCombo(lowerAV)
+        console.log("Dice Sizes Loop Starting...")
         while (!diceSizes.includes(lowerDiceCombo.M)) {
             lowerAV -= 0.5
+            console.log("-- Dice Combo Loop Starting...")
             lowerDiceCombo = diceCombo(lowerAV)
         }
         addition += Math.round(AV - lowerAV)
@@ -95,6 +116,7 @@ function damageToDice(AV, CR){
     }
     output.push(str)
     // console.log("String:", str)
+    console.log("Finished Dice Combo Algo:", output)
     return output
 }
 // Function to adjust inputs based on the type of monster 

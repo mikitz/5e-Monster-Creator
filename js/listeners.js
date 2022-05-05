@@ -67,7 +67,6 @@ function incrementValue(e) {
     var parent = $(e.target).closest('div');
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
     let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
-    // console.log("ID:", ID)
     let val
     if (ID == 'save-sum-input') { val = 6 }
     else if (ID == 'hit-points-input') { val = 8 }
@@ -106,6 +105,20 @@ function incrementValue(e) {
         document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) + 1
         document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) + 1
     }
+    // ---------------------------
+    //     Update Statblock
+    // ---------------------------
+    statblockID = ID.replace("-input", "-statblock")
+    let hitDice
+    let cr = document.getElementById('cr').value
+    let newVal = currentVal + val
+    console.log("New Val:", newVal, typeof(newVal))
+    if (statblockID == "hit-points-statblock") {
+        hitDice = damageToDice(newVal, cr)[1]
+        document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
+        return
+    }
+    document.getElementById(statblockID).innerText = newVal
 }
 // Function to decrement number input value
 function decrementValue(e) {
@@ -114,7 +127,6 @@ function decrementValue(e) {
     var parent = $(e.target).closest('div');
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
     let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
-    // console.log("ID:", ID)
     let val
     if (ID == 'save-sum-input') { val = 6 }
     else if (ID == 'hit-points-input') { val = 8 }
@@ -150,4 +162,18 @@ function decrementValue(e) {
         document.getElementById('to-hit-input').value = parseInt(document.getElementById('to-hit-input').value) - 1
         document.getElementById('spell-to-hit-input').value = parseInt(document.getElementById('spell-to-hit-input').value) - 1
     }
+    // ---------------------------
+    //     Update Statblock
+    // ---------------------------
+    statblockID = ID.replace("-input", "-statblock")
+    let hitDice
+    let cr = document.getElementById('cr').value
+    let newVal = currentVal - val
+    console.log("New Val:", newVal, typeof(newVal))
+    if (statblockID == "hit-points-statblock") {
+        hitDice = damageToDice(newVal, cr)[1]
+        document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
+        return
+    }
+    document.getElementById(statblockID).innerText = newVal
 }
