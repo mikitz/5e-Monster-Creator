@@ -32,3 +32,22 @@ function capitalize(str){
     }
     return arr.join(" ")
 }
+// Sleep time expects milliseconds
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+// Pop a modal
+function openModal(name, ID) {
+    // Get Modal Elements
+    const modal = document.getElementById("myModal") // Get the modal
+    const span = document.getElementsByClassName("close")[0] // Get the <span> element that closes the modal
+    const header = document.getElementById('modal-header') // Get the modal header
+    modal.style.display = "block" // Display the modal
+    // Set onClick Listeners for the modal
+    span.onclick = function() { modal.style.display = "none" } // When the user clicks on <span> (x), close the modal
+    window.onclick = function(event) { if (event.target == modal) modal.style.display = "none" } // When the user clicks anywhere outside of the modal, close it
+    // Update Modal content
+    name = name.replace("-", " ")
+    header.innerText = name
+}

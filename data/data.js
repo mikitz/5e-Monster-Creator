@@ -35,6 +35,136 @@ let xpByCr = [
     {"CR":30,"XP":155000}
 ]
 
+let senses = [
+    'blindsight',
+    'darkvision',
+    'tremorsense',
+    'truesight'
+]
+
+let conditions = [
+    'blinded',
+    'charmed',
+    'deafened',
+    'exhaustion',
+    'frightened',
+    'grappled',
+    'incapacitated',
+    'invisible',
+    'paralyzed',
+    'petrified',
+    'poisoned',
+    'prone',
+    'restrained',
+    'stunned',
+    'unconscious'   
+]
+
+let damageTypes = [
+    'acid',
+    'bludgeoning',
+    'cold',
+    'fire',
+    'force',
+    'lightning',
+    'necrotic',
+    'piercing',
+    'poison',
+    'psychic',
+    'radiant',
+    'slashing',
+    'thunder',
+    "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered",
+    "bludgeoning, piercing, and slashing from nonmagical attacks"
+]
+
+let skills = [
+    'athletics',
+    'acrobatics',
+    'sleight of hand',
+    'stealth',
+    'arcana',
+    'history',
+    'investigation',
+    'nature',
+    'religion',
+    'animal handling',
+    'insight',
+    'medicine',
+    'perception',
+    'survival',
+    'deception',
+    'intimidation',
+    'performance',
+    'persuasion'
+]
+
+let abilities = [
+    'strength',
+    'dexterity',
+    'constitution',
+    'intelligence',
+    'wisdom',
+    'charisma'
+]
+
+let sizes = [
+    'tiny',
+    'small',
+    'medium',
+    'large',
+    'huge',
+    'gargantuan'
+]
+
+let alignments = [
+    'lawful good',
+    'lawful neutral',
+    'lawful evil',
+    'neutral good',
+    'true neutral',
+    'neutral evil',
+    'chaotic good',
+    'chaotic neutral',
+    'chaotic evil'
+]
+
+let monsterTypes = [
+    'aberration',
+    'beast',
+    'celestial',
+    'construct',
+    'dragon',
+    'elemental',
+    'fey',
+    'fiend',
+    'giant',
+    'humanoid',
+    'monstrosity',
+    'ooze',
+    'plant',
+    'undead'
+]
+
+let languages = [
+    'common',
+    'dwarvish',
+    'elvish',
+    'giant',
+    'gnomish',
+    'goblin',
+    'halfling',
+    'orc',
+    'abyssal',
+    'celestial',
+    'draconic',
+    'deep speech',
+    'infernal',
+    'primordial',
+    'sylvan',
+    'undercommon'
+]
+
 let elementTablePairs = [
     {elemId: 'armor-class-input', data: 'Armor Class'},
     {elemId: 'hit-points-input', data: 'Hit Points'},
@@ -66,6 +196,6 @@ let rothnersChartV2 = [
     {"CR":17,"Level":">20","Prof":6,"Armor Class":19,"Hit Points":270,"Sum D/C/W Save":27,"Damage /Round":108,"To Hit Bonus":12.5,"DC":19.5,"Spell To Hit":11.5,"Spell Level":9,"Effective Spell Dmg":103}
 ] 
 /** ADJUSTMENTS FROM THE ORIGINAL
-    1.) To Hit Bonus is now rounded down as the original chart had values ending in 0.5, E.G. CR 9 had a To Hit Bonus of 8.5. The CR 9 To Hit Bonus is not 8. To compensate for this, 4 HP was added to the Hit Points column.
+    1.) To Hit Bonus is now rounded down as the original chart had values ending in 0.5, E.G. CR 9 had a To Hit Bonus of 8.5. The CR 9 To Hit Bonus is now 8. To compensate for this, 4 HP was added to the Hit Points column.
     2.) 
  */

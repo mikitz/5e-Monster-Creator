@@ -18,8 +18,8 @@ function populateCreator(){
 function updateInstructions(){
     let selectedMethod = getSelectedValueFromRadioGroup('method', 'id')
     let instructions = document.getElementById('instructions')
-    if (selectedMethod == 'Pre_Gens') { instructions.innerHTML = `Start from a baseline determined by CR, then reduce the below inputs to gain additional pionts that can be spent anywhere else.` }
-    else if (selectedMethod == 'I_Got_This!') { instructions.innerHTML = `Start by selecting a CR, which determines how many points you have to spend, then spend them to your heart's content!` }
+    if (selectedMethod == 'Pre_Gens') { instructions.innerHTML = `Start from a baseline determined by CR, then reduce the below inputs to gain additional points that can be spent anywhere else. Click on the eleemnts in the statblock to edit them.` }
+    else if (selectedMethod == 'I_Got_This!') { instructions.innerHTML = `Start by selecting a CR, which determines how many points you have to spend, then spend them to your heart's content! Click on the eleemnts in the statblock to edit them.` }
 }
 // Function to populate the generator div
 function populateGenerator(){
@@ -649,4 +649,30 @@ function generateMonsterFromOpen5e(){
         console.log("PCs:", PCs)
         console.log("Difficulty:", difficulty)
     }
+}
+// Function to download the statblock as a jpg
+function dowwnloadStatblockAsImage() {
+    const name = document.getElementById('monster-name-statblock').innerText
+    // domtoimage.toJpeg(document.getElementById('output'), { quality: 0.95 })
+        // .then(function (dataUrl) {
+        //     var link = document.createElement('a');
+        //     link.download = `(Statblock) ${name}.jpeg`;
+        //     link.href = dataUrl;
+        //     link.click();
+        // });
+    // domtoimage.toPng(document.getElementById('output'))
+    //     .then(function (dataUrl) {
+    //         var link = document.createElement('a');
+    //         link.download = `(Statblock) ${name}.png`;
+    //         link.href = dataUrl;
+    //         link.click();
+    //     });
+    domtoimage.toBlob(document.getElementById('output')) // TODO: This renders a transparent background with red text and cannot load two fonts
+        .then(function (blob) {
+            window.saveAs(blob, `(Statblock) ${name}.png`);
+        });
+}
+// Function to download for a FoundryVTT Import
+function downloadFoundryVttJson() {
+    
 }

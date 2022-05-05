@@ -11,7 +11,7 @@ function indexListeners() {
 
     document.getElementById('theme-changer').addEventListener('click', function() { changeTheme() })
 }
-
+// I Got This and Pre. Gens. Listeners
 function iGotThisListeners(){
     document.getElementById('cr').addEventListener('change', function() { iGotThisCRFunction(this) }) // Challenge Rating
     // Type Radio Group
@@ -32,11 +32,30 @@ function iGotThisListeners(){
     $('.input-group').on('click', '.button-minus', function(e) {
         decrementValue(e);
     });
+    // --------------------
+    //   Statblock Inputs
+    // --------------------
+    sleep(100).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+        const statblockInputs = document.querySelectorAll('.statblock-input')
+        statblockInputs.forEach(element => {
+            element.addEventListener('click', function() { 
+                const ID = this.id
+                const name = ID.replace("-statblock", "")
+                console.log(`The ${name} element with ID ${ID} has been clicked!`)
+                openModal(name, ID)
+            })
+        })
+        
+        document.getElementById('download-statblock').addEventListener('click', function() { dowwnloadStatblockAsImage() })
+        document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVttJson() })
+    })
+    
 }
-
+// TODO: Walkthrough Listeners
 function walkthroughListeners(){
 
 }
+// Random Listeners
 function randomListeners(){
     let creator = document.getElementsByName('generation-method')
     creator.forEach(element => {

@@ -9,6 +9,8 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 
 [My Copy](https://docs.google.com/spreadsheets/d/1h_37op9uGTxmHoxEq4BmwU3C3qR_pUT2MunhhB3V1ws/edit#gid=0)
 
+[Google Sheet](https://docs.google.com/spreadsheets/d/1ewjp4myFf-_MFH1Qa5bLM3nbO1EtIFzyhl88Hh6EBe4/edit#gid=529759917)
+
 ## Expansion Ideas
 1. Generate random encounters with randomly generated monsters.
 2. When rolling a new random monster in the same CR, do not allow the current one to be rolled again.

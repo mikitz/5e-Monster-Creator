@@ -22,6 +22,10 @@ function iGotThisTippy(){
     addTippy('save-sum-info', "<u><b>Dex./Con./Wis. Save Sum</u></b><br> This is the amount that you can distribute as you see fit across the aforementioned saves: Dexterity, Constitution, and Wisdom. It costs 1 point to increase this by 6. The other saving throw bonuses (Str., Cha., and Int.) are insignificant enough that you can set them to whatever. <br><i>Sum D/C/W Save column on Rothner's V2 chart.</i>")
     addTippy('type-info', "<u><b>Monster Type</u></b><br> This choice determines which inputs to which you will gain access.")
     addTippy('reset-values', 'Click to reset to defaults for the selected CR.')
+    sleep(100).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+        addTippy('download-statblock', 'Download as a PNG <br> Not yet fully implemented. Take a screenshot instead.')
+        addTippy('download-foundry-vtt', 'Download for FoundryVTT <br> Not yet implemented.')
+    })
 }
 
 function walkthroughTippy(){
