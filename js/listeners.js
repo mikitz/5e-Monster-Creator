@@ -35,14 +35,14 @@ function iGotThisListeners(){
     // --------------------
     //   Statblock Inputs
     // --------------------
-    sleep(100).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+    sleep(200).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
         const statblockInputs = document.querySelectorAll('.statblock-input')
         statblockInputs.forEach(element => {
             element.addEventListener('click', function() { 
                 const ID = this.id
                 const name = ID.replace("-statblock", "")
-                console.log(`The ${name} element with ID ${ID} has been clicked!`)
-                openModal(name, ID)
+                const htmlFile = `${name}.html`
+                openModal(name, ID, htmlFile)
             })
         })
         
@@ -51,7 +51,7 @@ function iGotThisListeners(){
     })
     
 }
-// TODO: Walkthrough Listeners
+// Walkthrough Listeners
 function walkthroughListeners(){
 
 }
@@ -195,4 +195,21 @@ function decrementValue(e) {
         return
     }
     document.getElementById(statblockID).innerText = newVal
+}
+// Modifier Ability Score
+function modifierAbilityScore(operator, e) {
+    e.preventDefault();
+    var fieldName = $(e.target).data('field');
+    var parent = $(e.target).closest('div');
+    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    let ID = parent.find('input[name=' + fieldName + ']')[0]['id']
+    let val
+    if (!isNaN(currentVal) && currentVal > 0) {
+        if (operator == "-") val = currentVal - 1
+        else if (operator == "+") val = currentVal + 1
+        if (val > 30) val = 30 // Abilities cannot exceed 30
+        parent.find('input[name=' + fieldName + ']').val(val);
+    } else {
+        parent.find('input[name=' + fieldName + ']').val(0);
+    }
 }

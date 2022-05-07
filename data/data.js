@@ -99,6 +99,13 @@ let skills = [
     'persuasion'
 ]
 
+let speeds = [
+    'walk',
+    'fly',
+    'climb',
+    'swim'
+]
+
 let abilities = [
     'strength',
     'dexterity',
@@ -126,7 +133,8 @@ let alignments = [
     'neutral evil',
     'chaotic good',
     'chaotic neutral',
-    'chaotic evil'
+    'chaotic evil',
+    'unaligned'
 ]
 
 let monsterTypes = [

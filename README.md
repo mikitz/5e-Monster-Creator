@@ -11,6 +11,21 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 
 [Google Sheet](https://docs.google.com/spreadsheets/d/1ewjp4myFf-_MFH1Qa5bLM3nbO1EtIFzyhl88Hh6EBe4/edit#gid=529759917)
 
+## To-do List
+- [] Allowing rolling from within the statblock for
+    1. [] Skills
+    2. [] Saving Throws
+    3. [] Ability Checks
+        - [] Click for normal roll
+        - [] Ctrl + Click for Disadvantage
+        - [] Alt + Click for Advantage
+    4. [] Hit Points
+    5. [] Attacks
+- [] Hover for Info
+    1. [] Abilities
+    2. [] Skills
+    3. [] Senses
+
 ## Expansion Ideas
 1. Generate random encounters with randomly generated monsters.
 2. When rolling a new random monster in the same CR, do not allow the current one to be rolled again.

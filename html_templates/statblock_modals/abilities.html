@@ -1,0 +1,74 @@
+<style>
+    .grid-row {
+        max-width: 40%;
+    }
+    input {
+        max-width: 100px;
+    }
+</style>
+<div class="grid-inputs" style="max-width: 450px;">
+    <div class="grid-row" name="hybrid">
+        <div class="grid-header">Strength <i class="fa-solid fa-circle-info fa-sm" id="strength-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="strength-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+    <div class="grid-row" name="hybrid">
+        <div class="grid-header">Dexterity <i class="fa-solid fa-circle-info fa-sm" id="dexterity-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="dexterity-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+    <div class="grid-row" name="martial">
+        <div class="grid-header">Constitution <i class="fa-solid fa-circle-info fa-sm" id="constitution-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="constitution-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+    <div class="grid-row" name="hybrid">
+        <div class="grid-header">Intelligence <i class="fa-solid fa-circle-info fa-sm" id="intelligence-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="intelligence-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+    <div class="grid-row" name="caster">
+        <div class="grid-header">Wisdom <i class="fa-solid fa-circle-info fa-sm" id="wisdom-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="wisdom-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+    <div class="grid-row" name="caster">
+        <div class="grid-header">Charisma <i class="fa-solid fa-circle-info fa-sm" id="charisma-info"></i></div>
+        <div class="grid-input">
+            <div class="input-group">
+            <input type="button" value="-" class="button-minus" data-field="quantity">
+            <input class="number-input" type="text" value="1" id="charisma-input" class="quantity-field" name="quantity" readonly/>
+            <input type="button" value="+" class="button-plus" data-field="quantity">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    monsterAbilities()
+    monsterAbilitiesListeners()
+</script>
