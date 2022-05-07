@@ -55,7 +55,7 @@ function openModal(name, ID, content) {
     const elementID = `${name}-statblock`
     name = name.replace("-", " ")
     header.innerText = name
-    const htmlFilePath = `/html_templates/statblock_modals/${content}`
+    const htmlFilePath = `html_templates/statblock_modals/${content}`
     $(body).load(htmlFilePath)
 }
 // Function to save monster data from the statblock
