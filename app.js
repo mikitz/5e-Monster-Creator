@@ -18,8 +18,8 @@ function populateCreator(){
 function updateInstructions(){
     let selectedMethod = getSelectedValueFromRadioGroup('method', 'id')
     let instructions = document.getElementById('instructions')
-    if (selectedMethod == 'Pre_Gens') { instructions.innerHTML = `Start from a baseline determined by CR, then reduce the below inputs to gain additional points that can be spent anywhere else. Click on the eleemnts in the statblock to edit them.` }
-    else if (selectedMethod == 'I_Got_This!') { instructions.innerHTML = `Start by selecting a CR, which determines how many points you have to spend, then spend them to your heart's content! Click on the eleemnts in the statblock to edit them.` }
+    if (selectedMethod == 'Pre_Gens') { instructions.innerHTML = `Start from a baseline determined by CR, then reduce the below inputs to gain additional points that can be spent anywhere else. Click on the elements in the statblock to edit them.` }
+    else if (selectedMethod == 'I_Got_This!') { instructions.innerHTML = `Start by selecting a CR, which determines how many points you have to spend, then spend them to your heart's content! Click on the elements in the statblock to edit them.` }
 }
 // Function to populate the generator div
 function populateGenerator(){
@@ -674,5 +674,9 @@ function dowwnloadStatblockAsImage() {
 }
 // Function to download for a FoundryVTT Import
 function downloadFoundryVttJson() {
+    
+}
+// Function to download a JSON for import into Fantasy Grounds
+function downloadFantasyGrounds() {
     
 }

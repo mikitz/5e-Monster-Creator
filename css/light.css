@@ -37,6 +37,9 @@ input:not(.custom-radio) {
 .fa-dice-d20 {
     cursor: pointer;
 }
+.fa-dungeon {
+    cursor: pointer;
+}
 /* ================
     CUSTOM INPUT
 ================= */

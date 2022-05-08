@@ -48,6 +48,7 @@ function iGotThisListeners(){
         
         document.getElementById('download-statblock').addEventListener('click', function() { dowwnloadStatblockAsImage() })
         document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVttJson() })
+        document.getElementById('download-fantasy-grounds').addEventListener('click', function() { downloadaFantasyGrounds() })
     })
     
 }
