@@ -650,23 +650,40 @@ function generateMonsterFromOpen5e(){
         console.log("Difficulty:", difficulty)
     }
 }
+// Load Local Storage Creature
+function loadLocalStorageMonster(){
+    loadJSONAndUpdateStatblock('senses', 'senses-statblock') // Senses
+    loadJSONAndUpdateStatblock('speed', 'speed-statblock') // Speed
+    loadStringAndUpdateStatblock('name', 'monster-name-statblock') // Name
+    loadStringAndUpdateStatblock('properties', 'monster-properties-statblock') // Properties
+    loadStringAndUpdateStatblock('saving-throws', 'saving_throws-statblock') // Saving Throws
+    loadStringAndUpdateStatblock('skills', 'skills-statblock') // Skills
+    loadStringAndUpdateStatblock('damage-immunities', 'damage_immunities-statblock') // Damage Immunities
+    loadStringAndUpdateStatblock('damage-resistances', 'damage_resistances-statblock') // Damage Resistances
+    loadStringAndUpdateStatblock('damage-vulnerabilties', 'damage_vulnerabilities-statblock') // Damage Vulnerabilities
+    loadStringAndUpdateStatblock('conditoin-immunities', 'condition_immunities-statblock') // Condition Immunities
+    loadStringAndUpdateStatblock('languages', 'languages-statblock') // Languages
+}
+// Function to load a JSON from Local Storage and update Statblock
+function loadJSONAndUpdateStatblock(localStorageKey, elementID){
+    const ls = JSON.parse(localStorage.getItem(localStorageKey))
+    let stringFinal = []
+    document.getElementById(elementID).innerText = ''
+    for (let index = 0; index < senses.length; index++) {
+        const element = senses[index];
+        if (ls[index] == 0) continue
+        stringFinal.push(`${element} ${ls[index]} ft.`)
+    }
+    document.getElementById(elementID).innerText = stringFinal.join(", ")
+}
+// Function to load a string from Local Storage and update the Statblock
+function loadStringAndUpdateStatblock(localStorageKey, elementID){
+    const ls = localStorage.getItem(localStorageKey)
+    document.getElementById(elementID).innerText = ls
+}
 // Function to download the statblock as a jpg
 function dowwnloadStatblockAsImage() {
     const name = document.getElementById('monster-name-statblock').innerText
-    // domtoimage.toJpeg(document.getElementById('output'), { quality: 0.95 })
-        // .then(function (dataUrl) {
-        //     var link = document.createElement('a');
-        //     link.download = `(Statblock) ${name}.jpeg`;
-        //     link.href = dataUrl;
-        //     link.click();
-        // });
-    // domtoimage.toPng(document.getElementById('output'))
-    //     .then(function (dataUrl) {
-    //         var link = document.createElement('a');
-    //         link.download = `(Statblock) ${name}.png`;
-    //         link.href = dataUrl;
-    //         link.click();
-    //     });
     domtoimage.toBlob(document.getElementById('output')) // TODO: This renders a transparent background with red text and cannot load two fonts
         .then(function (blob) {
             window.saveAs(blob, `(Statblock) ${name}.png`);
@@ -678,5 +695,5 @@ function downloadFoundryVttJson() {
 }
 // Function to download a JSON for import into Fantasy Grounds
 function downloadFantasyGrounds() {
-    
+
 }

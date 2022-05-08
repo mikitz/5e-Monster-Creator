@@ -178,9 +178,10 @@ function monsterAbilitiesListeners(){
 // Senses
 function monsterSenses(){
     const div = document.getElementById('senses-checkboxes')
-    const selected = localStorage.getItem(`senses`)
+    const selected = JSON.parse(localStorage.getItem(`senses`))
 
-    senses.forEach(element => {
+    for (let index = 0; index < senses.length; index++) {
+        const element = senses[index];
         const label = document.createElement('label')
         label.innerText = `${capitalize(element)} (ft.)`
         label.setAttribute('for', `${element}-checkbox`)
@@ -190,13 +191,13 @@ function monsterSenses(){
         input.type = 'number'
         input.name = 'sense'
         input.id = `${element}-sense`
-        input.value = 0
-        if (selected && selected.includes(element)) input.checked = true
+        if (selected) input.value = parseInt(selected[index])
+        else input.value = 0
         div.appendChild(input)
 
         const brk = document.createElement('br')
         div.appendChild(brk)
-    })
+    }
 }
 function monsterSensesListeners(){
     const radioGroups = document.getElementsByName('sense')
@@ -217,16 +218,18 @@ function monsterSensesListeners(){
             
             document.getElementById(`senses-statblock`).innerText = stringFinal.join(", ")
 
-            localStorage.setItem(`senses`, selected)
+            localStorage.setItem(`senses`, JSON.stringify(selected))
         })
     })
 }
 // Speed
 function monsterSpeed(){
     const div = document.getElementById('speed-checkboxes')
-    const selected = localStorage.getItem(`speed`)
+    const selected = JSON.parse(localStorage.getItem(`speed`))
+    console.log("Selected:", selected)
 
-    speeds.forEach(element => {
+    for (let index = 0; index < speeds.length; index++) {
+        const element = speeds[index];
         const label = document.createElement('label')
         label.innerText = `${capitalize(element)} (ft.)`
         label.setAttribute('for', `${element}-checkbox`)
@@ -236,13 +239,13 @@ function monsterSpeed(){
         input.type = 'number'
         input.name = 'speed'
         input.id = `${element}-speed`
-        input.value = 0
-        if (selected && selected.includes(element)) input.checked = true
+        if (selected) input.value = parseInt(selected[index])
+        else input.value = 0
         div.appendChild(input)
 
         const brk = document.createElement('br')
         div.appendChild(brk)
-    })
+    }
 }
 function monsterSpeedListeners(){
     const radioGroups = document.getElementsByName('speed')
@@ -263,7 +266,7 @@ function monsterSpeedListeners(){
             
             document.getElementById(`speed-statblock`).innerText = stringFinal.join(", ")
 
-            localStorage.setItem(`speed`, selected)
+            localStorage.setItem(`speed`, JSON.stringify(selected))
         })
     })
 }
@@ -350,11 +353,11 @@ function monsterSkillsListeners(){
         })
     })
 }
-
 // Damage Immunities
 function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
     const selected = localStorage.getItem(`damage-${property}`)
+    
 
     damageTypes.forEach(element => {
         const span = document.createElement('span')
@@ -448,7 +451,6 @@ function monsterConditionsListeners(){
         })
     })
 }
-
 // Languages
 function monsterLanguages(){
     const div = document.getElementById('languages-checkboxes')
