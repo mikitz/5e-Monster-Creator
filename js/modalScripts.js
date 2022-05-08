@@ -1,3 +1,4 @@
+// Monster Name
 function monsterNameListeners(){
     const input = document.getElementById('input')
     input.addEventListener('input', function(){
@@ -272,20 +273,25 @@ function monsterSavingThrows(){
     const selected = localStorage.getItem(`saving-throws`)
 
     abilities.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
         const input = document.createElement('input')
         input.type = 'checkbox'
         input.name = 'saving-throw'
         input.id = `${element}-checkbox`
         input.value = element
+        input.style.marginRight = '5px'
         if (selected && selected.includes(element)) input.checked = true
-        div.appendChild(input)
+        span.appendChild(input)
 
         const label = document.createElement('label')
         label.innerText = capitalize(element)
         label.setAttribute('for', `${element}-checkbox`)
-        div.appendChild(label)
-        const brk = document.createElement('br')
-        div.appendChild(brk)
+        label.style.overflow = 'ellipsis'
+        span.appendChild(label)
+        
+        div.appendChild(span)
     })
 }
 function monsterSavingThrowsListeners(){
@@ -302,27 +308,31 @@ function monsterSavingThrowsListeners(){
         })
     })
 }
-
 // Skills
 function monsterSkills(){
     const div = document.getElementById('skills-checkboxes')
     const selected = localStorage.getItem(`skills`)
 
     skills.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
         const input = document.createElement('input')
         input.type = 'checkbox'
         input.name = 'skills-checkbox'
         input.id = `${element}-checkbox`
         input.value = element
+        input.style.marginRight = '5px'
         if (selected && selected.includes(element)) input.checked = true
-        div.appendChild(input)
+        span.appendChild(input)
 
         const label = document.createElement('label')
         label.innerText = capitalize(element)
         label.setAttribute('for', `${element}-checkbox`)
-        div.appendChild(label)
-        const brk = document.createElement('br')
-        div.appendChild(brk)
+        label.style.overflow = 'ellipsis'
+        span.appendChild(label)
+
+        div.appendChild(span)
     })
 }
 function monsterSkillsListeners(){
@@ -347,25 +357,44 @@ function monsterDamageTypes(property){
     const selected = localStorage.getItem(`damage-${property}`)
 
     damageTypes.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
         const input = document.createElement('input')
         input.type = 'checkbox'
         input.name = 'damage-type-checkbox'
         input.id = `${element}-checkbox`
         input.value = element
+        input.style.marginRight = '5px'
         if (selected && selected.includes(element)) input.checked = true
-        div.appendChild(input)
+        span.appendChild(input)
 
         const label = document.createElement('label')
         label.innerText = capitalize(element)
         label.setAttribute('for', `${element}-checkbox`)
-        div.appendChild(label)
-        const brk = document.createElement('br')
-        div.appendChild(brk)
+        
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered") {
+            label.innerText = "non-silvered"
+            label.id = "non-silvered-label"
+        }
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks") {
+            label.innerText = "non-magical"
+            label.id = "non-magical-label"
+        }
+        span.appendChild(label)
+
+        div.appendChild(span)
     })
+
+    addTippy("non-silvered-label", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered")
+    addTippy("non-magical-label", "bludgeoning, piercing, and slashing from nonmagical attacks")
 }
 function monsterDamageTypesListeners(property){
     const radioGroups = document.getElementsByName('damage-type-checkbox')
     let selected = []
+    const nonMagical = "bludgeoning, piercing, and slashing from nonmagical attacks"
+    const nonSilvered = "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"
+    
     radioGroups.forEach(element => {
         element.addEventListener('change', function(){
             const selectedTypes = document.querySelectorAll(`input[name="damage-type-checkbox"]:checked`)
@@ -377,27 +406,32 @@ function monsterDamageTypesListeners(property){
         })
     })
 }
-
 // Conditions
 function monsterConditions(){
     const div = document.getElementById('conditions-checkboxes')
     const selected = localStorage.getItem(`conditions`)
 
     conditions.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
         const input = document.createElement('input')
         input.type = 'checkbox'
         input.name = 'condition-checkbox'
         input.id = `${element}-checkbox`
         input.value = element
+        input.style.marginRight = '5px'
         if (selected && selected.includes(element)) input.checked = true
-        div.appendChild(input)
+        span.appendChild(input)
 
         const label = document.createElement('label')
         label.innerText = capitalize(element)
         label.setAttribute('for', `${element}-checkbox`)
-        div.appendChild(label)
-        const brk = document.createElement('br')
-        div.appendChild(brk)
+        span.appendChild(label)
+
+        div.appendChild(span)
+        // const brk = document.createElement('br')
+        // div.appendChild(brk)
     })
 }
 function monsterConditionsListeners(){
@@ -421,20 +455,24 @@ function monsterLanguages(){
     const selected = localStorage.getItem(`languages`)
 
     languages.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
         const input = document.createElement('input')
         input.type = 'checkbox'
         input.name = 'language-checkbox'
         input.id = `${element}-checkbox`
         input.value = element
+        input.style.marginRight = '5px'
         if (selected && selected.includes(element)) input.checked = true
-        div.appendChild(input)
+        span.appendChild(input)
 
         const label = document.createElement('label')
         label.innerText = capitalize(element)
         label.setAttribute('for', `${element}-checkbox`)
-        div.appendChild(label)
-        const brk = document.createElement('br')
-        div.appendChild(brk)
+        span.appendChild(label)
+
+        div.appendChild(span)
     })
 }
 function monsterLanguagesListeners(){

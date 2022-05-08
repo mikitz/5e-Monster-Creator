@@ -76,6 +76,8 @@ let damageTypes = [
     'thunder',
     "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered",
     "bludgeoning, piercing, and slashing from nonmagical attacks"
+    // "non-silvered",
+    // "non-magical"
 ]
 
 let skills = [
@@ -88,7 +90,7 @@ let skills = [
     'investigation',
     'nature',
     'religion',
-    'animal handling',
+    'animal hand.',
     'insight',
     'medicine',
     'perception',
