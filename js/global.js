@@ -15,9 +15,6 @@ function capitalize(str){
 // Function to generate a random ID
 // Source: https://gist.github.com/gordonbrander/2230317
 function generateUniqueID() {
-    // Math.random should be unique because of its seeding algorithm.
-    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-    // after the decimal.
     return Math.random().toString(36).substr(2, 9);
 }
 // Function to get a selected value from a radio group
@@ -28,14 +25,6 @@ function getSelectedValueFromRadioGroup(radioGroupName, propertyToReturn){
     })
     return initialize
 }
-// // Function to capitalize the first letter of a string
-// function capitalize(str){
-//     const arr = str.split(" ")
-//     for (var i = 0; i < arr.length; i++) {
-//         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-//     }
-//     return arr.join(" ")
-// }
 // Sleep time expects milliseconds
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));

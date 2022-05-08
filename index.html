@@ -11,15 +11,18 @@
     <script src="https://kit.fontawesome.com/7e282d14cd.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <!-- App JS Files -->
     <script src="app.js"></script>
     <script src="data/data.js"></script>
     <script src="js/listeners.js"></script>
     <script src="js/tippySetup.js"></script>
-    <script src="js/toast.js"></script>
     <script src="js/global.js"></script>
-    <script src="js/dom-to-image.js"></script>
-    <script src="js/fileSaver.js"></script>
+    <!-- Modules -->
+    <script src="js/modules/dom-to-image.js"></script>
+    <script src="js/modules/fileSaver.js"></script>
     <script src="js/modalScripts.js"></script>
+    <script src="js/modules/toast.js"></script>
+    <script src="js/modules/math.js"></script>
 </head> 
 <body>
    <main>
@@ -35,10 +38,10 @@
                     <input class="checkbox" type="radio" name="method" id="Pre_Gens" value="I_Got_This!"/>
                     <span>Pre. Gens.</span>
                 </label>
-                <label id="walkthrough-label">
+                <!-- <label id="walkthrough-label">
                     <input class="checkbox" type="radio" name="method" id="Walkthrough" value="Walkthrough"/>
                     <span>Walkthrough</span>
-                </label>
+                </label> -->
                 <label id="random-label">
                     <input class="checkbox" type="radio" name="method" id="Random" value="Random"/>
                     <span>Random</span>

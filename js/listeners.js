@@ -1,6 +1,4 @@
-// ===============================
-//       Page Listeners
-// ===============================
+// ================= Page Listeners =================
 // Function to set the listeners on index.html
 function indexListeners() {
     let creator = document.getElementsByName('method')
@@ -46,8 +44,8 @@ function iGotThisListeners(){
             })
         })
         
-        document.getElementById('download-statblock').addEventListener('click', function() { dowwnloadStatblockAsImage() })
-        document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVttJson() })
+        document.getElementById('download-statblock').addEventListener('click', function() { downloadStatblockAsImage() })
+        document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVtt() })
         document.getElementById('download-fantasy-grounds').addEventListener('click', function() { downloadaFantasyGrounds() })
     })
     
@@ -63,9 +61,7 @@ function randomListeners(){
         element.addEventListener('change', function() { populateGenerator() })
     });
 }
-// ===============================
-//       Element Listeners
-// ===============================
+// ================= Element Listeners =================
 // Theme changer 
 function changeTheme(){
     const theme = localStorage.getItem('theme')
@@ -132,13 +128,15 @@ function incrementValue(e) {
     let hitDice
     let cr = document.getElementById('cr').value
     let newVal = currentVal + val
-    console.log("New Val:", newVal, typeof(newVal))
     if (statblockID == "hit-points-statblock") {
         hitDice = damageToDice(newVal, cr)[1]
         document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
-        return
-    }
-    document.getElementById(statblockID).innerText = newVal
+    } else document.getElementById(statblockID).innerText = newVal
+    // ---------------------------
+    //     Update Local Storage
+    // ---------------------------
+    localStorage.setItem('hp', document.getElementById('hit-points-statblock').innerText)
+    localStorage.setItem('ac', document.getElementById('armor-class-statblock').innerText)
 }
 // Function to decrement number input value
 function decrementValue(e) {
@@ -189,13 +187,15 @@ function decrementValue(e) {
     let hitDice
     let cr = document.getElementById('cr').value
     let newVal = currentVal - val
-    console.log("New Val:", newVal, typeof(newVal))
     if (statblockID == "hit-points-statblock") {
         hitDice = damageToDice(newVal, cr)[1]
         document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
-        return
-    }
-    document.getElementById(statblockID).innerText = newVal
+    } else document.getElementById(statblockID).innerText = newVal
+    // ---------------------------
+    //     Update Local Storage
+    // ---------------------------
+    localStorage.setItem('hp', document.getElementById('hit-points-statblock').innerText)
+    localStorage.setItem('ac', document.getElementById('armor-class-statblock').innerText)
 }
 // Modifier Ability Score
 function modifierAbilityScore(operator, e) {

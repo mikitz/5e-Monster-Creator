@@ -34,14 +34,12 @@ let xpByCr = [
     {"CR":29,"XP":135000},
     {"CR":30,"XP":155000}
 ]
-
 let senses = [
     'blindsight',
     'darkvision',
     'tremorsense',
     'truesight'
 ]
-
 let conditions = [
     'blinded',
     'charmed',
@@ -59,7 +57,6 @@ let conditions = [
     'stunned',
     'unconscious'   
 ]
-
 let damageTypes = [
     'acid',
     'bludgeoning',
@@ -79,7 +76,6 @@ let damageTypes = [
     // "non-silvered",
     // "non-magical"
 ]
-
 let skills = [
     'athletics',
     'acrobatics',
@@ -100,14 +96,12 @@ let skills = [
     'performance',
     'persuasion'
 ]
-
 let speeds = [
     'walk',
     'fly',
     'climb',
     'swim'
 ]
-
 let abilities = [
     'strength',
     'dexterity',
@@ -116,7 +110,6 @@ let abilities = [
     'wisdom',
     'charisma'
 ]
-
 let sizes = [
     'tiny',
     'small',
@@ -125,7 +118,6 @@ let sizes = [
     'huge',
     'gargantuan'
 ]
-
 let alignments = [
     'lawful good',
     'lawful neutral',
@@ -138,7 +130,6 @@ let alignments = [
     'chaotic evil',
     'unaligned'
 ]
-
 let monsterTypes = [
     'aberration',
     'beast',
@@ -155,7 +146,6 @@ let monsterTypes = [
     'plant',
     'undead'
 ]
-
 let languages = [
     'common',
     'dwarvish',
@@ -174,7 +164,6 @@ let languages = [
     'sylvan',
     'undercommon'
 ]
-
 let elementTablePairs = [
     {elemId: 'armor-class-input', data: 'Armor Class'},
     {elemId: 'hit-points-input', data: 'Hit Points'},
@@ -184,7 +173,6 @@ let elementTablePairs = [
     {elemId: 'spell-to-hit-input', data: 'Spell To Hit'},
     {elemId: 'save-sum-input', data: 'Sum D/C/W Save'},
 ]
-
 let rothnersChartV2 = [
     {"CR":0.25,"Level":"1/2","Prof":2,"Armor Class":12,"Hit Points":15,"Sum D/C/W Save":2,"Damage /Round":6,"To Hit Bonus":4,"DC":11,"Spell To Hit":3,"Spell Level":"C","Effective Spell Dmg":5.5},
     {"CR":1,"Level":"2","Prof":2,"Armor Class":13,"Hit Points":30,"Sum D/C/W Save":3,"Damage /Round":12,"To Hit Bonus":4.5,"DC":11.5,"Spell To Hit":3.5,"Spell Level":1,"Effective Spell Dmg":14},
