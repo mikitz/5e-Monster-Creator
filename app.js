@@ -656,30 +656,51 @@ function loadLocalStorageMonster(){
     loadJSONAndUpdateStatblock('speed', 'speed-statblock') // Speed
     loadStringAndUpdateStatblock('name', 'monster-name-statblock') // Name
     loadStringAndUpdateStatblock('properties', 'monster-properties-statblock') // Properties
-    loadStringAndUpdateStatblock('saving-throws', 'saving_throws-statblock') // Saving Throws
-    loadStringAndUpdateStatblock('skills', 'skills-statblock') // Skills
-    loadStringAndUpdateStatblock('damage-immunities', 'damage_immunities-statblock') // Damage Immunities
-    loadStringAndUpdateStatblock('damage-resistances', 'damage_resistances-statblock') // Damage Resistances
-    loadStringAndUpdateStatblock('damage-vulnerabilties', 'damage_vulnerabilities-statblock') // Damage Vulnerabilities
-    loadStringAndUpdateStatblock('conditoin-immunities', 'condition_immunities-statblock') // Condition Immunities
-    loadStringAndUpdateStatblock('languages', 'languages-statblock') // Languages
+    loadArrayAndUpdateStatblock('saving-throws', 'saving_throws-statblock') // Saving Throws
+    loadArrayAndUpdateStatblock('skills', 'skills-statblock') // Skills
+    loadArrayAndUpdateStatblock('damage-immunities', 'damage_immunities-statblock') // Damage Immunities
+    loadArrayAndUpdateStatblock('damage-resistances', 'damage_resistances-statblock') // Damage Resistances
+    loadArrayAndUpdateStatblock('damage-vulnerabilities', 'damage_vulnerabilities-statblock') // Damage Vulnerabilities
+    loadArrayAndUpdateStatblock('conditions', 'condition_immunities-statblock') // Condition Immunities
+    loadArrayAndUpdateStatblock('languages', 'languages-statblock') // Languages
 }
 // Function to load a JSON from Local Storage and update Statblock
 function loadJSONAndUpdateStatblock(localStorageKey, elementID){
-    const ls = JSON.parse(localStorage.getItem(localStorageKey))
-    let stringFinal = []
-    document.getElementById(elementID).innerText = ''
-    for (let index = 0; index < senses.length; index++) {
-        const element = senses[index];
-        if (ls[index] == 0) continue
-        stringFinal.push(`${element} ${ls[index]} ft.`)
+    try {
+        const ls = JSON.parse(localStorage.getItem(localStorageKey))
+        let stringFinal = []
+        document.getElementById(elementID).innerText = ''
+        for (let index = 0; index < senses.length; index++) {
+            const element = senses[index];
+            if (ls[index] == 0) continue
+            stringFinal.push(`${element} ${ls[index]} ft.`)
+        }
+        document.getElementById(elementID).innerText = stringFinal.join(", ")
     }
-    document.getElementById(elementID).innerText = stringFinal.join(", ")
+    catch(e) { console.error(e) }
+    
+}
+// Function to load an array from Local Storage and update the Statblock
+function loadArrayAndUpdateStatblock(localStorageKey, elementID){
+    try {
+        const ls = JSON.parse(localStorage.getItem(localStorageKey))
+        let stringFinal = []
+        ls.forEach(element => {
+            stringFinal.push(element)
+        });
+        document.getElementById(elementID).innerText = stringFinal.join(", ")
+    } 
+    catch(e) { console.error(e) }
+    
 }
 // Function to load a string from Local Storage and update the Statblock
 function loadStringAndUpdateStatblock(localStorageKey, elementID){
-    const ls = localStorage.getItem(localStorageKey)
-    document.getElementById(elementID).innerText = ls
+    try { 
+        const ls = localStorage.getItem(localStorageKey)
+        document.getElementById(elementID).innerText = ls
+    }
+    catch(e) { console.error(e) }
+    
 }
 // Function to download the statblock as a jpg
 function dowwnloadStatblockAsImage() {

@@ -273,7 +273,7 @@ function monsterSpeedListeners(){
 // Saving Throws
 function monsterSavingThrows(){
     const div = document.getElementById('saving-throw-checkboxes')
-    const selected = localStorage.getItem(`saving-throws`)
+    const selected = JSON.parse(localStorage.getItem(`saving-throws`))
 
     abilities.forEach(element => {
         const span = document.createElement('span')
@@ -307,14 +307,14 @@ function monsterSavingThrowsListeners(){
             const stringList = selected.join("; ")
             document.getElementById(`saving_throws-statblock`).innerText = stringList
             
-            localStorage.setItem(`saving-throws`, selected)
+            localStorage.setItem(`saving-throws`, JSON.stringify(selected))
         })
     })
 }
 // Skills
 function monsterSkills(){
     const div = document.getElementById('skills-checkboxes')
-    const selected = localStorage.getItem(`skills`)
+    const selected = JSON.parse(localStorage.getItem(`skills`))
 
     skills.forEach(element => {
         const span = document.createElement('span')
@@ -349,14 +349,14 @@ function monsterSkillsListeners(){
             const stringList = selected.join("; ")
             document.getElementById(`skills-statblock`).innerText = stringList
             
-            localStorage.setItem(`skills`, selected)
+            localStorage.setItem(`skills`, JSON.stringify(selected))
         })
     })
 }
 // Damage Immunities
 function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
-    const selected = localStorage.getItem(`damage-${property}`)
+    const selected = JSON.parse(localStorage.getItem(`damage-${property}`))
     
 
     damageTypes.forEach(element => {
@@ -405,14 +405,14 @@ function monsterDamageTypesListeners(property){
             const stringList = selected.join("; ")
             document.getElementById(`damage_${property}-statblock`).innerText = stringList
             
-            localStorage.setItem(`damage-${property}`, selected)
+            localStorage.setItem(`damage-${property}`, JSON.stringify(selected))
         })
     })
 }
 // Conditions
 function monsterConditions(){
     const div = document.getElementById('conditions-checkboxes')
-    const selected = localStorage.getItem(`conditions`)
+    const selected = JSON.parse(localStorage.getItem(`conditions`))
 
     conditions.forEach(element => {
         const span = document.createElement('span')
@@ -447,14 +447,14 @@ function monsterConditionsListeners(){
             const stringList = selected.join("; ")
             document.getElementById(`condition_immunities-statblock`).innerText = stringList
             
-            localStorage.setItem(`conditions`, selected)
+            localStorage.setItem(`conditions`, JSON.stringify(selected))
         })
     })
 }
 // Languages
 function monsterLanguages(){
     const div = document.getElementById('languages-checkboxes')
-    const selected = localStorage.getItem(`languages`)
+    const selected = JSON.parse(localStorage.getItem(`languages`))
 
     languages.forEach(element => {
         const span = document.createElement('span')
@@ -487,7 +487,7 @@ function monsterLanguagesListeners(){
             const stringList = selected.join("; ")
             document.getElementById(`languages-statblock`).innerText = stringList
             
-            localStorage.setItem(`languages`, selected)
+            localStorage.setItem(`languages`, JSON.stringify(selected))
         })
     })
 }
