@@ -34,5 +34,9 @@ function walkthroughTippy(){
 }
 
 function randomTippy(){
-
+    sleep(100).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+        addTippy('download-statblock', 'Download as a PNG <br> Not yet fully implemented. Take a screenshot instead.')
+        addTippy('download-foundry-vtt', 'Download for FoundryVTT <br> Not yet implemented.')
+        addTippy('download-fantasy-grounds', 'Download for Fantasy Grounds <br> Not yet implemented.')
+    })
 }

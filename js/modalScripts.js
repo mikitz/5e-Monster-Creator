@@ -226,7 +226,6 @@ function monsterSensesListeners(){
 function monsterSpeed(){
     const div = document.getElementById('speed-checkboxes')
     const selected = JSON.parse(localStorage.getItem(`speed`))
-    console.log("Selected:", selected)
 
     for (let index = 0; index < speeds.length; index++) {
         const element = speeds[index];
@@ -254,18 +253,16 @@ function monsterSpeedListeners(){
         element.addEventListener('input', function(){
             const selectedTypes = document.querySelectorAll(`input[name="speed"]`)
             selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
             let stringFinal = []
-            document.getElementById(`speed-statblock`).innerText = ''
+            document.getElementById(`speeds-statblock`).innerText = ''
 
-            for (let index = 0; index < senses.length; index++) {
+            for (let index = 0; index < speeds.length; index++) {
                 const element = speeds[index];
                 if (selected[index] == 0) continue
                 stringFinal.push(`${element} ${selected[index]} ft.`)
             }
-            
-            document.getElementById(`speed-statblock`).innerText = stringFinal.join(", ")
 
+            document.getElementById(`speeds-statblock`).innerText = stringFinal.join(", ")
             localStorage.setItem(`speed`, JSON.stringify(selected))
         })
     })

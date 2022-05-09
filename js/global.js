@@ -52,3 +52,33 @@ function saveMonsterData(key, value) {
     console.log("Key:", key, "Value:", value)
     localStorage.setItem(key, value)
 }
+// Function to get a random integer
+// Source: https://www.w3schools.com/js/js_random.asp
+function getRndInteger(min, max) {
+    return parseInt((Math.floor(Math.random() * ((max+1) - min)) + min))
+}
+// Function to roll a die
+function roll(number_of_dice, dice_sides, multiplier) {
+    // Define an empty array to store the rolls
+    aRolls = []
+    if (!multiplier) multiplier = 1
+    // Parse integers
+    var number_of_dice = parseInt(number_of_dice)
+    var dice_sides = parseInt(dice_sides)
+    var multiplier = parseInt(multiplier)
+    // Set total to zero
+    //var total = 0
+    // Loop through all the dice and return random integers
+    if (number_of_dice > 1) {
+        for (x = 0; x < number_of_dice; x++) {
+            a = getRndInteger(1, dice_sides)
+            aRolls.push(a)
+            // total += a
+        }
+        // Get the sum of the array
+        var total = aRolls.reduce((a, b) => a + b, 0) * multiplier
+    } else {
+        var total = getRndInteger(1, dice_sides)
+    }
+    return parseInt(total)
+}

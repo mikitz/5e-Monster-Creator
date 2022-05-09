@@ -230,10 +230,11 @@ function downloadFantasyGrounds() {
 // Function to parse a JSON and updating it in the statblock
 function loadJSONAndUpdateStatblock(data, elementID){
     try {
+        dataList = eval(elementID.replace("-statblock", ""))
         let stringFinal = []
         document.getElementById(elementID).innerText = ''
-        for (let index = 0; index < senses.length; index++) {
-            const element = senses[index];
+        for (let index = 0; index < dataList.length; index++) {
+            const element = dataList[index];
             if (data[index] == 0) continue
             stringFinal.push(`${element} ${data[index]} ft.`)
         }
@@ -266,7 +267,7 @@ function loadStringAndUpdateStatblock(data, elementID){
 function buildStatblock(json){
     loadStringAndUpdateStatblock(json.name, 'monster-name-statblock') // Name
     loadStringAndUpdateStatblock(json.properties, 'monster-properties-statblock') // Properties
-    loadJSONAndUpdateStatblock(json.speed, 'speed-statblock') // Speed
+    loadJSONAndUpdateStatblock(json.speed, 'speeds-statblock') // Speed
     loadArrayAndUpdateStatblock(json.saving_throws, 'saving_throws-statblock') // Saving Throws
     loadArrayAndUpdateStatblock(json.skills, 'skills-statblock') // Skills
     loadArrayAndUpdateStatblock(json.damage_immunities, 'damage_immunities-statblock') // Damage Immunities
@@ -388,24 +389,69 @@ function iGotThisCRFunction(element) {
     elementSpellDamage.value = effectiveSpellDamage
 }
 // Function to randomly generate a monster based on user inputs
-function generateRandomMonster(method){
+async function generateRandomMonster(method){
+    let data = {}
     // =========================
     //     Challenge Rating
     // =========================
     if (method == 'random-cr') {
         // User Inputs
         let cr = parseFloat(document.getElementById('cr').value) // Get the CR
+        const xp = xpByCr.find(i => i.CR == cr).XP // Get the XP
             if (cr < 1 && cr != 0) { 
                 const fraction = math.fraction(cr)
-                var CR = `${fraction.n}/${fraction.d}`
+                cr = `${fraction.n}/${fraction.d}`
             }
         const role = document.querySelector(`input[name="method"]:checked`).value // Get the Role
-        const xp = xpByCr.find(i => i.CR == cr).XP // Get the XP
-        // Monster Parameters
+        
+        // ---------------------------------------
+        // Randomly Determine the above parameters
+        // ---------------------------------------
+        // Functions
+        async function randomSpeed(){ // Function to randomly give the monster some movement speed
+            /* 
+                Probs: 
+                    Fly: 457 / 2909 = 0.1567 -- (2d5) * 10
+                    Climb: 230 / 2909 = 0.0791 -- (2d3 - 1) * 10
+                    Swim: 297 / 2909 = 0.1021 -- (2d5) * 10
+                    Walk: 2250 / 2909 = 0.7735 -- (2d3 - 1) * 10
+                    Burrow: 100 / 2909 = 0.0344 -- (2d3 - 1) * 10
+            */
+            let fly
+            let climb
+            let swim
+            let walk
+            let burrow
+            let speedList = []
+
+            if (roll(0, 10000) <= 1567) fly = roll(2,5,10)
+            if (roll(0, 10000) <= 791) climb = (roll(2,3) - 1) * 10
+            if (roll(0, 10000) <= 1021) swim = roll(2,5,10)
+            if (roll(0, 10000) <= 344) burrow = (roll(2,3) - 1) * 10
+            if (roll(0, 10000) <= 7735) walk = (roll(2,3) - 1) * 10
+
+            if (burrow) speedList.push(burrow)
+            else speedList.push(0)
+            if (climb) speedList.push(climb)
+            else speedList.push(0)
+            if (fly) speedList.push(fly)
+            else speedList.push(0)
+            if (swim) speedList.push(swim)
+            else speedList.push(0)
+
+            const sum = speedList.reduce((partialSum, a) => partialSum + a, 0);
+            if (walk || sum == 0) speedList.push(walk) // Add walk if there are no other speeds or if walk should be added
+            else speedList.push(0)
+
+            return speedList
+        }
+        async function randomSavingThrows(cr){ // Function to randomly generate saving throw proficiencies based on cr
+
+        }
         let name
         let properties = `${randomProperty(sizes)} ${randomProperty(monsterTypes)}, ${randomProperty(alignments)} (${role})` // Properties
-        let speed
-        let savingThrows
+        let speed = await randomSpeed()
+        let savingThrows = await randomSavingThrows(cr)
         let skills
         let damageImmunities
         let damageResistances
@@ -413,16 +459,17 @@ function generateRandomMonster(method){
         let conditions
         let senses
         let languages
-        let hp
+        let hp = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
         let profBonus = `+${rothnersChartV2.find(i => i.CR == cr)['Prof']}`
-        let ac
-        // ---------------------------------------
-        // Randomly Determine the above parameters
-        // ---------------------------------------
+        let ac = rothnersChartV2.find(i => i.CR == cr)['Armor Class']
+        let hitDice = damageToDice(hp, cr)[1]
+        
+        
         name = 'Name' // TODO: Name
         
+        
         // Bulid JSON
-        const data = {
+        data = {
             name: name,
             properties: properties,
             speed: speed,
@@ -434,21 +481,18 @@ function generateRandomMonster(method){
             conditions: conditions,
             senses: senses,
             languages: languages,
-            challenge_rating: `${CR} (${xp.toLocaleString()} XP)`,
-            hit_points: hp,
+            challenge_rating: `${cr} (${xp.toLocaleString()} XP)`,
+            hit_points: `${hp} (${hitDice})`,
             proficiency_bonus: profBonus,
             armor_class: ac,
             role: role
         }
         console.log("Data", data)
-        // Update Statblock
-        $(document.getElementById('statblock')).load("html_templates/statblocks/statblock.html")
-        sleep(500).then(() => { return buildStatblock(data) })
     } 
     // =========================
     //          Party
     // =========================
-    if (method == 'random-party') {
+    else if (method == 'random-party') {
         // Monster Parameters
         let name
         let properties
@@ -467,7 +511,7 @@ function generateRandomMonster(method){
         // Randomly Determine the above parameters
         
         // Bulid JSON
-        const data = {
+        data = {
             name: name,
             properties: properties,
             speed: speed,
@@ -484,7 +528,11 @@ function generateRandomMonster(method){
             proficiency_bonus: profBonus,
             armor_class: ac
         }
-        // Update Statblock
-        return buildStatblock(data)
     } 
+    $(document.getElementById('statblock')).load("html_templates/statblocks/statblock.html")
+    sleep(500).then(() => {
+        buildStatblock(data) // Populate the statblock
+        randomStatblockListeners() // Add listeners and Tippy to the newly created statblock
+    })
+    
 }

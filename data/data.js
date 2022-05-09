@@ -97,10 +97,11 @@ let skills = [
     'persuasion'
 ]
 let speeds = [
-    'walk',
-    'fly',
+    'burrow',
     'climb',
-    'swim'
+    'fly',
+    'swim',
+    'walk'
 ]
 let abilities = [
     'strength',

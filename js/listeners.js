@@ -48,7 +48,6 @@ function iGotThisListeners(){
         document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVtt() })
         document.getElementById('download-fantasy-grounds').addEventListener('click', function() { downloadaFantasyGrounds() })
     })
-    
 }
 // Walkthrough Listeners
 function walkthroughListeners(){
@@ -60,6 +59,27 @@ function randomListeners(){
     creator.forEach(element => {
         element.addEventListener('change', function() { populateGenerator() })
     });
+}
+function randomStatblockListeners(){
+    sleep(200).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+        const statblockInputs = document.querySelectorAll('.statblock-input')
+        statblockInputs.forEach(element => {
+            element.addEventListener('click', function() { 
+                const ID = this.id
+                const name = ID.replace("-statblock", "")
+                const htmlFile = `${name}.html`
+                openModal(name, ID, htmlFile)
+            })
+        })
+        
+        document.getElementById('download-statblock').addEventListener('click', function() { downloadStatblockAsImage() })
+        document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVtt() })
+        document.getElementById('download-fantasy-grounds').addEventListener('click', function() { downloadaFantasyGrounds() })
+        addTippy('download-statblock', 'Download as a PNG <br> Not yet fully implemented. Take a screenshot instead.')
+        addTippy('download-foundry-vtt', 'Download for FoundryVTT <br> Not yet implemented.')
+        addTippy('download-fantasy-grounds', 'Download for Fantasy Grounds <br> Not yet implemented.')
+    })
+    
 }
 // ================= Element Listeners =================
 // Theme changer 
