@@ -52,33 +52,22 @@ function saveMonsterData(key, value) {
     console.log("Key:", key, "Value:", value)
     localStorage.setItem(key, value)
 }
-// Function to get a random integer
-// Source: https://www.w3schools.com/js/js_random.asp
-function getRndInteger(min, max) {
-    return parseInt((Math.floor(Math.random() * ((max+1) - min)) + min))
-}
-// Function to roll a die
-function roll(number_of_dice, dice_sides, multiplier) {
-    // Define an empty array to store the rolls
-    aRolls = []
-    if (!multiplier) multiplier = 1
-    // Parse integers
-    var number_of_dice = parseInt(number_of_dice)
-    var dice_sides = parseInt(dice_sides)
-    var multiplier = parseInt(multiplier)
-    // Set total to zero
-    //var total = 0
-    // Loop through all the dice and return random integers
-    if (number_of_dice > 1) {
-        for (x = 0; x < number_of_dice; x++) {
-            a = getRndInteger(1, dice_sides)
-            aRolls.push(a)
-            // total += a
-        }
-        // Get the sum of the array
-        var total = aRolls.reduce((a, b) => a + b, 0) * multiplier
-    } else {
-        var total = getRndInteger(1, dice_sides)
+// Function to roll a die with some optional modifiers
+// E.G. ndx plus/minus y time/divided by z
+// E.G. 20d8 + 3 * 10
+// E.G. 8d20 - 4 / 3 
+function roll(diceString) {
+    let total = 0
+    const numberOfDice = parseInt(diceString.match(/(\d)+d/gm)[0].replace("d", ''))
+    const dieSize = parseInt(diceString.match(/d(\d+)/gm)[0].replace("d", ''))
+    for (let index = 0; index < numberOfDice; index++) {
+        total += parseInt((Math.floor(Math.random() * ((dieSize + 1) - 1)) + 1))
     }
+    const additionSubtractionModifier = '' // TODO: Extract this using regex
+    total += additionSubtractionModifier
+    const divMultOperator = '' // TODO: Extract this using regex
+    const divisionMultiplicaitonModifier = '' // TODO: Extract this using regex
+    if (divMultOperator == "*") total = total * divisionMultiplicaitonModifier
+    if (divMultOperator == "/") total = total / divisionMultiplicaitonModifier
     return parseInt(total)
 }

@@ -184,11 +184,18 @@ function loadLocalStorageMonster(){
     const hp = localStorage.getItem('hp')
     const profBonus = localStorage.getItem('proficiency-bonus')
     const ac = localStorage.getItem('ac')
+    const str = localStorage.getItem('strength')
+    const dex = localStorage.getItem('dexterity')
+    const con = localStorage.getItem('constitution')
+    const wis = localStorage.getItem('wisdom')
+    const int = localStorage.getItem('intelligence')
+    const cha = localStorage.getItem('charisma')
     // Build JSON
     const json = {
         name: name,
         properties: properties,
         speed: speed,
+        abilities: abilities,
         saving_throws: savingThrows,
         skills: skills,
         damage_immunities: damageImmunities,
@@ -200,7 +207,13 @@ function loadLocalStorageMonster(){
         challenge_rating: cr,
         hit_points: hp,
         proficiency_bonus: profBonus,
-        armor_class: ac
+        armor_class: ac,
+        str: str,
+        dex: dex,
+        con: con,
+        int: int,
+        wis: wis,
+        cha: cha,
     }
     // Update Statblock
     buildStatblock(json)
@@ -225,7 +238,7 @@ function downloadFantasyGrounds() {
 
 }
 // =====================
-//   Updaate Statblock
+//   Update Statblock
 // =====================
 // Function to parse a JSON and updating it in the statblock
 function loadJSONAndUpdateStatblock(data, elementID){
@@ -277,11 +290,14 @@ function buildStatblock(json){
     loadJSONAndUpdateStatblock(json.senses, 'senses-statblock') // Senses
     loadArrayAndUpdateStatblock(json.languages, 'languages-statblock') // Languages
     loadStringAndUpdateStatblock(json.challenge_rating, 'challenge-rating-statblock') // CR
-    loadStringAndUpdateStatblock(json.hit_points, 'hit-points-statblock')// TODO: HP
-    loadStringAndUpdateStatblock(json.proficiency_bonus, 'proficiency_bonus-statblock') // TODO: Proficiency Bonus
-    loadStringAndUpdateStatblock(json.armor_class, 'armor-class-statblock') // TODO: Armor Class
+    loadStringAndUpdateStatblock(json.hit_points, 'hit-points-statblock')// HP
+    loadStringAndUpdateStatblock(json.proficiency_bonus, 'proficiency_bonus-statblock') // Proficiency Bonus
+    loadStringAndUpdateStatblock(json.armor_class, 'armor-class-statblock') // Armor Class
     // TODO: Actions
     // TODO: Legenedary Actions
+    // Abilities
+    const abilitiesDiv = document.getElementById('abilities-statblock')
+    abilitiesDiv.innerHTML = `<abilities-block data-cha="${json.cha}" data-con="${json.con}" data-dex="${json.dex}" data-int="${json.int}" data-str="${json.str}" data-wis="${json.wis}"></abilities-block>`
 }
 // =====================
 //     Build Monster
@@ -424,11 +440,11 @@ async function generateRandomMonster(method){
             let burrow
             let speedList = []
 
-            if (roll(0, 10000) <= 1567) fly = roll(2,5,10)
-            if (roll(0, 10000) <= 791) climb = (roll(2,3) - 1) * 10
-            if (roll(0, 10000) <= 1021) swim = roll(2,5,10)
-            if (roll(0, 10000) <= 344) burrow = (roll(2,3) - 1) * 10
-            if (roll(0, 10000) <= 7735) walk = (roll(2,3) - 1) * 10
+            if (roll('1d10000') <= 1567) fly = roll('2d5 * 10')
+            if (roll('1d10000') <= 791) climb = roll('2d3 - 1 * 10')
+            if (roll('1d10000') <= 1021) swim = roll('2d5 * 10')
+            if (roll('1d10000') <= 344) burrow = roll('2d3 - 1 * 10')
+            if (roll('1d10000') <= 7735) walk = roll('2d3 - 1 * 10')
 
             if (burrow) speedList.push(burrow)
             else speedList.push(0)
@@ -445,13 +461,25 @@ async function generateRandomMonster(method){
 
             return speedList
         }
-        async function randomSavingThrows(cr){ // Function to randomly generate saving throw proficiencies based on cr
-
+        async function randomSavingThrows(role){ // Function to randomly generate saving throw proficiencies based on cr
+            let weakSave = randomProperty(abilities)
+            while (weakSave == 'wisdom' || weakSave == 'dexterity' || weakSave == 'constitution'){
+                weakSave = randomProperty(abilities)
+            }
+            let strongSave = randomProperty(abilities)
+            while (strongSave == 'charisma' || strongSave == 'intelligence' || strongSave == 'strength'){
+                strongSave = randomProperty(abilities)
+            }
+            return {weak_save: weakSave, strong_save: strongSave}
         }
-        let name
+        let name = 'name'
         let properties = `${randomProperty(sizes)} ${randomProperty(monsterTypes)}, ${randomProperty(alignments)} (${role})` // Properties
         let speed = await randomSpeed()
-        let savingThrows = await randomSavingThrows(cr)
+        let abilities
+        let profBonus = `+${rothnersChartV2.find(i => i.CR == cr)['Prof']}`
+        let savingThrows = await randomSavingThrows(role)
+            let weakSave = savingThrows.weak_save
+            let strongSave = savingThrows.strong_save
         let skills
         let damageImmunities
         let damageResistances
@@ -460,19 +488,16 @@ async function generateRandomMonster(method){
         let senses
         let languages
         let hp = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
-        let profBonus = `+${rothnersChartV2.find(i => i.CR == cr)['Prof']}`
+            hp = roll(damageToDice(hp, cr))
         let ac = rothnersChartV2.find(i => i.CR == cr)['Armor Class']
-        let hitDice = damageToDice(hp, cr)[1]
-        
-        
-        name = 'Name' // TODO: Name
-        
+        let hitDice = damageToDice(hp, cr)[1]     
         
         // Bulid JSON
         data = {
             name: name,
             properties: properties,
             speed: speed,
+            abilities: abilities,
             saving_throws: savingThrows,
             skills: skills,
             damage_immunities: damageImmunities,
