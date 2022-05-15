@@ -253,7 +253,7 @@ function loadJSONAndUpdateStatblock(data, elementID){
         }
         document.getElementById(elementID).innerText = stringFinal.join(", ")
     }
-    catch(e) { console.error(e) }
+    catch(e) { console.error("loadJSONAndUpdateStatblock() ~~ ", e) }
     
 }
 // Function to parse an array and updating the Statblock
@@ -265,7 +265,7 @@ function loadArrayAndUpdateStatblock(data, elementID){
         });
         document.getElementById(elementID).innerText = stringFinal.join(", ")
     } 
-    catch(e) { console.error(e) }
+    catch(e) { console.error("loadArrayAndUpdateStatblock() ~~ ", e) }
     
 }
 // Function to parse a string and updating the Statblock
@@ -273,7 +273,7 @@ function loadStringAndUpdateStatblock(data, elementID){
     try { 
         document.getElementById(elementID).innerText = data
     }
-    catch(e) { console.error(e) }
+    catch(e) { console.error("loadStringAndUpdateStatblock() ~~ ", e) }
     
 }
 // Function that builds a statblock from a JSON
@@ -420,13 +420,13 @@ async function generateRandomMonster(method){
             }
         const role = document.querySelector(`input[name="method"]:checked`).value // Get the Role
         
-        // ---------------------------------------
-        // Randomly Determine the above parameters
-        // ---------------------------------------
+        // -----------------------------------------
+        //   Randomly Determine Monster Parameters
+        // -----------------------------------------
         // Functions
         async function randomSpeed(){ // Function to randomly give the monster some movement speed
             /* 
-                Probs: 
+                Probabilities: 
                     Fly: 457 / 2909 = 0.1567 -- (2d5) * 10
                     Climb: 230 / 2909 = 0.0791 -- (2d3 - 1) * 10
                     Swim: 297 / 2909 = 0.1021 -- (2d5) * 10
@@ -440,11 +440,11 @@ async function generateRandomMonster(method){
             let burrow
             let speedList = []
 
-            if (roll('1d10000') <= 1567) fly = roll('2d5 * 10')
-            if (roll('1d10000') <= 791) climb = roll('2d3 - 1 * 10')
-            if (roll('1d10000') <= 1021) swim = roll('2d5 * 10')
-            if (roll('1d10000') <= 344) burrow = roll('2d3 - 1 * 10')
-            if (roll('1d10000') <= 7735) walk = roll('2d3 - 1 * 10')
+            if (roll('1d10000').total <= 1567) fly = roll('2d5*10').total
+            if (roll('1d10000').total <= 791) climb = roll('2d3-1*10').total
+            if (roll('1d10000').total <= 1021) swim = roll('2d5*10').total
+            if (roll('1d10000').total <= 344) burrow = roll('2d3-1*10').total
+            if (roll('1d10000').total <= 7735) walk = roll('2d3-1*10').total
 
             if (burrow) speedList.push(burrow)
             else speedList.push(0)
@@ -475,7 +475,7 @@ async function generateRandomMonster(method){
         let name = 'name'
         let properties = `${randomProperty(sizes)} ${randomProperty(monsterTypes)}, ${randomProperty(alignments)} (${role})` // Properties
         let speed = await randomSpeed()
-        let abilities
+        let abilityScores
         let profBonus = `+${rothnersChartV2.find(i => i.CR == cr)['Prof']}`
         let savingThrows = await randomSavingThrows(role)
             let weakSave = savingThrows.weak_save
@@ -488,16 +488,17 @@ async function generateRandomMonster(method){
         let senses
         let languages
         let hp = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
-            hp = roll(damageToDice(hp, cr))
+        let hpStuff = damageToDice(hp, cr)
+        hp = roll(hpStuff[1].replaceAll(" ", "")).total
+        let hitDice = hpStuff[1] 
         let ac = rothnersChartV2.find(i => i.CR == cr)['Armor Class']
-        let hitDice = damageToDice(hp, cr)[1]     
-        
-        // Bulid JSON
+          
+        // Build JSON
         data = {
             name: name,
             properties: properties,
             speed: speed,
-            abilities: abilities,
+            ability_scores: abilityScores,
             saving_throws: savingThrows,
             skills: skills,
             damage_immunities: damageImmunities,
@@ -559,5 +560,4 @@ async function generateRandomMonster(method){
         buildStatblock(data) // Populate the statblock
         randomStatblockListeners() // Add listeners and Tippy to the newly created statblock
     })
-    
 }
