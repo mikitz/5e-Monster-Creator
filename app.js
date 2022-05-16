@@ -325,6 +325,7 @@ function iGotThisCRFunction(element) {
     const elementSpellLevel = document.getElementById('spell-level-input')
     const elementSpellDamage = document.getElementById('spell-damage-input')
     const elementSaveSum = document.getElementById('save-sum-input')
+    const elementName = document.getElementById('monster-name-statblock')
     // Points
     let points = ( cr * 5 ) + 8
     let prevCR = localStorage.getItem('CR')
@@ -403,6 +404,7 @@ function iGotThisCRFunction(element) {
     elementProfBonus.innerText = `+${proficiencyBonus}`
     elementSpellLevel.value = spellLevel
     elementSpellDamage.value = effectiveSpellDamage
+    elementName.innerText = 'Name'
 }
 // Function to randomly generate a monster based on user inputs
 async function generateRandomMonster(method){
@@ -531,7 +533,7 @@ async function generateRandomMonster(method){
             }
             return abilityScores
         }
-        
+
         let name = 'name'
         let properties = `${randomProperty(sizes)} ${randomProperty(monsterTypes)}, ${randomProperty(alignments)} (${role})` // Properties
         let speed = await randomSpeed()
@@ -578,6 +580,29 @@ async function generateRandomMonster(method){
             role: role
         }
         console.log("Data", data)
+        // LOCAL STORAGE UPDATE
+        localStorage.setItem('properties', properties.toLowerCase())
+        localStorage.setItem('strength', abilityScores.strength)
+        localStorage.setItem('dexterity', abilityScores.dexterity)
+        localStorage.setItem('constitution', abilityScores.constitution)
+        localStorage.setItem('intelligence', abilityScores.intelligence)
+        localStorage.setItem('wisdom', abilityScores.wisdom)
+        localStorage.setItem('charisma', abilityScores.charisma)
+        localStorage.setItem(`senses`, JSON.stringify(monsterSenses))
+        localStorage.setItem(`speed`, JSON.stringify(speed))
+        localStorage.setItem(`saving-throws`, JSON.stringify(savingThrows))
+        localStorage.setItem(`skills`, JSON.stringify(monsterSkills))
+        localStorage.setItem(`damage-immunities`, JSON.stringify(damageImmunities))
+        localStorage.setItem(`damage-resistances`, JSON.stringify(damageResistances))
+        localStorage.setItem(`damage-vulnerabilities`, JSON.stringify(damageVulnerabilities))
+        localStorage.setItem(`conditions`, JSON.stringify(monsterConditions))
+        localStorage.setItem(`languages`, JSON.stringify(monsterLanguages))
+        localStorage.setItem('role', role)
+        localStorage.setItem('cr', `${cr} (${xp.toLocaleString()} XP)`)
+        localStorage.setItem('hp', `${hp} (${hitDice})`)
+        localStorage.setItem('ac', ac)
+        localStorage.setItem('proficiency-bonus', `+${profBonus}`)
+        localStorage.setItem('name', name)
     } 
     // =========================
     //          Party
@@ -619,6 +644,8 @@ async function generateRandomMonster(method){
             armor_class: ac
         }
     } 
+    
+    // UPDATE DOM
     $(document.getElementById('statblock')).load("html_templates/statblocks/statblock.html")
     sleep(500).then(() => {
         buildStatblock(data) // Populate the statblock
