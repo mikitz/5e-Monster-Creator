@@ -263,7 +263,7 @@ function loadArrayAndUpdateStatblock(data, elementID){
         data.forEach(element => {
             stringFinal.push(element)
         });
-        document.getElementById(elementID).innerText = stringFinal.join(", ")
+        document.getElementById(elementID).innerText = stringFinal.join("; ")
     } 
     catch(e) { console.error("loadArrayAndUpdateStatblock() ~~ ", e) }
     
@@ -461,32 +461,91 @@ async function generateRandomMonster(method){
 
             return speedList
         }
-        async function randomSavingThrows(role){ // Function to randomly generate saving throw proficiencies based on cr
-            let weakSave = randomProperty(abilities)
-            while (weakSave == 'wisdom' || weakSave == 'dexterity' || weakSave == 'constitution'){
-                weakSave = randomProperty(abilities)
+        async function randomArray(arrayName, dependency){ // Function to randomly create a list based on the length of the given array
+            const quantity = roll(`1d${arrayName.length}`).total // Roll a die equal to the array's length
+            const array = [] // Define the array that will be returned
+            for (let index = 0; index < quantity; index++) { // Loop through the quantity determined above
+                let item = randomProperty(arrayName) // Get a random item from the given array
+                while (array.includes(item)) item = randomProperty(arrayName) // If the item is already in the list, get another random item
+                array.push(item) // Push the item to the list
             }
-            let strongSave = randomProperty(abilities)
-            while (strongSave == 'charisma' || strongSave == 'intelligence' || strongSave == 'strength'){
-                strongSave = randomProperty(abilities)
-            }
-            return {weak_save: weakSave, strong_save: strongSave}
+            return array
         }
+        async function randomSenses(){
+            const monsterSenses = await randomArray(senses) // Get a random list of senses
+            let sensesAndDistance = []
+            senses.forEach(element => { // Loop through them all to determine the distance
+                const range = roll('2d3-1*10').total
+                if (monsterSenses.includes(element)) sensesAndDistance.push(`${range}`)
+                else sensesAndDistance.push("0")
+            });
+            console.log("Senses:", sensesAndDistance)
+            return sensesAndDistance
+        }
+        async function randomDamageTypeVariables(){
+            const damageImmunities = await randomArray(damageTypes)
+            // Damage Resistances
+            const drQuantity = roll(`1d${damageTypes.length}`).total
+            const damageResistances = []
+            for (let index = 0; index < drQuantity; index++) {
+                let broken
+                let item = randomProperty(damageTypes)
+                let counter = 1
+                while (damageResistances.includes(item) || damageImmunities.includes(item)) {
+                    counter += 1
+                    if (counter >= damageTypes.length) {
+                        broken = true
+                        break
+                    }
+                    item = randomProperty(damageTypes)
+                }
+                if (!broken) damageResistances.push(item)
+            }
+            // Damage Vulnerabiiltes
+            const dvQuantity = roll(`1d${damageTypes.length}`).total
+            const damageVulnerabilities = []
+            for (let index = 0; index < dvQuantity; index++) {
+                let broken
+                let item = randomProperty(damageTypes)
+                let counter = 1
+                while (damageResistances.includes(item) || damageImmunities.includes(item) || damageVulnerabilities.includes(item)) {
+                    counter += 1
+                    if (counter >= damageTypes.length) {
+                        broken = true
+                        break
+                    }
+                    item = randomProperty(damageTypes)
+                }
+                if (!broken) damageVulnerabilities.push(item)
+            }
+            return {damage_immunities: damageImmunities, damage_resistances: damageResistances, damage_vulnerabilities: damageVulnerabilities}
+        }
+        async function randomAbilityScores(){
+            let abilityScores = {
+                strength: roll('2d6+6').total,
+                dexterity: roll('2d6+6').total,
+                constitution: roll('2d6+6').total,
+                intelligence: roll('2d6+6').total,
+                wisdom: roll('2d6+6').total,
+                charisma: roll('2d6+6').total
+            }
+            return abilityScores
+        }
+        
         let name = 'name'
         let properties = `${randomProperty(sizes)} ${randomProperty(monsterTypes)}, ${randomProperty(alignments)} (${role})` // Properties
         let speed = await randomSpeed()
-        let abilityScores
+        let abilityScores = await randomAbilityScores()
         let profBonus = `+${rothnersChartV2.find(i => i.CR == cr)['Prof']}`
-        let savingThrows = await randomSavingThrows(role)
-            let weakSave = savingThrows.weak_save
-            let strongSave = savingThrows.strong_save
-        let skills
-        let damageImmunities
-        let damageResistances
-        let damageVulnerabilities
-        let conditions
-        let senses
-        let languages
+        let savingThrows = await randomArray(abilities)
+        let monsterSkills = await randomArray(skills)
+        const damageVariables = await randomDamageTypeVariables()
+        let damageImmunities = damageVariables.damage_immunities
+        let damageResistances = damageVariables.damage_resistances
+        let damageVulnerabilities = damageVariables.damage_vulnerabilities
+        let monsterConditions = await randomArray(conditions)
+        let monsterSenses = await randomSenses()
+        let monsterLanguages = await randomArray(languages)
         let hp = rothnersChartV2.find(i => i.CR == cr)['Hit Points']
         let hpStuff = damageToDice(hp, cr)
         hp = roll(hpStuff[1].replaceAll(" ", "")).total
@@ -498,19 +557,24 @@ async function generateRandomMonster(method){
             name: name,
             properties: properties,
             speed: speed,
-            ability_scores: abilityScores,
             saving_throws: savingThrows,
-            skills: skills,
+            skills: monsterSkills,
             damage_immunities: damageImmunities,
             damage_resistances: damageResistances,
             damage_vulnerabilities: damageVulnerabilities,
-            conditions: conditions,
-            senses: senses,
-            languages: languages,
+            conditions: monsterConditions,
+            senses: monsterSenses,
+            languages: monsterLanguages,
             challenge_rating: `${cr} (${xp.toLocaleString()} XP)`,
             hit_points: `${hp} (${hitDice})`,
             proficiency_bonus: profBonus,
             armor_class: ac,
+            str: abilityScores.strength,
+            dex: abilityScores.dexterity,
+            con: abilityScores.constitution,
+            int: abilityScores.intelligence,
+            wis: abilityScores.wisdom,
+            cha: abilityScores.charisma,
             role: role
         }
         console.log("Data", data)

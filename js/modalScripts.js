@@ -355,7 +355,6 @@ function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
     const selected = JSON.parse(localStorage.getItem(`damage-${property}`))
     
-
     damageTypes.forEach(element => {
         const span = document.createElement('span')
         span.classList.add('modal-flex-element')
