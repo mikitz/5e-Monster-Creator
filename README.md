@@ -12,6 +12,10 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 [Google Sheet](https://docs.google.com/spreadsheets/d/1ewjp4myFf-_MFH1Qa5bLM3nbO1EtIFzyhl88Hh6EBe4/edit#gid=529759917)
 
 ## To-do List
+- [] Data Refactor
+    - [] Handle the inputs from grid-inputs
+    - [x] Handle modals
+    - [x] Random Monster Generator
 - [] Allowing rolling from within the statblock for
     - [] Click for normal roll
     - [] Ctrl + Click for Disadvantage
