@@ -569,29 +569,6 @@ async function generateRandomMonster(method){
         }
         // LOCAL STORAGE UPDATE
         localStorage.setItem('monster_data', JSON.stringify(data))
-
-        // localStorage.setItem('properties', properties.toLowerCase())
-        // localStorage.setItem('strength', abilityScores.strength)
-        // localStorage.setItem('dexterity', abilityScores.dexterity)
-        // localStorage.setItem('constitution', abilityScores.constitution)
-        // localStorage.setItem('intelligence', abilityScores.intelligence)
-        // localStorage.setItem('wisdom', abilityScores.wisdom)
-        // localStorage.setItem('charisma', abilityScores.charisma)
-        // localStorage.setItem(`senses`, JSON.stringify(monsterSenses))
-        // localStorage.setItem(`speed`, JSON.stringify(speed))
-        // localStorage.setItem(`saving-throws`, JSON.stringify(savingThrows))
-        // localStorage.setItem(`skills`, JSON.stringify(monsterSkills))
-        // localStorage.setItem(`damage-immunities`, JSON.stringify(damageImmunities))
-        // localStorage.setItem(`damage-resistances`, JSON.stringify(damageResistances))
-        // localStorage.setItem(`damage-vulnerabilities`, JSON.stringify(damageVulnerabilities))
-        // localStorage.setItem(`conditions`, JSON.stringify(monsterConditions))
-        // localStorage.setItem(`languages`, JSON.stringify(monsterLanguages))
-        // localStorage.setItem('role', role)
-        // localStorage.setItem('cr', `${cr} (${xp.toLocaleString()} XP)`)
-        // localStorage.setItem('hp', `${hp} (${hitDice})`)
-        // localStorage.setItem('ac', ac)
-        // localStorage.setItem('proficiency-bonus', `+${profBonus}`)
-        // localStorage.setItem('name', name)
     } 
     // =========================
     //          Party
