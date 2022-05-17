@@ -95,7 +95,6 @@ function monsterPropertiesListeners() {
             const monsterData = JSON.parse(localStorage.getItem('monster_data'))
             monsterData.properties = propString
             localStorage.setItem('monster_data', JSON.stringify(monsterData))
-            // localStorage.setItem('properties', propString.toLowerCase())
         })
     })
 }
@@ -108,12 +107,14 @@ function monsterAbilities(){
     addTippy('wisdom-info', "Wisdom reflects how attuned you are to the world around you and represents perceptiveness and intuition.")
     addTippy('charisma-info', "Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.")
 
-    let str = localStorage.getItem('strength')
-    let dex = localStorage.getItem('dexterity')
-    let con = localStorage.getItem('constitution')
-    let int = localStorage.getItem('intelligence')
-    let wis = localStorage.getItem('wisdom')
-    let cha = localStorage.getItem('charisma')
+    const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+    console.log(monsterData.ability_scores)
+    let str = monsterData.ability_scores.str
+    let dex = monsterData.ability_scores.dex
+    let con = monsterData.ability_scores.con
+    let int = monsterData.ability_scores.int
+    let wis = monsterData.ability_scores.wis
+    let cha = monsterData.ability_scores.cha
 
     if (!str) str = 1
     if (!dex) dex = 1
@@ -147,12 +148,16 @@ function monsterAbilitiesListeners(){
         const wis = document.getElementById('wisdom-input').value
         const cha = document.getElementById('charisma-input').value
 
-        localStorage.setItem('strength', str)
-        localStorage.setItem('dexterity', dex)
-        localStorage.setItem('constitution', con)
-        localStorage.setItem('intelligence', int)
-        localStorage.setItem('wisdom', wis)
-        localStorage.setItem('charisma', cha)
+        const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+        monsterData.ability_scores = {
+            str: str,
+            dex: dex,
+            con: con,
+            int: int,
+            wis: wis,
+            cha: cha
+        }
+        localStorage.setItem('monster_data', JSON.stringify(monsterData))      
 
         const abilitiesDiv = document.getElementById('abilities-statblock')
         abilitiesDiv.innerHTML = `<abilities-block data-cha="${cha}" data-con="${con}" data-dex="${dex}" data-int="${int}" data-str="${str}" data-wis="${wis}"></abilities-block>`
@@ -167,12 +172,16 @@ function monsterAbilitiesListeners(){
         const wis = document.getElementById('wisdom-input').value
         const cha = document.getElementById('charisma-input').value
 
-        localStorage.setItem('strength', str)
-        localStorage.setItem('dexterity', dex)
-        localStorage.setItem('constitution', con)
-        localStorage.setItem('intelligence', int)
-        localStorage.setItem('wisdom', wis)
-        localStorage.setItem('charisma', cha)
+        const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+        monsterData.ability_scores = {
+            str: str,
+            dex: dex,
+            con: con,
+            int: int,
+            wis: wis,
+            cha: cha
+        }
+        localStorage.setItem('monster_data', JSON.stringify(monsterData)) 
 
         const abilitiesDiv = document.getElementById('abilities-statblock')
         abilitiesDiv.innerHTML = `<abilities-block data-cha="${cha}" data-con="${con}" data-dex="${dex}" data-int="${int}" data-str="${str}" data-wis="${wis}"></abilities-block>`
@@ -181,7 +190,7 @@ function monsterAbilitiesListeners(){
 // Senses
 function monsterSenses(){
     const div = document.getElementById('senses-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`senses`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).senses
 
     for (let index = 0; index < senses.length; index++) {
         const element = senses[index];
@@ -220,15 +229,16 @@ function monsterSensesListeners(){
             }
             
             document.getElementById(`senses-statblock`).innerText = stringFinal.join(", ")
-
-            localStorage.setItem(`senses`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.senses = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Speed
 function monsterSpeed(){
     const div = document.getElementById('speed-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`speed`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).speed
 
     for (let index = 0; index < speeds.length; index++) {
         const element = speeds[index];
@@ -266,14 +276,16 @@ function monsterSpeedListeners(){
             }
 
             document.getElementById(`speeds-statblock`).innerText = stringFinal.join(", ")
-            localStorage.setItem(`speed`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.speed = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Saving Throws
 function monsterSavingThrows(){
     const div = document.getElementById('saving-throw-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`saving-throws`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).saving_throws
 
     abilities.forEach(element => {
         const span = document.createElement('span')
@@ -306,15 +318,16 @@ function monsterSavingThrowsListeners(){
             selected = Array.from(selectedTypes).map(x => x.value)
             const stringList = selected.join("; ")
             document.getElementById(`saving_throws-statblock`).innerText = stringList
-            
-            localStorage.setItem(`saving-throws`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.saving_throws = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Skills
 function monsterSkills(){
     const div = document.getElementById('skills-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`skills`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).skills
 
     skills.forEach(element => {
         const span = document.createElement('span')
@@ -348,15 +361,16 @@ function monsterSkillsListeners(){
             console.log("Selected Damage Types:", selected)
             const stringList = selected.join("; ")
             document.getElementById(`skills-statblock`).innerText = stringList
-            
-            localStorage.setItem(`skills`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.skills = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Damage Immunities
 function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`damage-${property}`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`))[`damage_${property}`]
     
     damageTypes.forEach(element => {
         const span = document.createElement('span')
@@ -405,15 +419,16 @@ function monsterDamageTypesListeners(property){
             selected = Array.from(selectedTypes).map(x => x.value)
             const stringList = selected.join("; ")
             document.getElementById(`damage_${property}-statblock`).innerText = stringList
-            
-            localStorage.setItem(`damage-${property}`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData[`damage_${property}`] = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Conditions
 function monsterConditions(){
     const div = document.getElementById('conditions-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`conditions`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).conditions
 
     conditions.forEach(element => {
         const span = document.createElement('span')
@@ -447,15 +462,16 @@ function monsterConditionsListeners(){
             selected = Array.from(selectedTypes).map(x => x.value)
             const stringList = selected.join("; ")
             document.getElementById(`condition_immunities-statblock`).innerText = stringList
-            
-            localStorage.setItem(`conditions`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.conditions = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Languages
 function monsterLanguages(){
     const div = document.getElementById('languages-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`languages`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).languages
 
     languages.forEach(element => {
         const span = document.createElement('span')
@@ -487,8 +503,9 @@ function monsterLanguagesListeners(){
             selected = Array.from(selectedTypes).map(x => x.value)
             const stringList = selected.join("; ")
             document.getElementById(`languages-statblock`).innerText = stringList
-            
-            localStorage.setItem(`languages`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.languages = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }

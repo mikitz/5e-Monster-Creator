@@ -195,12 +195,6 @@ function saveMonsterToLocalStorage(){
         hit_points: `${hp} (${hitDice})`,
         proficiency_bonus: profBonus,
         armor_class: ac,
-        str: abilityScores.strength,
-        dex: abilityScores.dexterity,
-        con: abilityScores.constitution,
-        int: abilityScores.intelligence,
-        wis: abilityScores.wisdom,
-        cha: abilityScores.charisma,
         role: role
     }
     // LOCAL STORAGE UPDATE
@@ -285,7 +279,7 @@ function buildStatblock(json){
     // TODO: Legenedary Actions
     // Abilities
     const abilitiesDiv = document.getElementById('abilities-statblock')
-    abilitiesDiv.innerHTML = `<abilities-block data-cha="${json.cha}" data-con="${json.con}" data-dex="${json.dex}" data-int="${json.int}" data-str="${json.str}" data-wis="${json.wis}"></abilities-block>`
+    abilitiesDiv.innerHTML = `<abilities-block data-cha="${json.ability_scores.cha}" data-con="${json.ability_scores.con}" data-dex="${json.ability_scores.dex}" data-int="${json.ability_scores.int}" data-str="${json.ability_scores.str}" data-wis="${json.ability_scores.wis}"></abilities-block>`
 }
 // =====================
 //     Build Monster
@@ -511,12 +505,12 @@ async function generateRandomMonster(method){
         }
         async function randomAbilityScores(){
             let abilityScores = {
-                strength: roll('2d6+6').total,
-                dexterity: roll('2d6+6').total,
-                constitution: roll('2d6+6').total,
-                intelligence: roll('2d6+6').total,
-                wisdom: roll('2d6+6').total,
-                charisma: roll('2d6+6').total
+                str: roll('2d6+6').total,
+                dex: roll('2d6+6').total,
+                con: roll('2d6+6').total,
+                int: roll('2d6+6').total,
+                wis: roll('2d6+6').total,
+                cha: roll('2d6+6').total
             }
             return abilityScores
         }
@@ -546,7 +540,7 @@ async function generateRandomMonster(method){
             name: name,
             properties: properties,
             speed: speed,
-            abilitie_scores: abilityScores,
+            ability_scores: abilityScores,
             saving_throws: savingThrows,
             skills: monsterSkills,
             damage_immunities: damageImmunities,
