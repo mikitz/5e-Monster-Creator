@@ -1,3 +1,4 @@
+// Saving Throws, Skills, Condition Immunities, and Languages
 function populateModal(monsterParameter){
     const div = document.getElementById(`${monsterParameter}-checkboxes`)
     const underscored = monsterParameter.replace("-", "_")
