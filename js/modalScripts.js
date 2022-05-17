@@ -1,3 +1,64 @@
+function populateModal(monsterParameter){
+    const div = document.getElementById(`${monsterParameter}-checkboxes`)
+    const underscored = monsterParameter.replace("-", "_")
+    const selected = JSON.parse(localStorage.getItem(`monster_data`))[underscored]
+    let table
+
+    if (monsterParameter == 'saving-throws') table = abilities
+    else if (monsterParameter == 'languages') table = languages
+    else if (monsterParameter == 'conditions') table = conditions
+    else if (monsterParameter == 'skills') table = skills
+
+    table.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
+        const input = document.createElement('input')
+        input.type = 'checkbox'
+        input.name = monsterParameter
+        input.id = `${element}-checkbox`
+        input.value = element
+        input.style.marginRight = '5px'
+        if (selected && selected.includes(element)) input.checked = true
+        span.appendChild(input)
+
+        const label = document.createElement('label')
+        label.innerText = capitalize(element)
+        label.setAttribute('for', `${element}-checkbox`)
+        label.style.overflow = 'ellipsis'
+
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered") {
+            label.innerText = "non-silvered"
+            label.id = "non-silvered-label"
+            label.classList.add("help")
+        }
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks") {
+            label.innerText = "non-magical"
+            label.id = "non-magical-label"
+            label.classList.add("help")
+        }
+
+        span.appendChild(label)
+        
+        div.appendChild(span)
+    })
+}
+function modalListeners(monsterParameter){
+    const radioGroups = document.getElementsByName(monsterParameter)
+    const underscored = monsterParameter.replace("-", "_")
+    let selected = []
+    radioGroups.forEach(element => {
+        element.addEventListener('change', function(){
+            const selectedTypes = document.querySelectorAll(`input[name="${monsterParameter}"]:checked`)
+            selected = Array.from(selectedTypes).map(x => x.value)
+            const stringList = selected.join("; ")
+            document.getElementById(`${underscored}-statblock`).innerText = stringList
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData[underscored] = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
+        })
+    })
+}
 // Monster Name
 function monsterNameListeners(){
     const input = document.getElementById('input')
@@ -282,91 +343,6 @@ function monsterSpeedListeners(){
         })
     })
 }
-// Saving Throws
-function monsterSavingThrows(){
-    const div = document.getElementById('saving-throw-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`monster_data`)).saving_throws
-
-    abilities.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'saving-throw'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        label.style.overflow = 'ellipsis'
-        span.appendChild(label)
-        
-        div.appendChild(span)
-    })
-}
-function monsterSavingThrowsListeners(){
-    const radioGroups = document.getElementsByName('saving-throw')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="saving-throw"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`saving_throws-statblock`).innerText = stringList
-            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
-            monsterData.saving_throws = selected
-            localStorage.setItem('monster_data', JSON.stringify(monsterData))
-        })
-    })
-}
-// Skills
-function monsterSkills(){
-    const div = document.getElementById('skills-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`monster_data`)).skills
-
-    skills.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'skills-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        label.style.overflow = 'ellipsis'
-        span.appendChild(label)
-
-        div.appendChild(span)
-    })
-}
-function monsterSkillsListeners(){
-    const radioGroups = document.getElementsByName('skills-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="skills-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            console.log("Selected Damage Types:", selected)
-            const stringList = selected.join("; ")
-            document.getElementById(`skills-statblock`).innerText = stringList
-            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
-            monsterData.skills = selected
-            localStorage.setItem('monster_data', JSON.stringify(monsterData))
-        })
-    })
-}
 // Damage Immunities
 function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
@@ -421,90 +397,6 @@ function monsterDamageTypesListeners(property){
             document.getElementById(`damage_${property}-statblock`).innerText = stringList
             const monsterData = JSON.parse(localStorage.getItem('monster_data'))
             monsterData[`damage_${property}`] = selected
-            localStorage.setItem('monster_data', JSON.stringify(monsterData))
-        })
-    })
-}
-// Conditions
-function monsterConditions(){
-    const div = document.getElementById('conditions-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`monster_data`)).conditions
-
-    conditions.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'condition-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        span.appendChild(label)
-
-        div.appendChild(span)
-        // const brk = document.createElement('br')
-        // div.appendChild(brk)
-    })
-}
-function monsterConditionsListeners(){
-    const radioGroups = document.getElementsByName('condition-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="condition-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`condition_immunities-statblock`).innerText = stringList
-            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
-            monsterData.conditions = selected
-            localStorage.setItem('monster_data', JSON.stringify(monsterData))
-        })
-    })
-}
-// Languages
-function monsterLanguages(){
-    const div = document.getElementById('languages-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`monster_data`)).languages
-
-    languages.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'language-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        span.appendChild(label)
-
-        div.appendChild(span)
-    })
-}
-function monsterLanguagesListeners(){
-    const radioGroups = document.getElementsByName('language-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="language-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`languages-statblock`).innerText = stringList
-            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
-            monsterData.languages = selected
             localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
