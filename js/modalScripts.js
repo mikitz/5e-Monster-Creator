@@ -13,7 +13,7 @@ function monsterProperties() {
     const type = document.getElementById('type-radio-div')
     const alignment = document.getElementById('alignment-radio-div')
     const lastDiv = document.getElementById('last-div')
-    const properties = localStorage.getItem("properties")
+    const properties = JSON.parse(localStorage.getItem('monster_data')).properties
     // Sizes
     sizes.forEach(element => {
         const label = document.createElement('label')
@@ -92,7 +92,10 @@ function monsterPropertiesListeners() {
             // Set the string
             const propString = `${capitalize(size)} ${type}, ${alignment}`
             document.getElementById('monster-properties-statblock').innerText = propString
-            localStorage.setItem('properties', propString.toLowerCase())
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.properties = propString
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
+            // localStorage.setItem('properties', propString.toLowerCase())
         })
     })
 }
@@ -375,10 +378,12 @@ function monsterDamageTypes(property){
         if (element == "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered") {
             label.innerText = "non-silvered"
             label.id = "non-silvered-label"
+            label.classList.add("help")
         }
         if (element == "bludgeoning, piercing, and slashing from nonmagical attacks") {
             label.innerText = "non-magical"
             label.id = "non-magical-label"
+            label.classList.add("help")
         }
         span.appendChild(label)
 

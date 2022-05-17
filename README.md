@@ -13,16 +13,20 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 
 ## To-do List
 - [] Allowing rolling from within the statblock for
+    - [] Click for normal roll
+    - [] Ctrl + Click for Disadvantage
+    - [] Alt + Click for Advantage
     1. [] Skills
     2. [] Saving Throws
     3. [] Ability Checks
-        - [] Click for normal roll
-        - [] Ctrl + Click for Disadvantage
-        - [] Alt + Click for Advantage
     4. [] Hit Points
     5. [] Attacks
+- [] Actions
+    1. [] Melee actions
+    2. [] Spells
+    3. [] Legendary Actions
 - [] Hover for Info
-    1. [] Abilities
+    1. [x] Abilities
     2. [] Skills
     3. [] Senses
 

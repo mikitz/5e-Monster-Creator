@@ -40,6 +40,10 @@ input:not(.custom-radio) {
 .fa-dungeon {
     cursor: pointer;
 }
+.help {
+    text-decoration: underline !important;
+    text-decoration-style: dotted !important;
+}
 /* ================
     CUSTOM INPUT
 ================= */
