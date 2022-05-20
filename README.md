@@ -13,9 +13,11 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 
 ## To-do List
 - [] Data Refactor
-    - [] Handle the inputs from grid-inputs
+    - [x] Handle the inputs from grid-inputs
     - [x] Handle modals
     - [x] Random Monster Generator
+    - [] Save each monster to an array in Local Storage
+        - [] Only create a new monster when the name changes
 - [] Allowing rolling from within the statblock for
     - [] Click for normal roll
     - [] Ctrl + Click for Disadvantage
@@ -29,10 +31,13 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
     1. [] Melee actions
     2. [] Spells
     3. [] Legendary Actions
+- [] Traits
+    - E.G. *multiattack*, *frightful presence*
 - [] Hover for Info
     1. [x] Abilities
     2. [] Skills
     3. [] Senses
+
 
 ## Expansion Ideas
 1. Generate random encounters with randomly generated monsters.

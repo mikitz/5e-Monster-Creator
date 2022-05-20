@@ -173,32 +173,30 @@ function loadLocalStorageMonster(){
     buildStatblock(monsterData)
 }
 // Save Monster Statblock to Local Storage
-function saveMonsterToLocalStorage(){
-
-    const name = 
-
-    // Build JSON
-    data = {
-        name: name,
-        properties: properties,
-        speed: speed,
-        abilitie_scores: abilityScores,
-        saving_throws: savingThrows,
-        skills: monsterSkills,
-        damage_immunities: damageImmunities,
-        damage_resistances: damageResistances,
-        damage_vulnerabilities: damageVulnerabilities,
-        conditions: monsterConditions,
-        senses: monsterSenses,
-        languages: monsterLanguages,
-        challenge_rating: `${cr} (${xp.toLocaleString()} XP)`,
-        hit_points: `${hp} (${hitDice})`,
-        proficiency_bonus: profBonus,
-        armor_class: ac,
-        role: role
-    }
-    // LOCAL STORAGE UPDATE
-    localStorage.setItem('monster_data', JSON.stringify(data))
+function saveMonsterInputsToLocalStorage(){
+    const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+    // Inputs
+    const ac = parseInt(document.getElementById('armor-class-input').value)
+    const hp = document.getElementById('hit-points-statblock').value
+    const meleeToHit = parseInt((document.getElementById('to-hit-input').value).replace("+", ""))
+    const damagePerRound = parseInt(document.getElementById('damage-per-round-input').value)
+    const spellSaveDC = parseInt(document.getElementById('spell-save-dc-input').value)
+    const spellToHit = parseInt((document.getElementById('spell-to-hit-input').value).replace("+", ""))
+    const dexConWis = parseInt(document.getElementById('save-sum-input').value)
+    const spellLevel = parseInt(document.getElementById('spell-level-input').value)
+    const effectiveSpellDamage = parseInt(document.getElementById('spell-damage-input').value)
+    // Update JSON
+    monsterData.armor_class = ac
+    monsterData.hit_points = hp
+    monsterData.melee_to_hit = meleeToHit
+    monsterData.damage_per_round = damagePerRound
+    monsterData.spell_save_dc = spellSaveDC
+    monsterData.spell_to_hit = spellToHit
+    monsterData.dex_con_wis = dexConWis
+    monsterData.spell_level = spellLevel
+    monsterData.effective_spell_damage = effectiveSpellDamage
+    // Local Storage Update
+    localStorage.setItem('monster_data', JSON.stringify(monsterData))
 }
 // ========================
 //     Export Statblock
@@ -260,26 +258,29 @@ function loadStringAndUpdateStatblock(data, elementID){
 }
 // Function that builds a statblock from a JSON
 function buildStatblock(json){
-    loadStringAndUpdateStatblock(json.name, 'monster-name-statblock') // Name
-    loadStringAndUpdateStatblock(json.properties, 'monster-properties-statblock') // Properties
-    loadJSONAndUpdateStatblock(json.speed, 'speeds-statblock') // Speed
-    loadArrayAndUpdateStatblock(json.saving_throws, 'saving_throws-statblock') // Saving Throws
-    loadArrayAndUpdateStatblock(json.skills, 'skills-statblock') // Skills
-    loadArrayAndUpdateStatblock(json.damage_immunities, 'damage_immunities-statblock') // Damage Immunities
-    loadArrayAndUpdateStatblock(json.damage_resistances, 'damage_resistances-statblock') // Damage Resistances
-    loadArrayAndUpdateStatblock(json.damage_vulnerabilities, 'damage_vulnerabilities-statblock') // Damage Vulnerabilities
-    loadArrayAndUpdateStatblock(json.conditions, 'condition_immunities-statblock') // Condition Immunities
-    loadJSONAndUpdateStatblock(json.senses, 'senses-statblock') // Senses
-    loadArrayAndUpdateStatblock(json.languages, 'languages-statblock') // Languages
-    loadStringAndUpdateStatblock(json.challenge_rating, 'challenge-rating-statblock') // CR
-    loadStringAndUpdateStatblock(json.hit_points, 'hit-points-statblock')// HP
-    loadStringAndUpdateStatblock(json.proficiency_bonus, 'proficiency_bonus-statblock') // Proficiency Bonus
-    loadStringAndUpdateStatblock(json.armor_class, 'armor-class-statblock') // Armor Class
-    // TODO: Actions
-    // TODO: Legenedary Actions
-    // Abilities
-    const abilitiesDiv = document.getElementById('abilities-statblock')
-    abilitiesDiv.innerHTML = `<abilities-block data-cha="${json.ability_scores.cha}" data-con="${json.ability_scores.con}" data-dex="${json.ability_scores.dex}" data-int="${json.ability_scores.int}" data-str="${json.ability_scores.str}" data-wis="${json.ability_scores.wis}"></abilities-block>`
+    try {
+        loadStringAndUpdateStatblock(json.name, 'monster-name-statblock') // Name
+        loadStringAndUpdateStatblock(json.properties, 'monster-properties-statblock') // Properties
+        loadJSONAndUpdateStatblock(json.speed, 'speeds-statblock') // Speed
+        loadArrayAndUpdateStatblock(json.saving_throws, 'saving_throws-statblock') // Saving Throws
+        loadArrayAndUpdateStatblock(json.skills, 'skills-statblock') // Skills
+        loadArrayAndUpdateStatblock(json.damage_immunities, 'damage_immunities-statblock') // Damage Immunities
+        loadArrayAndUpdateStatblock(json.damage_resistances, 'damage_resistances-statblock') // Damage Resistances
+        loadArrayAndUpdateStatblock(json.damage_vulnerabilities, 'damage_vulnerabilities-statblock') // Damage Vulnerabilities
+        loadArrayAndUpdateStatblock(json.conditions, 'condition_immunities-statblock') // Condition Immunities
+        loadJSONAndUpdateStatblock(json.senses, 'senses-statblock') // Senses
+        loadArrayAndUpdateStatblock(json.languages, 'languages-statblock') // Languages
+        loadStringAndUpdateStatblock(json.challenge_rating, 'challenge-rating-statblock') // CR
+        loadStringAndUpdateStatblock(json.hit_points, 'hit-points-statblock')// HP
+        loadStringAndUpdateStatblock(json.proficiency_bonus, 'proficiency_bonus-statblock') // Proficiency Bonus
+        loadStringAndUpdateStatblock(json.armor_class, 'armor-class-statblock') // Armor Class
+        // TODO: Actions
+        // TODO: Legenedary Actions
+        // Abilities
+        const abilitiesDiv = document.getElementById('abilities-statblock')
+        abilitiesDiv.innerHTML = `<abilities-block data-cha="${json.ability_scores.cha}" data-con="${json.ability_scores.con}" data-dex="${json.ability_scores.dex}" data-int="${json.ability_scores.int}" data-str="${json.ability_scores.str}" data-wis="${json.ability_scores.wis}"></abilities-block>`
+    } catch(error) { console.error("buildStatblock() ~~", error) }
+    
 }
 // =====================
 //     Build Monster
@@ -346,6 +347,8 @@ function iGotThisCRFunction(element) {
     const spellLevel = rothnersChartV2.find(i => i.CR == cr)['Spell Level']
     const effectiveSpellDamage = rothnersChartV2.find(i => i.CR == cr)['Effective Spell Dmg']
 
+    const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+
     if (selectedMethod == 'Pre_Gens') {
         elementPoints.innerHTML = 0
         elementAC.innerText = AC
@@ -359,11 +362,15 @@ function iGotThisCRFunction(element) {
         elementSpellLevel.value = spellLevel
         elementSaveSum.value = saveSum
 
-        // Save to LocalStorage
-        localStorage.setItem('cr', `${crText} (${xp.toLocaleString()} XP)`)
-        localStorage.setItem('hp', `${HP} (${hitDice})`)
-        localStorage.setItem('ac', AC)
-        localStorage.setItem('proficiency-bonus', `+${proficiencyBonus}`)
+        // Save to Monster Data
+        monsterData.challenge_rating = `${crText} (${xp.toLocaleString()} XP)`
+        monsterData.hit_points = `${HP} (${hitDice})`
+        monsterData.armor_class = AC
+        monsterData.proficiency_bonus = proficiencyBonus
+        
+        // localStorage.setItem('hp', `${HP} (${hitDice})`)
+        // localStorage.setItem('ac', AC)
+        // localStorage.setItem('proficiency-bonus', `+${proficiencyBonus}`)
     } else {
         elementPoints.innerHTML = `<b>${Math.round((cr * 5)+6)}</b>`
         elementAC.innerText = 11
@@ -376,17 +383,24 @@ function iGotThisCRFunction(element) {
         elementSpellToHit.value = 2
         elementSaveSum.value = 1
 
-        // Save to LocalStorage
-        localStorage.setItem('cr', `${crText} (${xp.toLocaleString()} XP)`)
-        localStorage.setItem('hp', `8 (TBD)`)
-        localStorage.setItem('ac', 11)
-        localStorage.setItem('proficiency-bonus', `+${proficiencyBonus}`)
+        // Save to Monster Data
+        monsterData.challenge_rating = `${crText} (${xp.toLocaleString()} XP)`
+        monsterData.hit_points = `8 (TBD)`
+        monsterData.armor_class = 11
+        monsterData.proficiency_bonus = proficiencyBonus
+        // localStorage.setItem('hp', `8 (TBD)`)
+        // localStorage.setItem('ac', 11)
+        // localStorage.setItem('proficiency-bonus', `+${proficiencyBonus}`)
     }
     elementCR.innerText = `${crText} (${xp.toLocaleString()} XP)`
     elementProfBonus.innerText = `+${proficiencyBonus}`
     elementSpellLevel.value = spellLevel
     elementSpellDamage.value = effectiveSpellDamage
     elementName.innerText = 'Name'
+    // Update Local Storage
+    localStorage.setItem('cr', `${crText} (${xp.toLocaleString()} XP)`)
+    localStorage.setItem('monster_data', JSON.stringify(monsterData))
+
 }
 // Function to randomly generate a monster based on user inputs
 async function generateRandomMonster(method){
@@ -553,13 +567,10 @@ async function generateRandomMonster(method){
             hit_points: `${hp} (${hitDice})`,
             proficiency_bonus: profBonus,
             armor_class: ac,
-            str: abilityScores.strength,
-            dex: abilityScores.dexterity,
-            con: abilityScores.constitution,
-            int: abilityScores.intelligence,
-            wis: abilityScores.wisdom,
-            cha: abilityScores.charisma,
-            role: role
+            role: role,
+            actions: [],
+            legendary_actions: [],
+            spells: []
         }
         // LOCAL STORAGE UPDATE
         localStorage.setItem('monster_data', JSON.stringify(data))
@@ -573,13 +584,13 @@ async function generateRandomMonster(method){
         let properties
         let speed
         let savingThrows
-        let skills
+        let monsterSkills
         let damageImmunities
         let damageResistances
         let damageVulnerabilities
-        let conditions
-        let senses
-        let languages
+        let monsterConditions
+        let monsterSenses
+        let monsterLanguages
         let hp
         let profBonus
         let ac
@@ -590,18 +601,23 @@ async function generateRandomMonster(method){
             name: name,
             properties: properties,
             speed: speed,
+            ability_scores: abilityScores,
             saving_throws: savingThrows,
-            skills: skills,
+            skills: monsterSkills,
             damage_immunities: damageImmunities,
             damage_resistances: damageResistances,
             damage_vulnerabilities: damageVulnerabilities,
-            conditions: conditions,
-            senses: senses,
-            languages: languages,
-            challenge_rating: cr,
-            hit_points: hp,
+            conditions: monsterConditions,
+            senses: monsterSenses,
+            languages: monsterLanguages,
+            challenge_rating: `${cr} (${xp.toLocaleString()} XP)`,
+            hit_points: `${hp} (${hitDice})`,
             proficiency_bonus: profBonus,
-            armor_class: ac
+            armor_class: ac,
+            role: role,
+            actions: [],
+            legendary_actions: [],
+            spells: []
         }
     } 
     
