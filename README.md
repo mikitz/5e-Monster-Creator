@@ -38,12 +38,10 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
     2. [] Skills
     3. [] Senses
 
-
 ## Expansion Ideas
 1. Generate random encounters with randomly generated monsters.
 2. When rolling a new random monster in the same CR, do not allow the current one to be rolled again.
 3. Generate different roles or role-less monsters per [this](https://www.reddit.com/r/DMAcademy/comments/hyilfk/using_defined_enemy_roles_to_make_combat_more/?utm_medium=android_app&utm_source=share).
-
 
 ## Big, Hairy Audacious Goals (Thank you Steven Farr)
 1. Implement a neural network to make the monsters more balanced using party composition as an input.
