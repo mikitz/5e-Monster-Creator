@@ -168,63 +168,80 @@
     width: 50px;
     text-align: center;
   }
+  .abilities-modal {
+    cursor: pointer !important;
+  }
+  .rollable-element {
+      /* cursor: url('dice-d20-solid.svg'), auto !important; */
+      cursor: crosshair;
+  }
 </style><tapered-rule></tapered-rule><table>
   <tbody><tr>
-    <th>STR</th>
-    <th>DEX</th>
-    <th>CON</th>
-    <th>INT</th>
-    <th>WIS</th>
-    <th>CHA</th>
+    <th class="abilities-modal" name="abilities-modal">STR</th>
+    <th class="abilities-modal" name="abilities-modal">DEX</th>
+    <th class="abilities-modal" name="abilities-modal">CON</th>
+    <th class="abilities-modal" name="abilities-modal">INT</th>
+    <th class="abilities-modal" name="abilities-modal">WIS</th>
+    <th class="abilities-modal" name="abilities-modal">CHA</th>
   </tr>
   <tr>
-    <td id="str"></td>
-    <td id="dex"></td>
-    <td id="con"></td>
-    <td id="int"></td>
-    <td id="wis"></td>
-    <td id="cha"></td>
+    <td name="rollable-element" id="str" class="rollable-element"></td>
+    <td name="rollable-element" id="dex" class="rollable-element"></td>
+    <td name="rollable-element" id="con" class="rollable-element"></td>
+    <td name="rollable-element" id="int" class="rollable-element"></td>
+    <td name="rollable-element" id="wis" class="rollable-element"></td>
+    <td name="rollable-element" id="cha" class="rollable-element"></td>
   </tr>
 </tbody></table><tapered-rule></tapered-rule></template><script>{
   function abilityModifier(abilityScore) {
   let score = parseInt(abilityScore, 10);
   return Math.floor((score - 10) / 2);
-}
-
-function formattedModifier(abilityModifier) {
-  if (abilityModifier >= 0) {
-    return '+' + abilityModifier;
   }
-  // This is an en dash, NOT a "normal" dash. The minus sign needs to be more
-  // visible.
-  return '–' + Math.abs(abilityModifier);
-}
 
-function abilityText(abilityScore) {
-  return [String(abilityScore),
-          ' (',
-          formattedModifier(abilityModifier(abilityScore)),
-          ')'].join('');
-}
-
-function elementClass(contentNode) {
-  return class extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({mode: 'open'})
-        .appendChild(contentNode.cloneNode(true));
+  function formattedModifier(abilityModifier) {
+    if (abilityModifier >= 0) {
+      return '+' + abilityModifier;
     }
-    connectedCallback() {
-      let root = this.shadowRoot;
-      for (let i = 0; i < this.attributes.length; i++) {
-        let attribute = this.attributes[i];
-        let abilityShortName = attribute.name.split('-')[1];
-        root.getElementById(abilityShortName).textContent =
-          abilityText(attribute.value);
+    // This is an en dash, NOT a "normal" dash. The minus sign needs to be more
+    // visible.
+    return '–' + Math.abs(abilityModifier);
+  }
+
+  function abilityText(abilityScore) {
+    return [String(abilityScore),
+            ' (',
+            formattedModifier(abilityModifier(abilityScore)),
+            ')'].join('');
+  }
+  const rollableElements = document.querySelectorAll('.rollable-element')
+  console.log("Rollable Elements:", rollableElements)
+  rollableElements.forEach(element => {
+    element.addEventListener('click', function() { onClickRollCheck(e) })
+  })
+
+  const abilityScoresElements = document.querySelectorAll('.abilities-modal')
+  console.log("Ability Score Elements:", abilityScoresElements)
+  abilityScoresElements.forEach(element => {
+    element.addEventListener('click', function() { openModal("Ability Scores", "abilities-statblock", "abilities.html") })
+  })
+  function elementClass(contentNode) {
+    return class extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({mode: 'open'})
+          .appendChild(contentNode.cloneNode(true));
+      }
+      connectedCallback() {
+        let root = this.shadowRoot;
+        for (let i = 0; i < this.attributes.length; i++) {
+          let attribute = this.attributes[i];
+          let abilityShortName = attribute.name.split('-')[1];
+          root.getElementById(abilityShortName).textContent =
+            abilityText(attribute.value);
+        }
       }
     }
   }
-}
 
   let templateElement = document.getElementById('abilities-block');
   createCustomElement('abilities-block', templateElement.content, elementClass);
@@ -308,7 +325,7 @@ function elementClass(contentNode) {
         <p id="speeds-statblock"></p>
       </property-line>
 
-      <div id="abilities-statblock" class="statblock-input"><abilities-block data-cha="10" data-con="10" data-dex="10" data-int="10" data-str="10" data-wis="10"></abilities-block></div>
+      <div id="abilities-statblock"><abilities-block data-cha="10" data-con="10" data-dex="10" data-int="10" data-str="10" data-wis="10"></abilities-block></div>
       
       <property-line>
         <h4 name="proficiency_bonus-statblock">Proficiency Bonus</h4>

@@ -44,6 +44,13 @@ input:not(.custom-radio) {
     text-decoration: underline !important;
     text-decoration-style: dotted !important;
 }
+.abilities-modal {
+    cursor: pointer !important;
+    background: red !important;
+}
+.rollable-element {
+    cursor: url('dice-d20-solid.svg'), pointer !important;
+}
 /* ================
     CUSTOM INPUT
 ================= */

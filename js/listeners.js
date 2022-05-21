@@ -33,7 +33,7 @@ function iGotThisListeners(){
     // --------------------
     //   Statblock Inputs
     // --------------------
-    sleep(200).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+    sleep(400).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
         const statblockInputs = document.querySelectorAll('.statblock-input')
         statblockInputs.forEach(element => {
             element.addEventListener('click', function() { 
@@ -47,11 +47,19 @@ function iGotThisListeners(){
         document.getElementById('download-statblock').addEventListener('click', function() { downloadStatblockAsImage() })
         document.getElementById('download-foundry-vtt').addEventListener('click', function() { downloadFoundryVtt() })
         document.getElementById('download-fantasy-grounds').addEventListener('click', function() { downloadaFantasyGrounds() })
-    })
-}
-// Walkthrough Listeners
-function walkthroughListeners(){
 
+        const rollableElements = document.querySelectorAll('.rollable-element')
+        console.log("Rollable Elements:", rollableElements)
+        rollableElements.forEach(element => {
+            element.addEventListener('click', function() { onClickRollCheck(e) })
+        })
+
+        const abilityScoresElements = document.querySelectorAll('.abilities-modal')
+        console.log("Ability Score Elements:", abilityScoresElements)
+        abilityScoresElements.forEach(element => {
+            element.addEventListener('click', function() { openModal("Ability Scores", "abilities-statblock", "abilities.html") })
+        })
+    })
 }
 // Random Listeners
 function randomListeners(){
@@ -61,7 +69,7 @@ function randomListeners(){
     });
 }
 function randomStatblockListeners(){
-    sleep(200).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
+    sleep(400).then(() => { // I hate this... The statblock is loaded over 100 lines before this is run but it still needs to be awaited...
         const statblockInputs = document.querySelectorAll('.statblock-input')
         statblockInputs.forEach(element => {
             element.addEventListener('click', function() { 
@@ -78,6 +86,18 @@ function randomStatblockListeners(){
         addTippy('download-statblock', 'Download as a PNG <br> Not yet fully implemented. Take a screenshot instead.')
         addTippy('download-foundry-vtt', 'Download for FoundryVTT <br> Not yet implemented.')
         addTippy('download-fantasy-grounds', 'Download for Fantasy Grounds <br> Not yet implemented.')
+
+        const rollableElements = document.querySelectorAll('.rollable-element')
+        console.log("Rollable Elements:", rollableElements)
+        rollableElements.forEach(element => {
+            element.addEventListener('click', function() { onClickRollCheck(e) })
+        })
+
+        const abilityScoresElements = document.querySelectorAll('.abilities-modal')
+        console.log("Ability Score Elements:", abilityScoresElements)
+        abilityScoresElements.forEach(element => {
+            element.addEventListener('click', function() { openModal("Ability Scores", "abilities-statblock", "abilities.html") })
+        })
     })
     
 }

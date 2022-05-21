@@ -56,10 +56,10 @@ function saveMonsterData(key, value) {
     localStorage.setItem(key, value)
 }
 // Function to roll a die with some optional modifiers
-// E.G. ndx plus/minus y time/divided by z
+function roll(diceString) {
+    // E.G. ndx plus/minus y time/divided by z
     // E.G. 20d8+3*10
     // E.G. 8d20-4/3 
-function roll(diceString) {
     let rolls = []
     let total = 0
     const numberOfDice = parseInt(diceString.match(/(\d)+d/gm)[0].replace("d", '')) // Extract the number of dice from the string
@@ -100,4 +100,21 @@ function roll(diceString) {
         rolls: rolls
     }
     return rollObject
+}
+// Function to roll clicked on number
+function onClickRollCheck(event) {
+    let rollType
+    if (event.ctrlKey) rollType = 'advantage' 
+    else if (event.shiftKey) rollType = 'disadvantage'
+    else rollType = 'normal'
+
+    console.log("Roll Type:", rollType)
+
+    function rollCheck(checkName, rollType) {
+        /*
+            checkName = 
+            rollType = advantage, disadvantage, normal
+        */
+
+    }
 }
