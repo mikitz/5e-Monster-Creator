@@ -1,3 +1,65 @@
+// Saving Throws, Skills, Condition Immunities, and Languages
+function populateModal(monsterParameter){
+    const div = document.getElementById(`${monsterParameter}-checkboxes`)
+    const underscored = monsterParameter.replace("-", "_")
+    const selected = JSON.parse(localStorage.getItem(`monster_data`))[underscored]
+    let table
+
+    if (monsterParameter == 'saving-throws') table = abilities
+    else if (monsterParameter == 'languages') table = languages
+    else if (monsterParameter == 'conditions') table = conditions
+    else if (monsterParameter == 'skills') table = skills
+
+    table.forEach(element => {
+        const span = document.createElement('span')
+        span.classList.add('modal-flex-element')
+
+        const input = document.createElement('input')
+        input.type = 'checkbox'
+        input.name = monsterParameter
+        input.id = `${element}-checkbox`
+        input.value = element
+        input.style.marginRight = '5px'
+        if (selected && selected.includes(element)) input.checked = true
+        span.appendChild(input)
+
+        const label = document.createElement('label')
+        label.innerText = capitalize(element)
+        label.setAttribute('for', `${element}-checkbox`)
+        label.style.overflow = 'ellipsis'
+
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered") {
+            label.innerText = "non-silvered"
+            label.id = "non-silvered-label"
+            label.classList.add("help")
+        }
+        if (element == "bludgeoning, piercing, and slashing from nonmagical attacks") {
+            label.innerText = "non-magical"
+            label.id = "non-magical-label"
+            label.classList.add("help")
+        }
+
+        span.appendChild(label)
+        
+        div.appendChild(span)
+    })
+}
+function modalListeners(monsterParameter){
+    const radioGroups = document.getElementsByName(monsterParameter)
+    const underscored = monsterParameter.replace("-", "_")
+    let selected = []
+    radioGroups.forEach(element => {
+        element.addEventListener('change', function(){
+            const selectedTypes = document.querySelectorAll(`input[name="${monsterParameter}"]:checked`)
+            selected = Array.from(selectedTypes).map(x => x.value)
+            const stringList = selected.join("; ")
+            document.getElementById(`${underscored}-statblock`).innerText = stringList
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData[underscored] = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
+        })
+    })
+}
 // Monster Name
 function monsterNameListeners(){
     const input = document.getElementById('input')
@@ -95,7 +157,6 @@ function monsterPropertiesListeners() {
             const monsterData = JSON.parse(localStorage.getItem('monster_data'))
             monsterData.properties = propString
             localStorage.setItem('monster_data', JSON.stringify(monsterData))
-            // localStorage.setItem('properties', propString.toLowerCase())
         })
     })
 }
@@ -108,12 +169,13 @@ function monsterAbilities(){
     addTippy('wisdom-info', "Wisdom reflects how attuned you are to the world around you and represents perceptiveness and intuition.")
     addTippy('charisma-info', "Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.")
 
-    let str = localStorage.getItem('strength')
-    let dex = localStorage.getItem('dexterity')
-    let con = localStorage.getItem('constitution')
-    let int = localStorage.getItem('intelligence')
-    let wis = localStorage.getItem('wisdom')
-    let cha = localStorage.getItem('charisma')
+    const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+    let str = monsterData.ability_scores.str
+    let dex = monsterData.ability_scores.dex
+    let con = monsterData.ability_scores.con
+    let int = monsterData.ability_scores.int
+    let wis = monsterData.ability_scores.wis
+    let cha = monsterData.ability_scores.cha
 
     if (!str) str = 1
     if (!dex) dex = 1
@@ -147,12 +209,16 @@ function monsterAbilitiesListeners(){
         const wis = document.getElementById('wisdom-input').value
         const cha = document.getElementById('charisma-input').value
 
-        localStorage.setItem('strength', str)
-        localStorage.setItem('dexterity', dex)
-        localStorage.setItem('constitution', con)
-        localStorage.setItem('intelligence', int)
-        localStorage.setItem('wisdom', wis)
-        localStorage.setItem('charisma', cha)
+        const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+        monsterData.ability_scores = {
+            str: str,
+            dex: dex,
+            con: con,
+            int: int,
+            wis: wis,
+            cha: cha
+        }
+        localStorage.setItem('monster_data', JSON.stringify(monsterData))      
 
         const abilitiesDiv = document.getElementById('abilities-statblock')
         abilitiesDiv.innerHTML = `<abilities-block data-cha="${cha}" data-con="${con}" data-dex="${dex}" data-int="${int}" data-str="${str}" data-wis="${wis}"></abilities-block>`
@@ -167,12 +233,16 @@ function monsterAbilitiesListeners(){
         const wis = document.getElementById('wisdom-input').value
         const cha = document.getElementById('charisma-input').value
 
-        localStorage.setItem('strength', str)
-        localStorage.setItem('dexterity', dex)
-        localStorage.setItem('constitution', con)
-        localStorage.setItem('intelligence', int)
-        localStorage.setItem('wisdom', wis)
-        localStorage.setItem('charisma', cha)
+        const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+        monsterData.ability_scores = {
+            str: str,
+            dex: dex,
+            con: con,
+            int: int,
+            wis: wis,
+            cha: cha
+        }
+        localStorage.setItem('monster_data', JSON.stringify(monsterData)) 
 
         const abilitiesDiv = document.getElementById('abilities-statblock')
         abilitiesDiv.innerHTML = `<abilities-block data-cha="${cha}" data-con="${con}" data-dex="${dex}" data-int="${int}" data-str="${str}" data-wis="${wis}"></abilities-block>`
@@ -181,7 +251,7 @@ function monsterAbilitiesListeners(){
 // Senses
 function monsterSenses(){
     const div = document.getElementById('senses-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`senses`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).senses
 
     for (let index = 0; index < senses.length; index++) {
         const element = senses[index];
@@ -220,15 +290,16 @@ function monsterSensesListeners(){
             }
             
             document.getElementById(`senses-statblock`).innerText = stringFinal.join(", ")
-
-            localStorage.setItem(`senses`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.senses = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Speed
 function monsterSpeed(){
     const div = document.getElementById('speed-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`speed`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`)).speed
 
     for (let index = 0; index < speeds.length; index++) {
         const element = speeds[index];
@@ -266,97 +337,16 @@ function monsterSpeedListeners(){
             }
 
             document.getElementById(`speeds-statblock`).innerText = stringFinal.join(", ")
-            localStorage.setItem(`speed`, JSON.stringify(selected))
-        })
-    })
-}
-// Saving Throws
-function monsterSavingThrows(){
-    const div = document.getElementById('saving-throw-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`saving-throws`))
-
-    abilities.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'saving-throw'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        label.style.overflow = 'ellipsis'
-        span.appendChild(label)
-        
-        div.appendChild(span)
-    })
-}
-function monsterSavingThrowsListeners(){
-    const radioGroups = document.getElementsByName('saving-throw')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="saving-throw"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`saving_throws-statblock`).innerText = stringList
-            
-            localStorage.setItem(`saving-throws`, JSON.stringify(selected))
-        })
-    })
-}
-// Skills
-function monsterSkills(){
-    const div = document.getElementById('skills-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`skills`))
-
-    skills.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'skills-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        label.style.overflow = 'ellipsis'
-        span.appendChild(label)
-
-        div.appendChild(span)
-    })
-}
-function monsterSkillsListeners(){
-    const radioGroups = document.getElementsByName('skills-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="skills-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            console.log("Selected Damage Types:", selected)
-            const stringList = selected.join("; ")
-            document.getElementById(`skills-statblock`).innerText = stringList
-            
-            localStorage.setItem(`skills`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData.speed = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }
 // Damage Immunities
 function monsterDamageTypes(property){
     const div = document.getElementById('damage-types-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`damage-${property}`))
+    const selected = JSON.parse(localStorage.getItem(`monster_data`))[`damage_${property}`]
     
     damageTypes.forEach(element => {
         const span = document.createElement('span')
@@ -405,90 +395,9 @@ function monsterDamageTypesListeners(property){
             selected = Array.from(selectedTypes).map(x => x.value)
             const stringList = selected.join("; ")
             document.getElementById(`damage_${property}-statblock`).innerText = stringList
-            
-            localStorage.setItem(`damage-${property}`, JSON.stringify(selected))
-        })
-    })
-}
-// Conditions
-function monsterConditions(){
-    const div = document.getElementById('conditions-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`conditions`))
-
-    conditions.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'condition-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        span.appendChild(label)
-
-        div.appendChild(span)
-        // const brk = document.createElement('br')
-        // div.appendChild(brk)
-    })
-}
-function monsterConditionsListeners(){
-    const radioGroups = document.getElementsByName('condition-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="condition-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`condition_immunities-statblock`).innerText = stringList
-            
-            localStorage.setItem(`conditions`, JSON.stringify(selected))
-        })
-    })
-}
-// Languages
-function monsterLanguages(){
-    const div = document.getElementById('languages-checkboxes')
-    const selected = JSON.parse(localStorage.getItem(`languages`))
-
-    languages.forEach(element => {
-        const span = document.createElement('span')
-        span.classList.add('modal-flex-element')
-
-        const input = document.createElement('input')
-        input.type = 'checkbox'
-        input.name = 'language-checkbox'
-        input.id = `${element}-checkbox`
-        input.value = element
-        input.style.marginRight = '5px'
-        if (selected && selected.includes(element)) input.checked = true
-        span.appendChild(input)
-
-        const label = document.createElement('label')
-        label.innerText = capitalize(element)
-        label.setAttribute('for', `${element}-checkbox`)
-        span.appendChild(label)
-
-        div.appendChild(span)
-    })
-}
-function monsterLanguagesListeners(){
-    const radioGroups = document.getElementsByName('language-checkbox')
-    let selected = []
-    radioGroups.forEach(element => {
-        element.addEventListener('change', function(){
-            const selectedTypes = document.querySelectorAll(`input[name="language-checkbox"]:checked`)
-            selected = Array.from(selectedTypes).map(x => x.value)
-            const stringList = selected.join("; ")
-            document.getElementById(`languages-statblock`).innerText = stringList
-            
-            localStorage.setItem(`languages`, JSON.stringify(selected))
+            const monsterData = JSON.parse(localStorage.getItem('monster_data'))
+            monsterData[`damage_${property}`] = selected
+            localStorage.setItem('monster_data', JSON.stringify(monsterData))
         })
     })
 }

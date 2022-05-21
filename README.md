@@ -12,6 +12,12 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 [Google Sheet](https://docs.google.com/spreadsheets/d/1ewjp4myFf-_MFH1Qa5bLM3nbO1EtIFzyhl88Hh6EBe4/edit#gid=529759917)
 
 ## To-do List
+- [] Data Refactor
+    - [x] Handle the inputs from grid-inputs
+    - [x] Handle modals
+    - [x] Random Monster Generator
+    - [] Save each monster to an array in Local Storage
+        - [] Only create a new monster when the name changes
 - [] Allowing rolling from within the statblock for
     - [] Click for normal roll
     - [] Ctrl + Click for Disadvantage
@@ -25,6 +31,8 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
     1. [] Melee actions
     2. [] Spells
     3. [] Legendary Actions
+- [] Traits
+    - E.G. *multiattack*, *frightful presence*
 - [] Hover for Info
     1. [x] Abilities
     2. [] Skills
@@ -34,7 +42,6 @@ This local web app uses the system devised by [u/Rothner](https://www.reddit.com
 1. Generate random encounters with randomly generated monsters.
 2. When rolling a new random monster in the same CR, do not allow the current one to be rolled again.
 3. Generate different roles or role-less monsters per [this](https://www.reddit.com/r/DMAcademy/comments/hyilfk/using_defined_enemy_roles_to_make_combat_more/?utm_medium=android_app&utm_source=share).
-
 
 ## Big, Hairy Audacious Goals (Thank you Steven Farr)
 1. Implement a neural network to make the monsters more balanced using party composition as an input.

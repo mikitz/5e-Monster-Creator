@@ -11,7 +11,10 @@ function indexListeners() {
 }
 // I Got This and Pre. Gens. Listeners
 function iGotThisListeners(){
-    document.getElementById('cr').addEventListener('change', function() { iGotThisCRFunction(this) }) // Challenge Rating
+    document.getElementById('cr').addEventListener('change', function() { // Challenge Rating
+        iGotThisCRFunction(this) 
+        saveMonsterInputsToLocalStorage()
+    }) 
     // Type Radio Group
     let typeRadios = document.getElementsByName('type')
     typeRadios.forEach(element => {
@@ -165,18 +168,21 @@ function incrementValue(e) {
     //     Update Statblock
     // ---------------------------
     statblockID = ID.replace("-input", "-statblock")
+    console.log("Statblock ID:", statblockID)
     let hitDice
     let cr = document.getElementById('cr').value
     let newVal = currentVal + val
     if (statblockID == "hit-points-statblock") {
         hitDice = damageToDice(newVal, cr)[1]
         document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
-    } else document.getElementById(statblockID).innerText = newVal
+    } else {
+        try { document.getElementById(statblockID).innerText = newVal }
+        catch(error) { console.error("incrementValue() ~~", error) }
+    }
     // ---------------------------
     //     Update Local Storage
     // ---------------------------
-    localStorage.setItem('hp', document.getElementById('hit-points-statblock').innerText)
-    localStorage.setItem('ac', document.getElementById('armor-class-statblock').innerText)
+    saveMonsterInputsToLocalStorage()
 }
 // Function to decrement number input value
 function decrementValue(e) {
@@ -230,12 +236,14 @@ function decrementValue(e) {
     if (statblockID == "hit-points-statblock") {
         hitDice = damageToDice(newVal, cr)[1]
         document.getElementById(statblockID).innerText = `${newVal} (${hitDice})`
-    } else document.getElementById(statblockID).innerText = newVal
+    } else {
+        try { document.getElementById(statblockID).innerText = newVal }
+        catch(error) { console.error("decrementValue() ~~", error) }
+    }
     // ---------------------------
     //     Update Local Storage
     // ---------------------------
-    localStorage.setItem('hp', document.getElementById('hit-points-statblock').innerText)
-    localStorage.setItem('ac', document.getElementById('armor-class-statblock').innerText)
+    saveMonsterInputsToLocalStorage()
 }
 // Modifier Ability Score
 function modifierAbilityScore(operator, e) {
@@ -253,4 +261,6 @@ function modifierAbilityScore(operator, e) {
     } else {
         parent.find('input[name=' + fieldName + ']').val(0);
     }
+    // Update Local Storage
+    saveMonsterInputsToLocalStorage()
 }
